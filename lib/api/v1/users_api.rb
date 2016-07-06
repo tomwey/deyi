@@ -58,26 +58,6 @@ module API
       
       resource :user, desc: "用户接口" do
         
-        desc "获取某个视频的社交状态"
-        params do
-          requires :token, type: String, desc: "用户认证Token"
-          requires :type,  type: Integer, desc: "视频类型，值为1或者2，1表示直播，2表示点播"
-          requires :vid,   type: Integer, desc: "视频的ID，注意：不是stream_id，而是id字段的值"
-        end
-        get :social_state do
-          user = authenticate!
-          if params[:type] && params[:type].to_i == 1
-            stream_type = 'LiveVideo'
-          else
-            stream_type = 'Video'
-          end
-          
-          klass = stream_type.classify.constantize
-          stream = klass.find_by(id: params[:vid])
-          
-          { liked: user.liked?(stream), favorited: user.favorited?(stream) }
-        end # end get social state
-        
         desc "获取个人资料"
         params do
           requires :token, type: String, desc: "用户认证Token"
@@ -124,6 +104,34 @@ module API
             render_error(1006, user.errors.full_messages.join(","))
           end
         end # end update nickname
+        
+        desc "修改手机号"
+        params do
+          requires :token,  type: String, desc: "用户认证Token, 必须"
+          requires :mobile, type: String, desc: "新手机号，必须"
+          requires :code,   type: String, desc: "新手机号收到的验证码"
+        end
+        post :update_mobile do
+          user = authenticate!
+          
+          # 手机号检测
+          return render_error(1001, "不正确的手机号") unless check_mobile(params[:mobile])
+          
+          # 检查验证码是否有效
+          auth_code = AuthCode.check_code_for(params[:mobile], params[:code])
+          return render_error(2004, '验证码无效') if auth_code.blank?
+          
+          user.mobile = params[:mobile]
+          if user.save
+            # 激活当前验证码
+            auth_code.update_attribute(:activated_at, Time.now)
+            
+            render_json(user, API::V1::Entities::User)
+          else
+            render_error(1009, '更新手机号失败！')
+          end
+          
+        end # end post
         
         desc "修改密码"
         params do
