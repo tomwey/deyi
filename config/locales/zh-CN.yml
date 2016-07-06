@@ -1,0 +1,169 @@
+"zh-CN":
+  activerecord:
+    models:
+      user: "用户"
+      admin: "管理员"
+      category: "类别"
+      banner: "广告"
+      site_config: "站点配置"
+      feedback: "意见反馈"
+      video: "视频"
+      like: "点赞"
+      favorite: '收藏'
+      live_video: "直播"
+      live_provider: "直播提供者"
+      bilibili: '弹幕'
+      grant: '打赏'
+      search: '搜索记录'
+      page: '文档'
+      payout: '提现'
+      pay_history: '交易明细'
+    attributes:
+      user:
+        mobile: "手机"
+        nickname: "昵称"
+        avatar: "头像"
+        signature: "个性签名"
+        password: "密码"
+        password_confirmation: "确认密码"
+        verified: "是否启用"
+        private_token: "Token"
+        created_at: "注册时间"
+      site_config:
+        key: "配置名称"
+        value: "配置值"
+        description: "配置说明"
+      admin:
+        email: "邮箱"
+        password: "密码"
+        current_password: "旧密码"
+        password_confirmation: "确认密码"
+        current_sign_in_at: "最新登录时间"
+        sign_in_count: "登录次数"
+        created_at: "创建时间"
+      category:
+        name: "类别名"
+        icon: "Icon"
+        sort: "显示顺序"
+        user_upload: '用户上传'
+      banner:
+        image: "广告图片"
+        link: "链接"
+        sort: "显示顺序"
+        category_id: '所属类别'
+      feedback:
+        author: "用户"
+        content: "反馈内容"
+      video:
+        title: "视频标题"
+        body: "视频简介"
+        file: "视频文件"
+        user_id: "所属用户"
+        category_id: "所属类别"
+        view_count: "围观人数"
+        likes_count: "收藏数"
+        msg_count: "弹幕数"
+        sort: "显示顺序"
+        cover_image: "视频封面图"
+        stream_id: "流ID"
+      like:
+        likeable_id: '被收藏的视频'
+      live_video:
+        title: '节目名称'
+        body: '节目描述'
+        rtmp_push_url: '直播推流地址'
+        rtmp_pull_url: 'RTMP直播地址'
+        hls_pull_url: 'HLS直播地址'
+        stream_id: '直播流ID'
+        cover_image: '直播视频封面'
+        state: '直播状态'
+        view_count: '围观人数'
+        likes_count: '收藏人数'
+        msg_count: '弹幕数'
+        video_file: '直播录制文件'
+      payout:
+        money: '提现金额'
+        card_no: '提现账号'
+        card_name: '账号姓名'
+        fee: '手续费'
+        #payed: '是否支付'
+        payed_at: '支付时间'
+      pay_history:
+        money: '金额'
+        fee: '手续费'
+        pay_name: '交易名称'
+        pay_type: '交易类型'
+        
+      live_provider:
+        rtmp_push_url: '推流域名'
+        rtmp_pull_url: 'RTMP播放域名'
+        hls_pull_url:  'HLS播放域名'
+        resolution:    '码率'
+      bilibili:
+        content: '内容'
+        stream_id: '视频ID'
+        created_at: '发布时间'
+        location: '作者位置'
+        author_id: '作者'
+      grant:
+        from: '打赏人'
+        to: '被打赏人'
+        money: '打赏金额'
+      search:
+        keyword: '关键字'
+        search_count: '搜索次数'
+        
+    errors:
+      models:
+        user: "用户"
+        admin: "管理员"
+        category: "类别"
+      messages:
+        inclusion: "不包含于列表中"
+        exclusion: "是保留关键字"
+        invalid: "是无效的"
+        confirmation: "与确认值不匹配"
+        accepted: "必须是可被接受的"
+        empty: "不能留空"
+        blank: "不能为空字符"
+        too_long: "过长（最长为 %{count} 个字符）"
+        too_short: "过短（最短为 %{count} 个字符）"
+        wrong_length: "长度非法（必须为 %{count} 个字符）"
+        taken: "已经被使用"
+        not_a_number: "不是数字"
+        not_an_integer: "必须是整数"
+        greater_than: "必须大于 %{count}"
+        greater_than_or_equal_to: "必须大于或等于 %{count}"
+        equal_to: "必须等于 %{count}"
+        less_than: "必须小于 %{count}"
+        less_than_or_equal_to: "必须小于或等于 %{count}"
+        odd: "必须为单数"
+        even: "必须为双数"
+        record_invalid: "校验失败: %{errors}"
+        taken:
+          已占用
+        document_not_found:
+          没有发现类是 %{klass} ID 是 %{identifiers} 的文档
+        invalid_database:
+          数据库应该是Mongo::DB,而不是%{name}.
+        invalid_type:
+          在类%{klass}中定义了字段,实际值是%{value}的%{other}.
+        unsupported_version:
+          MongoDB %{version} 版本已过期，请升级到 %{mongo_version}.
+        validations:
+          校验失败 - %{errors}.
+        invalid_collection:
+          不允许直接访问嵌入式的集合%{klass} , 请从文档的根访问集合.
+        invalid_field:
+          字段的名字不允许为 %{name}. 你不应该定义跟Mongoid内部属性或者方法相同的名字，详细请看Use Document#instance_methods.
+        too_many_nested_attribute_records:
+          被关联的%{association} 嵌入式属性不能超过 %{limit}.
+        embedded_in_must_have_inverse_of:
+          embedded_in的关联属性必须包含inverse_of.
+        dependent_only_references_one_or_many:
+          dependent => destroy|delete 选项只有在references_one或者references_many时候有效.
+        association_cant_have_inverse_of:
+          在当前的关联中，不允许定义inverse_of去,其只有在embedded_in或者references_many是数组的情况下使用
+        unsaved_document:
+          You cannot call create or create! through a relational association
+          relation (%{document}) who's parent (%{base}) is not already saved.
