@@ -9,6 +9,7 @@ module API
           requires :mobile,   type: String, desc: "用户手机号"
           requires :password, type: String, desc: "密码"
           requires :code,     type: String, desc: "手机验证码"
+          requires :mac_addr, type: String, desc: "设备MAC地址"
         end
         post :signup do
           # 手机号检查
@@ -26,7 +27,7 @@ module API
           return render_error(2004, '验证码无效') if auth_code.blank?
           
           # 注册
-          user = User.create!(mobile: params[:mobile], password: params[:password], password_confirmation: params[:password])
+          user = User.create!(mobile: params[:mobile], password: params[:password], password_confirmation: params[:password], mac_addr: params[:mac_addr])
           
           # 激活当前验证码
           auth_code.update_attribute(:activated_at, Time.now)

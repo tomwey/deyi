@@ -24,6 +24,15 @@ class User < ActiveRecord::Base
     self.private_token = SecureRandom.uuid.gsub('-', '') if self.private_token.blank?
   end
   
+  # 生成唯一的优惠推荐码
+  before_create :generate_nb_code
+  def generate_nb_code
+    # 生成6位随机码, 系统的推荐码是5位数
+    begin
+      self.nb_code = SecureRandom.hex(3) #if self.nb_code.blank?
+    end while self.class.exists?(:nb_code => nb_code)
+  end
+  
   # 禁用账户
   def block!
     self.verified = false
