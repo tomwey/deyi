@@ -69,6 +69,9 @@ gem 'bootstrap_helper', '4.2.3'
 # 用户系统
 gem 'devise'
 
+# gem "cancan"
+gem 'cancancan'#, '~> 1.10'
+
 # YAML 配置信息
 gem 'settingslogic'
 
