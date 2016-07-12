@@ -2,29 +2,33 @@ ActiveAdmin.register Admin do
   
   menu priority: 100, label: '管理员'
   
-  permit_params :email, :password, :password_confirmation
+  permit_params :email, :password, :password_confirmation, :role
+  
+  config.filters = false
 
-  actions :all, except: [:edit, :update, :destroy, :show]
+  actions :all, except: [:show]
+  
   index do
     selectable_column
-    id_column
-    column :email
+    column 'ID', :id
+    column :email, sortable: false
+    column '角色', sortable: false do |admin|
+      admin.role_name
+    end
     column :current_sign_in_at
     column :sign_in_count
     column :created_at
     actions
   end
 
-  filter :email
-  filter :current_sign_in_at
-  filter :sign_in_count
-  filter :created_at
-
   form do |f|
-    f.inputs "Admin Details" do
-      f.input :email
+    f.inputs "管理员信息" do
+      if f.object.new_record?
+        f.input :email
+      end
       f.input :password
       f.input :password_confirmation
+      f.input :role, as: :radio, collection: Admin.roles.map { |role| [I18n.t("common.#{role}"), role] }
     end
     f.actions
   end

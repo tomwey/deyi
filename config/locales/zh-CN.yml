@@ -1,4 +1,9 @@
 "zh-CN":
+  common:
+    super_admin: '管理员'
+    admin: '管理员'
+    site_editor: '站点编辑'
+    marketer: '市场人员'
   activerecord:
     models:
       user: "用户"
@@ -45,6 +50,7 @@
         current_sign_in_at: "最新登录时间"
         sign_in_count: "登录次数"
         created_at: "创建时间"
+        role: "角色"
       category:
         name: "类别名"
         icon: "Icon"
