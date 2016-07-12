@@ -27,3 +27,14 @@
   padding: 30px 10px 30px 10px;
   margin-bottom: 20px;
 }
+
+a.member_link, .table_actions a {
+  padding: 5px 10px;
+  border: 1px solid;
+  border-radius: 3px;
+  text-decoration: none;
+}
+
+.table_actions a {
+  margin-right: 10px;
+}
