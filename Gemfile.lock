@@ -238,8 +238,6 @@ GEM
     rack-attack (4.4.1)
       rack
     rack-cors (0.4.0)
-    rack-protection (1.5.3)
-      rack
     rack-test (0.6.3)
       rack (>= 1.0)
     rack-utf8_sanitizer (1.3.2)
@@ -308,10 +306,6 @@ GEM
       concurrent-ruby (~> 1.0)
       connection_pool (~> 2.2, >= 2.2.0)
       redis (~> 3.2, >= 3.2.1)
-    sinatra (1.4.7)
-      rack (~> 1.5)
-      rack-protection (~> 1.4)
-      tilt (>= 1.3, < 3)
     spring (1.7.1)
     sprockets (3.6.0)
       concurrent-ruby (~> 1.0)
@@ -396,8 +390,6 @@ DEPENDENCIES
   sass-rails
   sdoc (~> 0.4.0)
   settingslogic
-  sidekiq
-  sinatra
   spring
   sprockets
   state_machine

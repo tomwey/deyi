@@ -31,8 +31,8 @@ gem 'rack-attack'
 # gem 'pg_search'
 
 # 队列处理消息发送
-gem 'sidekiq'
-gem 'sinatra', :require => nil
+# gem 'sidekiq'
+# gem 'sinatra', :require => nil
 
 # redis
 gem 'redis'
