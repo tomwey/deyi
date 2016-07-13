@@ -31,7 +31,7 @@ gem 'rack-attack'
 # gem 'pg_search'
 
 # 队列处理消息发送
-# gem 'sidekiq'
+gem 'sidekiq'
 # gem 'sinatra', :require => nil
 
 # redis
@@ -123,7 +123,7 @@ group :development do
   # puma server
   # gem 'capistrano3-puma', require: false
   
-  # gem 'capistrano-sidekiq'
+  gem 'capistrano-sidekiq'
   
   gem 'quiet_assets'
   
