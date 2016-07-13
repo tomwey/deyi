@@ -24,15 +24,14 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 gem 'spring',        group: :development
 
+# Use postgresql as the database for Active Record
+gem 'pg'
+
 # 防止大量请求的IP
 gem 'rack-attack'
 
 # postgresql search
 # gem 'pg_search'
-
-# 队列处理消息发送
-gem 'sidekiq'
-# gem 'sinatra', :require => nil
 
 # redis
 gem 'redis'
@@ -42,12 +41,13 @@ gem 'redis-namespace'
 # 将一些数据存放入 Redis
 gem 'redis-objects'
 
+# 队列处理消息发送
+gem 'sidekiq'
+# gem 'sinatra', :require => nil
+
 # 后台管理系统
 gem 'activeadmin', github: 'activeadmin'
 # gem 'activeadmin', github: 'gregbell/active_admin', branch: '0-6-stable'
-
-# Use postgresql as the database for Active Record
-gem 'pg'
 
 # 上传组件
 gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
