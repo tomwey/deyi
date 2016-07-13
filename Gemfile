@@ -123,7 +123,7 @@ group :development do
   # puma server
   # gem 'capistrano3-puma', require: false
   
-  gem 'capistrano-sidekiq'
+  # gem 'capistrano-sidekiq'
   
   gem 'quiet_assets'
   
