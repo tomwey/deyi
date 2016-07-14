@@ -4,9 +4,12 @@ class Apartment < ActiveRecord::Base
   mount_uploaders :images, ImagesUploader
   
   def location_str=(str)
-    lng, lat = str.split(',')
+    # lng, lat = str.split(',')
     # puts str
-    self.location = 'POINT(' + "#{lng}" + ' ' + "#{lat}" +')'#"POINT(#{lng} #{lat})"
+    # self.location = 'POINT(' + "#{lng}" + ' ' + "#{lat}" + ')'#"POINT(#{lng} #{lat})"
+    longitude = str.split(',').first
+    latitude  = str.split(',').last
+    self.location = 'POINT(' + "#{longitude}" + ' ' + "#{latitude}" + ')'
   end
   
   def location_str

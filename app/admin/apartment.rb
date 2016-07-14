@@ -73,11 +73,11 @@ show do
     row :name
     row :images do |apartment|
       # ul do
-        apartment.images.each do |img|
-          span do
-            image_tag(img.url(:thumb))
-          end
-        end
+      html = ''
+      apartment.images.each do |img|
+        html += image_tag(img.url(:thumb))
+      end
+      raw(html)
       # end
     end
     
