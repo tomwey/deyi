@@ -12,13 +12,7 @@
       banner: "广告"
       site_config: "站点配置"
       feedback: "意见反馈"
-      video: "视频"
-      like: "点赞"
-      favorite: '收藏'
-      live_video: "直播"
-      live_provider: "直播提供者"
-      bilibili: '弹幕'
-      grant: '打赏'
+      apartment: "租房"
       search: '搜索记录'
       page: '文档'
       payout: '提现'
@@ -51,46 +45,23 @@
         sign_in_count: "登录次数"
         created_at: "创建时间"
         role: "角色"
-      category:
-        name: "类别名"
-        icon: "Icon"
-        sort: "显示顺序"
-        user_upload: '用户上传'
-      banner:
-        image: "广告图片"
-        link: "链接"
-        sort: "显示顺序"
-        category_id: '所属类别'
-      feedback:
-        author: "用户"
-        content: "反馈内容"
-      video:
-        title: "视频标题"
-        body: "视频简介"
-        file: "视频文件"
-        user_id: "所属用户"
-        category_id: "所属类别"
-        view_count: "围观人数"
-        likes_count: "收藏数"
-        msg_count: "弹幕数"
-        sort: "显示顺序"
-        cover_image: "视频封面图"
-        stream_id: "流ID"
-      like:
-        likeable_id: '被收藏的视频'
-      live_video:
-        title: '节目名称'
-        body: '节目描述'
-        rtmp_push_url: '直播推流地址'
-        rtmp_pull_url: 'RTMP直播地址'
-        hls_pull_url: 'HLS直播地址'
-        stream_id: '直播流ID'
-        cover_image: '直播视频封面'
-        state: '直播状态'
-        view_count: '围观人数'
-        likes_count: '收藏人数'
-        msg_count: '弹幕数'
-        video_file: '直播录制文件'
+      apartment:
+        images: "小区图片"
+        name: "小区名字"
+        model: "户型"
+        area: "面积"
+        rental: "租金"
+        room_type: "房间"
+        sex_limit: "性别"
+        title: "标题"
+        body: "描述"
+        u_name: "联系人"
+        u_mobile: "手机"
+        rent_type: "出租类型"
+        location: "小区位置"
+        address: "小区地址"
+        hide_mobile: "是否隐藏手机号"
+        approved: "是否审核"
       payout:
         money: '提现金额'
         card_no: '提现账号'

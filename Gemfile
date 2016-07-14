@@ -27,6 +27,10 @@ gem 'spring',        group: :development
 # Use postgresql as the database for Active Record
 gem 'pg'
 
+# Postgis 2.0+
+gem 'rgeo'
+gem 'activerecord-postgis-adapter'
+
 # 防止大量请求的IP
 gem 'rack-attack'
 
