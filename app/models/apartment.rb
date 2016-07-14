@@ -5,7 +5,7 @@ class Apartment < ActiveRecord::Base
   
   def location_str=(str)
     lng, lat = str.split(',')
-    puts str
+    # puts str
     self.location = 'POINT(' + "#{lng}" + ' ' + "#{lat}" +')'#"POINT(#{lng} #{lat})"
   end
   
