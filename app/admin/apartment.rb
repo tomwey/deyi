@@ -3,7 +3,7 @@ ActiveAdmin.register Apartment do
 # See permitted parameters documentation:
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
 
-permit_params :name, :model, :area, :rental, :room_type, :sex_limit, :title, :body, :u_name, :u_mobile, :rent_type, :location, :address, :sort, :hide_mobile, { images:[] }
+permit_params :name, :model, :area, :rental, :room_type, :sex_limit, :title, :body, :u_name, :u_mobile, :rent_type, :location, :address, :sort, :hide_mobile, :location_str, { images:[] }
 
 # t.string  :images, array: true, default: []
 # t.string  :name,  null: false         # 小区名字
@@ -66,6 +66,22 @@ index do
   #   end
   # end
   
+end
+
+show do
+  attributes_table do
+    row :name
+    row :images do |apartment|
+      # ul do
+        apartment.images.each do |img|
+          span do
+            image_tag(img.url(:thumb))
+          end
+        end
+      # end
+    end
+    
+  end
 end
 
 form html: { multipart: true } do |f|
