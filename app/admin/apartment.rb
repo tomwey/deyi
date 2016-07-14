@@ -38,13 +38,11 @@ index do
   column('ID',:id) { |apartment| link_to apartment.id, admin_apartment_path(apartment) }
   column(:name, sortable: false) { |apartment| link_to apartment.name, admin_apartment_path(apartment) }
   column :images, sortable: false do |apartment|
-    # ul do
-      apartment.images.each do |img|
-        span do
-          image_tag(img.url(:small), size: '60x60')
-        end
-      end
-    # end
+    html = ''
+    apartment.images.each do |img|
+      html += image_tag(img.url(:small), size: '60x60')
+    end
+    raw(html)
   end
   column :model, sortable: false
   column :area
