@@ -96,7 +96,7 @@ form html: { multipart: true } do |f|
     f.input :area, placeholder: '例如：120.1', hint: '单位为: 平方'
     f.input :rental, placeholder: '例如：500', hint: '单位为：元，只能是整数'
     f.input :title, placeholder: '房屋简介，例如：绿地三期好房'
-    f.input :body, as: :text, class: 'redactor', placeholder: '房屋描述，例如：地铁旁好房，有宽带，冰箱，洗衣机，空调等'
+    f.input :body, as: :text, input_html: { class: 'redactor' }, placeholder: '房屋描述，例如：地铁旁好房，有宽带，冰箱，洗衣机，空调等'
     f.input :rent_type, as: :select, collection: SiteConfig.rent_types.try(:split, ','), prompt: '-- 请选择出租类型 --'
     f.input :location_str, label: '小区位置', placeholder: '例如：-104.333333,20.122211', hint: '格式为：经度,纬度'
     f.input :address, label: '小区详细地址', placeholder: '例如：成都市金牛区韦家碾一路'
