@@ -4,6 +4,8 @@ class Apartment < ActiveRecord::Base
   
   mount_uploaders :images, ImagesUploader
   
+  attr_accessor :distance
+  
   def location_str=(str)
     return if str.blank?
     
@@ -17,6 +19,20 @@ class Apartment < ActiveRecord::Base
   def location_str
     return '' if self.location.blank?
     "#{self.location.x},#{self.location.y}"
+  end
+  
+  def self.nearby(lat, lng, size = 30, order = 'asc')
+    
+    sql = "with closest_apartments as (select * from apartments order by location <-> 'SRID=4326;POINT(#{lng} #{lat})'::geometry limit #{size}) select closest_apartments.*, ST_Distance(location, 'SRID=4326;POINT(#{lng} #{lat})'::geometry) as distance from closest_apartments order by distance #{order} limit #{size}"
+    
+    apartments = []
+    ActiveRecord::Base.connection.exec_query(sql).each do |row|
+      puts row['location']::geometry
+      # apartment = Apartment.new(row)
+      # apartments << apartment
+    end
+    apartments
+    # Apartment.find_by_sql(sql)
   end
   
 end
