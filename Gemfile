@@ -28,7 +28,7 @@ gem 'spring',        group: :development
 gem 'pg'
 
 # Postgis 2.0+
-gem 'rgeo'
+# gem 'rgeo'
 gem 'activerecord-postgis-adapter'
 
 # 防止大量请求的IP

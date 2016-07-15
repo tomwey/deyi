@@ -1,15 +1,17 @@
 class Apartment < ActiveRecord::Base
+  # GEO_FACTORY = RGeo::Geographic.spherical_factory(srid: 4326)
   validates :images, :name, :model, :area, :rental, :title, :u_mobile, :rent_type, presence: true
   
   mount_uploaders :images, ImagesUploader
   
   def location_str=(str)
-    # lng, lat = str.split(',')
-    # puts str
-    # self.location = 'POINT(' + "#{lng}" + ' ' + "#{lat}" + ')'#"POINT(#{lng} #{lat})"
+    return if str.blank?
+    
     longitude = str.split(',').first
     latitude  = str.split(',').last
-    self.location = 'POINT(' + "#{longitude}" + ' ' + "#{latitude}" + ')'
+    
+    # factory = RGeo::ActiveRecord::SpatialFactoryStore.instance.factory(:geo_type => 'point')
+    self.location = "POINT(#{longitude} #{latitude})"#GEO_FACTORY.point(longitude, latitude)
   end
   
   def location_str
