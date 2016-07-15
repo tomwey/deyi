@@ -1,6 +1,6 @@
 ActiveAdmin.register Payout do
 
-menu priority: 6
+menu priority: 60
 
 actions :index
 
