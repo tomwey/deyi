@@ -7,9 +7,9 @@ module API
       helpers API::SharedParams
       
       # 接口访问权限认证
-      before do
-        error!({"code" => 403, "message" => "没有访问权限"}, 403)
-      end
+      # before do
+      #   error!({"code" => 403, "message" => "没有访问权限"}, 403)
+      # end
       
       # mount API::V1::Welcome
       mount API::V1::FeedbacksAPI
