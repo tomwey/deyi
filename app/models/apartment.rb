@@ -27,7 +27,7 @@ class Apartment < ActiveRecord::Base
     subtable = Apartment.order("location <-> 'SRID=4326;POINT(#{lng} #{lat})'::geometry").limit(size).arel_table
     
     # 返回真正的数据并排序
-    Apartment.select("apartments.*, ST_Distance(location, 'SRID=4326;POINT(#{lng} #{lat})'::geometry) as distance").from(subtable).order("distance #{order}").limit(size)
+    Apartment.select("apartments.*, ST_Distance(location, 'SRID=4326;POINT(#{lng} #{lat})'::geometry) as distance").from(subtable).order("distance #{order}")
     
     # sql = "with closest_apartments as (select * from apartments order by location <-> 'SRID=4326;POINT(#{lng} #{lat})'::geometry limit #{size}) select closest_apartments.*, ST_Distance(location, 'SRID=4326;POINT(#{lng} #{lat})'::geometry) as distance from closest_apartments order by distance #{order} limit #{size}"
     # Apartment.find_by_sql(sql)
