@@ -7,9 +7,21 @@ module API
       helpers API::SharedParams
       
       # 接口访问权限认证
-      # before do
-      #   error!({"code" => 403, "message" => "没有访问权限"}, 403)
-      # end
+      before do
+        params do
+          requires :access_key, type: String, desc: "API访问key"
+          requires :i, type: String, desc: "API调用的当前时间戳"
+        end
+        
+        # 如果访问的是API文档，那么不做判断
+        is_api_doc_path = request.path.include? "swagger_doc"
+        
+        encode_str = Base64.urlsafe_encode64(SiteConfig.api_key + params[:i].to_s)
+        
+        if !is_api_doc_path && ( encode_str != params[:access_key] or (Time.now.to_i - params[:i].to_i) > SiteConfig.access_key_expire_in.to_i )
+          error!({"code" => 403, "message" => "没有访问权限"}, 403)
+        end
+      end
       
       # mount API::V1::Welcome
       mount API::V1::FeedbacksAPI
