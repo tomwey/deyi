@@ -1,10 +1,14 @@
 class Apartment < ActiveRecord::Base
   # GEO_FACTORY = RGeo::Geographic.spherical_factory(srid: 4326)
+  
+  belongs_to :user
+  
   validates :images, :name, :model, :area, :rental, :title, :u_mobile, :rent_type, presence: true
   
   mount_uploaders :images, ImagesUploader
   
-  # attr_accessor :distance
+  scope :sorted, -> { order('sort desc') }
+  scope :recent, -> { order('id desc') }
   
   def location_str=(str)
     return if str.blank?
@@ -12,7 +16,6 @@ class Apartment < ActiveRecord::Base
     longitude = str.split(',').first
     latitude  = str.split(',').last
     
-    # factory = RGeo::ActiveRecord::SpatialFactoryStore.instance.factory(:geo_type => 'point')
     self.location = "POINT(#{longitude} #{latitude})"#GEO_FACTORY.point(longitude, latitude)
   end
   
@@ -21,13 +24,17 @@ class Apartment < ActiveRecord::Base
     "#{self.location.x},#{self.location.y}"
   end
   
+  def self.list_with_location(lng, lat)
+    select("apartments.*, ST_Distance(location, 'SRID=4326;POINT(#{lng} #{lat})'::geometry) as distance").order("distance asc")
+  end
+  
   def self.nearby(lng, lat, size = 30, order = 'asc')
     
     # 获取附近的查询子表
     subtable = Apartment.order("location <-> 'SRID=4326;POINT(#{lng} #{lat})'::geometry").limit(size).arel_table
     
     # 返回真正的数据并排序
-    Apartment.select("apartments.*, ST_Distance(location, 'SRID=4326;POINT(#{lng} #{lat})'::geometry) as distance").from(subtable).order("distance #{order}")
+    select("apartments.*, ST_Distance(location, 'SRID=4326;POINT(#{lng} #{lat})'::geometry) as distance").from(subtable).order("distance #{order}")
     
     # sql = "with closest_apartments as (select * from apartments order by location <-> 'SRID=4326;POINT(#{lng} #{lat})'::geometry limit #{size}) select closest_apartments.*, ST_Distance(location, 'SRID=4326;POINT(#{lng} #{lat})'::geometry) as distance from closest_apartments order by distance #{order} limit #{size}"
     # Apartment.find_by_sql(sql)

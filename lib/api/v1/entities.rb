@@ -27,6 +27,30 @@ module API
         expose :private_token, as: :token, format_with: :null
       end
       
+      # 租房
+      class Apartment < Base
+        expose :images do |model, opts|
+          img_size = opts[:opts][:image_size].to_sym
+          model.images.map { |img| img.url(img_size) }
+        end
+        expose :name, :model, :area, :rental, :rent_type
+        expose :title
+        expose :body, format_with: :null
+        expose :contact_info do
+          expose :u_name,   format_with: :null
+          expose :u_mobile, format_with: :null
+        end
+        expose :room_info, if: proc { |apartment| apartment.rent_type == '单间' } do
+          expose :room_type
+          expose :sex_limit
+        end
+        expose :location_str, as: :location
+        expose :distance do |model, opts|
+          model.try(:distance) || 0
+        end
+        expose :user, using: API::V1::Entities::UserProfile, if: proc { |a| a.user_id.present? }
+      end
+      
       class PayHistory < Base
         expose :pay_name, format_with: :null
         expose :created_at, format_with: :chinese_datetime
