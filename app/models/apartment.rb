@@ -4,7 +4,7 @@ class Apartment < ActiveRecord::Base
   
   mount_uploaders :images, ImagesUploader
   
-  attr_accessor :distance
+  # attr_accessor :distance
   
   def location_str=(str)
     return if str.blank?
@@ -21,17 +21,15 @@ class Apartment < ActiveRecord::Base
     "#{self.location.x},#{self.location.y}"
   end
   
-  def self.nearby(lat, lng, size = 30, order = 'asc')
+  def self.nearby(lng, lat, size = 30, order = 'asc')
     
-    sql = "with closest_apartments as (select * from apartments order by location <-> 'SRID=4326;POINT(#{lng} #{lat})'::geometry limit #{size}) select closest_apartments.*, ST_Distance(location, 'SRID=4326;POINT(#{lng} #{lat})'::geometry) as distance from closest_apartments order by distance #{order} limit #{size}"
+    # 获取附近的查询子表
+    subtable = Apartment.order("location <-> 'SRID=4326;POINT(#{lng} #{lat})'::geometry").limit(size).arel_table
     
-    apartments = []
-    ActiveRecord::Base.connection.exec_query(sql).each do |row|
-      puts row['location']::geometry
-      # apartment = Apartment.new(row)
-      # apartments << apartment
-    end
-    apartments
+    # 返回真正的数据并排序
+    Apartment.select("apartments.*, ST_Distance(location, 'SRID=4326;POINT(#{lng} #{lat})'::geometry) as distance").from(subtable).order("distance #{order}").limit(size)
+    
+    # sql = "with closest_apartments as (select * from apartments order by location <-> 'SRID=4326;POINT(#{lng} #{lat})'::geometry limit #{size}) select closest_apartments.*, ST_Distance(location, 'SRID=4326;POINT(#{lng} #{lat})'::geometry) as distance from closest_apartments order by distance #{order} limit #{size}"
     # Apartment.find_by_sql(sql)
   end
   
