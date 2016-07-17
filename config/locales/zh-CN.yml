@@ -17,6 +17,8 @@
       page: '文档'
       payout: '提现'
       pay_history: '交易明细'
+      pa_info: '个人认证'
+      ca_info: '企业认证'
     attributes:
       user:
         mobile: "手机"
@@ -32,6 +34,23 @@
         mac_addr: "MAC地址"
         wifi_length: "WIFI上网时长"
         nb_code: "邀请码"
+      pa_info:
+        name: '姓名'
+        mobile: '手机'
+        sex: '性别'
+        card_no: '身份证号'
+        card_image: '身份证正面'
+        card_inverse_image: '身份证背面'
+        user_id: '所有者'
+      ca_info:
+        comp_name: '公司名称'
+        comp_address: '公司地址'
+        name: '联系人'
+        mobile: '联系电话'
+        email: '邮箱'
+        business_license_no: '营业执照号'
+        business_license_image: '营业执照正本图片'
+        user_id: '所有者'
       site_config:
         key: "配置名称"
         value: "配置值"
