@@ -37,7 +37,7 @@ module API
           use :pagination
         end
         get :nearby do
-          lng,lat = loc.split(',')
+          lng,lat = params[:loc].split(',')
           size = ( params[:total] || 30 ).to_i
           sr = params[:sr] || "large"
           if not %w(large thumb small).include?(sr)
