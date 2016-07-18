@@ -3,12 +3,17 @@ class Apartment < ActiveRecord::Base
   
   belongs_to :user
   
-  validates :images, :name, :model, :area, :rental, :title, :u_mobile, :rent_type, presence: true
+  validates :images, :name, :model, :area, :rental, :title, :u_mobile, :rent_type, :address, presence: true
   
   mount_uploaders :images, ImagesUploader
   
   scope :sorted, -> { order('sort desc') }
   scope :recent, -> { order('id desc') }
+  
+  after_save :parse_address
+  def parse_address
+    ParseLocJob.perform_later(self.id)
+  end
   
   def location_str=(str)
     return if str.blank?
