@@ -31,6 +31,7 @@ module API
       mount API::V1::PayAPI
       mount API::V1::ApartmentsAPI
       mount API::V1::BusinessAuthInfoAPI
+      mount API::V1::CheckinsAPI
       # 
       # 配合trix文本编辑器
       # mount API::V1::AttachmentsAPI
