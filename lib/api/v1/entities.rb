@@ -27,6 +27,14 @@ module API
         expose :private_token, as: :token, format_with: :null
       end
       
+      # 收益明细
+      class EarnLog < Base
+        expose :title
+        expose :earn
+        expose :unit
+        expose :created_at, as: :time, format_with: :chinese_datetime
+      end
+      
       # 租房
       class Apartment < Base
         expose :images do |model, opts|
