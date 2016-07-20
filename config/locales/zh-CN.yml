@@ -20,6 +20,7 @@
       pa_info: '个人认证'
       ca_info: '企业认证'
       checkin: '签到'
+      earn_log: '收益明细'
     attributes:
       user:
         mobile: "手机"
@@ -97,8 +98,22 @@
       checkin:
         user_id: '用户'
         location: '位置'
-        earn: '收益'
+        earn: '获得益豆'
         created_at: '签到时间'
+      earn_log:
+        title: '收益标题'
+        earn: '获得益豆'
+        udid: '设备ID'
+        model: '设备名'
+        os_version: '系统版本'
+        platform: '设备平台'
+        screen_size: '屏幕分辨率'
+        app_version: 'App版本号'
+        country_language: '国家语言'
+        ip_addr: '设备IP'
+        network_type: '网络类型'
+        is_broken: '是否越狱'
+        created_at: '收益时间'
         
     errors:
       models:
