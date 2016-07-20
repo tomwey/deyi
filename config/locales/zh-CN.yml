@@ -21,6 +21,7 @@
       ca_info: '企业认证'
       checkin: '签到'
       earn_log: '收益明细'
+      app_type: 'APP类型'
     attributes:
       user:
         mobile: "手机"
@@ -114,6 +115,13 @@
         network_type: '网络类型'
         is_broken: '是否越狱'
         created_at: '收益时间'
+      app_type:
+        name: '类型名称'
+        parent_id: '父级分类'
+        parent: '分类目录'
+        icon: '图标'
+        sort: '显示顺序'
+        opened: '是否使用'
         
     errors:
       models:
