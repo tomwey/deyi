@@ -58,6 +58,28 @@ module API
       
       resource :user, desc: "用户接口" do
         
+        # desc "公开的认证接口"
+        # params do
+        #   requires :mobile,   type: String, desc: "手机号"
+        #   requires :password, type: String, desc: "密码"
+        #   optional :mac_addr, type: String, desc: "MAC地址"
+        # end
+        # get :auth do
+        #   # 手机号检测
+        #   return render_error(1001, "不正确的手机号") unless check_mobile(params[:mobile])
+        #
+        #   # 登录
+        #   user = User.find_by(mobile: params[:mobile])
+        #   return render_error(1004, "用户#{params[:mobile]}未注册") if user.blank?
+        #
+        #   if user.authenticate(params[:password])
+        #     user.update_attribute(:mac_addr, params[:mac_addr]) if user.mac_addr.blank?
+        #     render_json(user, API::V1::Entities::User)
+        #   else
+        #     render_error(1005, "登录密码不正确")
+        #   end
+        # end # end get auth
+        
         desc "获取个人资料"
         params do
           requires :token, type: String, desc: "用户认证Token"

@@ -31,6 +31,7 @@ module API
             # 写收益明细
             EarnLog.create!(user_id: user.id,
                             earnable: checkin,
+                            title: '签到',
                             earn: earn,
                             udid: params[:udid],
                             model: params[:m],
