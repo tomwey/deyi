@@ -4,6 +4,11 @@ module API
     def session
       env[Rack::Session::Abstract::ENV_SESSION_KEY]
     end # end session method
+    
+    # 获取客户端ip
+    def client_ip
+      env['action_dispatch.remote_ip'].to_s
+    end
   
     # 最大分页大小
     def max_page_size

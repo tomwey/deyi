@@ -20,10 +20,14 @@ module API
       requires :bv,      type: String, desc: "当前app版本号"
       requires :sr,      type: String, desc: "设备屏幕分辨率，例如：1080x1920"
       requires :cl,      type: String, desc: "国家语言码，例如：zh_CN"
-      requires :ip,      type: String, desc: "ip地址"
       requires :nt,      type: String, desc: "网络类型，例如：WIFI或者3G或者4G"
-      requires :ip,      type: String, desc: "ip地址"
       requires :bb,      type: Integer, desc: "是否越狱，例如：0或1，0表示设备没有越狱，1表示设备越狱"
+    end
+    
+    # API访问参数
+    params :api_access do
+      requires :ak, type: String, desc: 'API访问Key'
+      requires :i,  type: String, desc: '时间戳'
     end
     
   end
