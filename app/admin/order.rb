@@ -16,20 +16,14 @@ index do
   selectable_column
   column('ID', :id) { |order| link_to order.id, admin_order_path(order) }
   column(:order_no, sortable: false) { |order| link_to order.order_no, admin_order_path(order) }
-  # column '产品图片', sortable: false do |order|
-  #   if order.product_small_image.blank? 
-  #     ''
-  #   else
-  #     image_tag order.product_small_image, size: '44x30'
-  #   end
-  # end
-  # column '产品信息', sortable: false do |order|
-  #   raw("#{order.product_title}<br>#{order.product_price} x #{order.quantity}")
-  # end
-  column :quantity
   column :total_fee
+  column :quantity
   column '收货信息', sortable: false do |order|
-    raw("#{order.shipment.try(:name)}<br>#{order.shipment.try(:mobile)}<br>#{order.shipment.try(:address)}")
+    if order.shipment.blank?
+      '虚拟商品，没有收货信息'
+    else
+      raw("#{order.shipment.try(:name)}<br>#{order.shipment.try(:mobile)}<br>#{order.shipment.try(:address)}")
+    end
   end
   column :state, sortable: false do |order|
     order.state_info
