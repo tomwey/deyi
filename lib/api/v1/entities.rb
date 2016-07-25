@@ -52,6 +52,13 @@ module API
         
       end
       
+      # 收货地址
+      class Shipment < Base
+        expose :name
+        expose :hack_mobile, as: :mobile
+        expose :address
+      end
+      
       # 收益明细
       class EarnLog < Base
         expose :title

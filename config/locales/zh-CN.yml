@@ -24,6 +24,7 @@
       app_type: 'APP类型'
       product: '商城商品'
       merchant: '供应商'
+      shipment: '收货地址'
     attributes:
       user:
         mobile: "手机"
@@ -142,6 +143,11 @@
         mobile: '联系电话'
         address: '地址'
         note: '备注'
+      shipment:
+        name: '姓名'
+        mobile: '手机'
+        address: '收货地址'
+        user_id: '所属用户'
         
     errors:
       models:

@@ -18,6 +18,11 @@ class User < ActiveRecord::Base
     hack_mobile
   end
   
+  # 获取默认的收货地址
+  def current_shipment
+    @current_shipment ||= Shipment.find_by(id: self.current_shipment_id)
+  end
+  
   # 生成token
   before_create :generate_private_token
   def generate_private_token
