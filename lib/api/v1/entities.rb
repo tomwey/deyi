@@ -10,6 +10,13 @@ module API
         # expose :created_at, format_with: :chinese_datetime
       end # end Base
       
+      # 收货地址
+      class Shipment < Base
+        expose :name
+        expose :hack_mobile, as: :mobile
+        expose :address
+      end
+      
       # 用户基本信息
       class UserProfile < Base
         expose :mobile, format_with: :null
@@ -20,6 +27,7 @@ module API
           model.avatar.blank? ? "" : model.avatar_url(:large)
         end
         expose :bean
+        expose :current_shipment, as: :shipment, using: API::V1::Entities::Shipment, if: proc { |u| u.current_shipment_id.present? }
       end
       
       # 用户详情
@@ -50,13 +58,6 @@ module API
         end
         expose :detail_url
         
-      end
-      
-      # 收货地址
-      class Shipment < Base
-        expose :name
-        expose :hack_mobile, as: :mobile
-        expose :address
       end
       
       # 收益明细
