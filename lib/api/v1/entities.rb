@@ -60,6 +60,18 @@ module API
         
       end
       
+      # 订单
+      class Order < Base
+        expose :order_no
+        expose :product_title, as: :title
+        expose :product_small_image, as: :image
+        expose :quantity
+        expose :product_price, as: :price
+        expose :total_fee
+        expose :state_info, as: :state
+        expose :created_at, as: :time, format_with: :chinese_datetime
+      end
+      
       # 收益明细
       class EarnLog < Base
         expose :title

@@ -4,6 +4,11 @@
     admin: '管理员'
     site_editor: '站点编辑'
     marketer: '市场人员'
+    pending: '待处理'
+    paid: '待配送'
+    shipping: '配送中'
+    canceled: '已取消'
+    completed: '已完成'
   activerecord:
     models:
       user: "用户"
@@ -25,6 +30,7 @@
       product: '商城商品'
       merchant: '供应商'
       shipment: '收货地址'
+      order: '订单'
     attributes:
       user:
         mobile: "手机"
@@ -148,6 +154,13 @@
         mobile: '手机'
         address: '收货地址'
         user_id: '所属用户'
+      order:
+        order_no: '订单号'
+        quantity: '数量'
+        total_fee: '总额'
+        state: '订单状态'
+        created_at: '下单时间'
+        note: '备注'
         
     errors:
       models:
