@@ -3,19 +3,15 @@
 class ImageUploader < BaseUploader
 
   version :large do
-    process resize_to_fill: [640, 396]
+    process resize_to_fill: [750, 512]
   end
   
   version :thumb do
-    process resize_to_fill: [320, 198]
+    process resize_to_fill: [220, 150]
   end
   
   version :small, from_version: :thumb do
-    process resize_to_fill: [84, 84]
-  end
-  
-  version :icon do
-    process resize_to_fill: [120,120]
+    process resize_to_fill: [88, 60]
   end
 
   def filename

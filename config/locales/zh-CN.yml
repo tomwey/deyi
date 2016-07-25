@@ -22,6 +22,8 @@
       checkin: '签到'
       earn_log: '收益明细'
       app_type: 'APP类型'
+      product: '商城商品'
+      merchant: '供应商'
     attributes:
       user:
         mobile: "手机"
@@ -122,6 +124,24 @@
         icon: '图标'
         sort: '显示顺序'
         opened: '是否使用'
+      product:
+        title: '商品标题'
+        body: '商品详情'
+        image: '商品图片'
+        price: '价格'
+        sku: '商品编号'
+        stock: '库存'
+        sort: '显示顺序'
+        is_virtual_goods: '是否虚拟商品'
+        on_sale: '是否上架'
+        orders_count: '订单数'
+        visit_count: '浏览数'
+        merchant_id: '所属供应商'
+      merchant:
+        name: '名称'
+        mobile: '联系电话'
+        address: '地址'
+        note: '备注'
         
     errors:
       models:

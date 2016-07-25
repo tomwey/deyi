@@ -27,6 +27,7 @@ module API
       mount API::V1::BusinessAuthInfoAPI
       mount API::V1::CheckinsAPI
       mount API::V1::EarningsAPI
+      mount API::V1::ProductsAPI
       # 
       # 配合trix文本编辑器
       # mount API::V1::AttachmentsAPI

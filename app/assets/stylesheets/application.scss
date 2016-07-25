@@ -8,3 +8,20 @@
 body {
 //  padding-top: 60px;
 }
+
+p, h2 {
+  margin: 0;
+  padding: 0;
+}
+
+.products {
+//  h2 {
+//    padding: 5px 10px;
+//  }
+//  p {
+//    padding: 0 10px;
+//  }
+  img {
+    max-width: 100%;
+  }
+}

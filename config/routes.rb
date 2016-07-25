@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   # 网页
   resources :pages, path: :p, only: [:show]
   
+  resources :products, path: :item, only: [:show]
+  
   devise_for :admins, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   

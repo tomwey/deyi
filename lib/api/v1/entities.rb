@@ -27,6 +27,31 @@ module API
         expose :private_token, as: :token, format_with: :null
       end
       
+      # 供应商
+      class Merchant < Base
+        expose :name
+        expose :mobile
+        expose :address, format_with: :null
+        expose :note, format_with: :null
+      end
+      
+      # 商品
+      class Product < Base
+        expose :title, :body, :price, :stock, :sku, :is_virtual_goods, :orders_count, :visit_count
+        expose :image do |model, opts|
+          if model.image.blank?
+            ""
+          else
+            model.image.url(:thumb)
+          end
+        end
+        expose :merchant_name do |model, opts|
+          model.merchant.try(:name) || ""
+        end
+        expose :detail_url
+        
+      end
+      
       # 收益明细
       class EarnLog < Base
         expose :title
