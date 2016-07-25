@@ -10,7 +10,7 @@ class ParseLocJob < ActiveJob::Base
     result = RestClient.get 'http://apis.map.qq.com/ws/geocoder/v1/', 
       {:params => {:address => @apartment.address, :key => SiteConfig.qq_lbs_api_key}}
     json = JSON.parse(result)
-    loc = json['result']['location']
+    loc = json['result']['location'] unless json['result'].blank?
     unless loc.blank?
       lng = loc['lng']
       lat = loc['lat']
