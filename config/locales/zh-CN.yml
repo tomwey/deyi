@@ -31,6 +31,7 @@
       merchant: '供应商'
       shipment: '收货地址'
       order: '订单'
+      channel: '积分墙渠道'
     attributes:
       user:
         mobile: "手机"
@@ -161,6 +162,28 @@
         state: '订单状态'
         created_at: '下单时间'
         note: '备注'
+      channel:
+        name: '渠道名称'
+        support_os: '支持系统'
+        title: '渠道简介'
+        subtitle: '渠道描述'
+        sort: '显示顺序'
+        ios_app_name: '应用名称'
+        ios_app_id: '应用APPID'
+        ios_app_secret: '对接密钥'
+        ios_other: '其它选项'
+        android_app_name: '应用名称'
+        android_app_id: '应用APPID'
+        android_app_secret: '对接密钥'
+        android_other: '其它选项'
+        user_param: '用户参数'
+        point_param: '积分参数'
+        app_id_param: '应用标识参数'
+        app_name_param: '应用名称参数'
+        ip_param: '渠道回调验证IP'
+        success_return: '渠道回调成功返回'
+        fail_return: '渠道回调失败返回'
+        opened: '是否打开'
         
     errors:
       models:

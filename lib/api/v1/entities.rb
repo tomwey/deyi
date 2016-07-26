@@ -19,6 +19,7 @@ module API
       
       # 用户基本信息
       class UserProfile < Base
+        expose :uid, format_with: :null
         expose :mobile, format_with: :null
         expose :nickname do |model, opts|
           model.nickname || model.mobile
@@ -78,6 +79,19 @@ module API
         expose :earn
         expose :unit
         expose :created_at, as: :time, format_with: :chinese_datetime
+      end
+      
+      # 积分墙渠道
+      class Channel < Base
+        expose :name, :title
+        expose :subtitle, format_with: :null
+        expose :icon do |model, opts|
+          if model.icon
+            model.icon.url(:large)
+          else
+            ''
+          end
+        end
       end
       
       # 租房

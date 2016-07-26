@@ -11,3 +11,15 @@ $(document).ready ->
       $('#single-room').show()
     else
       $('#single-room').hide()
+  
+  $('#channel_support_os').change ->
+    val = $('#channel_support_os option:selected').text()
+    if val == '1'
+      $('#ios-config').show()
+      $('#android-config').hide()
+    else if val == '2'
+      $('#ios-config').hide()
+      $('#android-config').show()
+    else if val == '3'
+      $('#ios-config').show()
+      $('#android-config').show()
