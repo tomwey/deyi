@@ -38,6 +38,15 @@ class User < ActiveRecord::Base
     end while self.class.exists?(:nb_code => nb_code)
   end
   
+  # 设置uid
+  after_save :set_uid_if_needed
+  def set_uid_if_needed
+    if self.uid.blank?
+      self.uid = 10000 + self.id
+      self.save!
+    end
+  end
+  
   # 禁用账户
   def block!
     self.verified = false
