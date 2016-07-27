@@ -32,6 +32,7 @@
       shipment: '收货地址'
       order: '订单'
       channel: '积分墙渠道'
+      wifi_node: 'WIFI节点'
     attributes:
       user:
         mobile: "手机"
@@ -184,6 +185,10 @@
         success_return: '渠道回调成功返回'
         fail_return: '渠道回调失败返回'
         opened: '是否打开'
+      wifi_node:
+        name: 'WIFI名字'
+        address: 'WIFI地址'
+        location: 'WIFI位置坐标'
         
     errors:
       models:

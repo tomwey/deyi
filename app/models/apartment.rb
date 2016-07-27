@@ -12,7 +12,7 @@ class Apartment < ActiveRecord::Base
   
   after_save :parse_address
   def parse_address
-    ParseLocJob.perform_later(self.id)
+    ParseLocJob.perform_later(self)
   end
   
   def location_str=(str)
