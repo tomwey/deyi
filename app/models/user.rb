@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
   scope :no_delete, -> { where(visible: true) }
   scope :verified,  -> { where(verified: true) }
   
+  has_many :connections
+  
   def hack_mobile
     return "" if self.mobile.blank?
     hack_mobile = String.new(self.mobile)
@@ -57,6 +59,10 @@ class User < ActiveRecord::Base
   def unblock!
     self.verified = true
     self.save!
+  end
+  
+  def expire_all_connections
+    self.connections.each { |c| c.expire! }
   end
   
   # 设置支付密码

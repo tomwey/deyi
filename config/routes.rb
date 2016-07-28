@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   namespace :wifi_dog, path: :wifi do
     get '/login'  => 'users#login',  as: :login
     post '/sign_in' => 'users#sign_in', as: :sign_in
+    post '/register' => 'users#register', as: :register
     get '/signup' => 'users#signup', as: :signup
     get '/auth'   => 'wifi#auth',    as: :auth
     get '/ping'   => 'wifi#ping',    as: :ping
