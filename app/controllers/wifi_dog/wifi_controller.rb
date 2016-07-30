@@ -40,7 +40,7 @@ class WifiDog::WifiController < ApplicationController
       puts "Invalid token: #{params[:token]}"
     else
       case params[:stage]
-      when 'login':
+      when 'login'
         if connection.expired? or connection.used?
           puts "Tried to login with used or expired token: #{params[:token]}"
         elsif mac_banned
@@ -49,7 +49,7 @@ class WifiDog::WifiController < ApplicationController
           connection.use!
           auth = 1
         end
-      when 'counters':
+      when 'counters'
         if !connection.expired?
           if !mac_banned
             auth = 1
@@ -63,7 +63,7 @@ class WifiDog::WifiController < ApplicationController
             connection.expire!
           end
         end
-      when 'logout':
+      when 'logout'
         puts "Logging out: #{params[:token]}"
         connection.expire!
       else
