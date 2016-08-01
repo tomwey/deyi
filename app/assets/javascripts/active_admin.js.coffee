@@ -12,6 +12,15 @@ $(document).ready ->
     else
       $('#single-room').hide()
   
+  $('#ad_task_ad_type').change ->
+    val = $('#ad_task_ad_type option:selected').val()
+    if val == '2'
+      $('.ad-link').show()
+      $('.ad-contents').hide()
+    else
+      $('.ad-link').hide()
+      $('.ad-contents').show()
+  
   $('#channel_support_os').change ->
     val = $('#channel_support_os option:selected').text()
     if val == '1'

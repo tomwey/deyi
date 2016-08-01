@@ -33,6 +33,7 @@
       order: '订单'
       channel: '积分墙渠道'
       wifi_node: 'WIFI节点'
+      ad_task: '商家广告'
     attributes:
       user:
         mobile: "手机"
@@ -189,6 +190,20 @@
         name: 'WIFI名字'
         address: 'WIFI地址'
         location: 'WIFI位置坐标'
+      ad_task:
+        title: '广告标题'
+        subtitle: '广告子标题'
+        cover_image: '广告封面图'
+        ad_contents: '广告文件'
+        location: '广告位置'
+        location_str: '广告位置坐标'
+        price: '用户浏览收益'
+        share_price: '用户分享收益'
+        ad_type: '广告类型'
+        ad_link: '网页广告地址'
+        expired_on: '广告过期日期'
+        sort: '显示顺序'
+        owner_id: '所属商家'
         
     errors:
       models:
