@@ -30,6 +30,7 @@ module API
       mount API::V1::ProductsAPI
       mount API::V1::ShipmentsAPI
       mount API::V1::OrdersAPI
+      mount API::V1::AdTasksAPI
       
       # 
       # 配合trix文本编辑器

@@ -8,6 +8,11 @@ class AdTask < ActiveRecord::Base
   mount_uploader :cover_image, ImageUploader
   mount_uploaders :ad_contents, AdContentsUploader
   
+  scope :opened, -> { where(opened: true) }
+  scope :sorted, -> { order('sort desc') }
+  scope :recent, -> { order('id desc') }
+  scope :no_expired, -> { where('expired_on is NULL or expired_on > ?', 1.days.ago) }
+  
   def location_str=(str)
     return if str.blank?
     
@@ -22,8 +27,35 @@ class AdTask < ActiveRecord::Base
     "#{self.location.x},#{self.location.y}"
   end
   
+  def add_view_count
+    self.class.increment_counter(:view_count, self.id)
+  end
+  
+  def open!
+    self.opened = true
+    self.save!
+  end
+  
+  def close!
+    self.opened = false
+    self.save!
+  end
+  
   def self.preferred_merchants
     Admin.all.map { |a| [a.email, a.id] }
+  end
+  
+  def self.list_with_location(lng, lat)
+    select("ad_tasks.*, ST_Distance(location, 'SRID=4326;POINT(#{lng} #{lat})'::geometry) as distance").order("distance asc")
+  end
+  
+  def self.nearby(lng, lat, size = 30, order = 'asc')
+    
+    # 获取附近的查询子表
+    subtable = AdTask.order("location <-> 'SRID=4326;POINT(#{lng} #{lat})'::geometry").limit(size).arel_table
+    
+    # 返回真正的数据并排序
+    select("ad_tasks.*, ST_Distance(location, 'SRID=4326;POINT(#{lng} #{lat})'::geometry) as distance").from(subtable).order("distance #{order}")
   end
   
 end

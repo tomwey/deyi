@@ -32,17 +32,41 @@ index do
   column :created_at
   column :updated_at
   
-  actions
+  actions defaults: false do |ad_task|
+    item "编辑", edit_admin_ad_task_path(ad_task)
+    if ad_task.opened
+      item "关闭", close_admin_ad_task_path(ad_task), method: :put
+    else
+      item "打开", open_admin_ad_task_path(ad_task), method: :put
+    end
+    item "删除", admin_ad_task_path(ad_task), method: :delete, data: { confirm: '你确定吗？' }
+  end
   
-  # actions defaults: false do |product|
-  #   item "编辑", edit_admin_product_path(product)
-  #   if product.on_sale
-  #     item "下架", unsale_admin_product_path(product), method: :put
-  #   else
-  #     item "上架", sale_admin_product_path(product), method: :put
-  #   end
-  # end
-  
+end
+
+# 批量执行
+batch_action :close do |ids|
+  batch_action_collection.find(ids).each do |target|
+    target.close!
+  end
+  redirect_to collection_path, alert: "已经关闭"
+end
+
+batch_action :open do |ids|
+  batch_action_collection.find(ids).each do |target|
+    target.open!
+  end
+  redirect_to collection_path, alert: "已经打开"
+end
+
+member_action :close, method: :put do
+  resource.close!
+  redirect_to collection_path, notice: "已关闭"
+end
+
+member_action :open, method: :put do
+  resource.open!
+  redirect_to collection_path, notice: "已打开"
 end
 
 show do

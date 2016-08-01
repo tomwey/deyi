@@ -118,6 +118,29 @@ module API
         expose :user, using: API::V1::Entities::UserProfile, if: proc { |a| a.user_id.present? }
       end
       
+      # 商家广告
+      class AdTask < Base
+        expose :title
+        expose :subtitle, format_with: :null
+        expose :cover_image do |model,opts|
+          img_size = opts[:opts][:image_size].to_sym
+          if model.cover_image.blank?
+            ''
+          else
+            model.cover_image.url(img_size)
+          end
+        end
+        expose :price, :share_price
+        expose :location_str, as: :location
+        expose :view_count, :sort
+        expose :expired_on, format_with: :chinese_date
+        expose :ad_type
+        expose :ad_contents, if: proc { |a| a.ad_type != 2 } do |model, opts|
+          model.ad_contents.map { |file| file.url }
+        end
+        expose :ad_link, if: proc { |a| a.ad_type == 2 and a.ad_link.present? }
+      end
+      
       class PayHistory < Base
         expose :pay_name, format_with: :null
         expose :created_at, format_with: :chinese_datetime
