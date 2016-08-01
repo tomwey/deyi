@@ -53,6 +53,7 @@ module API
         desc "点击浏览商家广告"
         params do
           requires :token, type: String, desc: "用户Token"
+          requires :ad_id, type: Integer, desc: "返回的广告任务id"
           optional :loc,     type: String, desc: "用到当前位置，经纬度坐标，格式为：经度,纬度，例如：104.312321,30.393930"
           use :device_info
         end
