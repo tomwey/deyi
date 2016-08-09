@@ -141,6 +141,13 @@ module API
         expose :ad_link, if: proc { |a| a.ad_type == 2 and a.ad_link.present? }
       end
       
+      # 消息
+      class Message < Base
+        expose :title, format_with: :null
+        expose :content, as: :body
+        expose :created_at, format_with: :chinese_datetime
+      end
+      
       class PayHistory < Base
         expose :pay_name, format_with: :null
         expose :created_at, format_with: :chinese_datetime

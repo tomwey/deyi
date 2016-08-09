@@ -14,7 +14,7 @@ module API
         post do
           user = authenticate!
           
-          has_record = Checkin.where(created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day).count > 0
+          has_record = Checkin.today.count > 0
           return render_error(10001, '今天已经签到过了') if has_record
           
           if params[:loc]

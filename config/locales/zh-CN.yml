@@ -34,6 +34,7 @@
       channel: '积分墙渠道'
       wifi_node: 'WIFI节点'
       ad_task: '商家广告'
+      message: '消息'
     attributes:
       user:
         mobile: "手机"
@@ -49,6 +50,12 @@
         mac_addr: "MAC地址"
         wifi_length: "WIFI上网时长"
         nb_code: "邀请码"
+      message:
+        title: '标题'
+        content: '内容'
+        to: '用户'
+        read_at: '已读时间'
+        created_at: '创建时间'
       pa_info:
         name: '姓名'
         mobile: '手机'
