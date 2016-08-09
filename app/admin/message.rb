@@ -9,7 +9,7 @@ actions :all, except: [:edit, :update]
 
 index do
   selectable_column
-  column('#', id)
+  column('#', :id)
   column :title, sortable: false
   column :content, sortable: false
   column '用户', sortable: false do |msg|
