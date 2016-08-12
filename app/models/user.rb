@@ -13,6 +13,23 @@ class User < ActiveRecord::Base
   
   has_many :connections
   
+  has_many :invites, foreign_key: 'inviter_id', dependent: :destroy
+  
+  def inviter
+    Invite.find_by(invitee_id: self.id).try(:user)
+  end
+  
+  def invite(user)
+    return if user.blank?
+    return if user == self
+    
+    # 检测是否已经被邀请过
+    count = Invite.where(invitee_id: user.id).count 
+    if count == 0
+      Invite.create(inviter_id: self.id, invitee_id: user.id)
+    end
+  end
+  
   def hack_mobile
     return "" if self.mobile.blank?
     hack_mobile = String.new(self.mobile)
@@ -44,7 +61,7 @@ class User < ActiveRecord::Base
   after_save :set_uid_if_needed
   def set_uid_if_needed
     if self.uid.blank?
-      self.uid = 10000 + self.id
+      self.uid = 10000000 + self.id
       self.save!
     end
   end
