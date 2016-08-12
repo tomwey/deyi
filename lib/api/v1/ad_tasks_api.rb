@@ -60,6 +60,52 @@ module API
         post :view do
           user = authenticate!
           
+          @ad_task = AdTask.find_by(id: params[:ad_id])
+          return render_error(4004, '没有该广告') if @ad_task.blank?
+          
+          count = AdTaskViewLog.where(user_id: user.id, ad_task_id: @ad_task.id).count
+          if count == 0
+            # 说明是第一次浏览广告，给用户积分
+            # 写收益明细
+            EarnLog.create!(user_id: user.id,
+                            earnable: @ad_task,
+                            title: '浏览商家广告',
+                            earn: @ad_task.price,
+                            udid: params[:udid],
+                            model: params[:m],
+                            platform: params[:pl],
+                            os_version: params[:osv],
+                            app_version: params[:bv],
+                            screen_size: params[:sr],
+                            country_language: params[:cl],
+                            ip_addr: client_ip,
+                            network_type: params[:nt],
+                            is_broken: params[:bb])
+          end
+          
+          if params[:loc]
+            loc = "POINT(#{params[:loc].gsub(',', ' ')})"
+          else
+            loc = nil
+          end
+          
+          # 记录浏览历史
+          AdTaskViewLog.create!(user_id: user.id, 
+                                ad_task_id: @ad_task.id,
+                                location: loc,
+                                udid: params[:udid],
+                                model: params[:m],
+                                platform: params[:pl],
+                                os_version: params[:osv],
+                                app_version: params[:bv],
+                                screen_size: params[:sr],
+                                country_language: params[:cl],
+                                ip_addr: client_ip,
+                                network_type: params[:nt],
+                                is_broken: params[:bb])
+                                
+          render_json_no_data
+          
         end # end post view
       end # end resource
       
