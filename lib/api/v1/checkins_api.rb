@@ -44,7 +44,7 @@ module API
             EarnLog.create!(user_id: user.id,
                             earnable: checkin,
                             title: '签到',
-                            subtitle: "成功签到，获得#{earn}益豆"
+                            subtitle: "成功签到，获得#{earn}益豆",
                             earn: earn)
           end
           

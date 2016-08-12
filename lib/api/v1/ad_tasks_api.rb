@@ -70,7 +70,7 @@ module API
             EarnLog.create!(user_id: user.id,
                             earnable: @ad_task,
                             title: '浏览商家广告',
-                            subtitle: "浏览商家广告，获得#{@ad_task.price}益豆"
+                            subtitle: "浏览商家广告，获得#{@ad_task.price}益豆",
                             earn: @ad_task.price)
           end
           

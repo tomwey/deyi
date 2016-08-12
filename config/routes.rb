@@ -18,6 +18,15 @@ Rails.application.routes.draw do
     get '/portal' => 'wifi#portal',  as: :portal
   end
   
+  # 三方渠道回调
+  namespace :callback do
+    get '/youmi'   => 'app_callback#youmi'
+    get '/qumi'    => 'app_callback#qumi'
+    get '/dianjoy' => 'app_callback#dianjoy'
+    get '/dianru'  => 'app_callback#dianru'
+    get '/waps'    => 'app_callback#waps'
+  end
+  
   # 后台系统登录
   devise_for :admins, ActiveAdmin::Devise.config
   
