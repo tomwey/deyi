@@ -26,23 +26,26 @@ module API
           earn = ( SiteConfig.checkin_earn || 0 ).to_i
           
           Checkin.transaction do
-            checkin = Checkin.create!(user_id: user.id, location: loc, earn: earn)
+            checkin = Checkin.create!(user_id: user.id, 
+                                      location: loc, 
+                                      earn: earn,
+                                      udid: params[:udid],
+                                      model: params[:m],
+                                      platform: params[:pl],
+                                      os_version: params[:osv],
+                                      app_version: params[:bv],
+                                      screen_size: params[:sr],
+                                      country_language: params[:cl],
+                                      ip_addr: client_ip,
+                                      network_type: params[:nt],
+                                      is_broken: params[:bb])
             
             # 写收益明细
             EarnLog.create!(user_id: user.id,
                             earnable: checkin,
                             title: '签到',
-                            earn: earn,
-                            udid: params[:udid],
-                            model: params[:m],
-                            platform: params[:pl],
-                            os_version: params[:osv],
-                            app_version: params[:bv],
-                            screen_size: params[:sr],
-                            country_language: params[:cl],
-                            ip_addr: client_ip,
-                            network_type: params[:nt],
-                            is_broken: params[:bb])
+                            subtitle: "成功签到，获得#{earn}益豆"
+                            earn: earn)
           end
           
           render_json_no_data

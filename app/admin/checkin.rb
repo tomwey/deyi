@@ -12,6 +12,18 @@ ActiveAdmin.register Checkin do
     end
     column '签到益豆', :earn
     column '签到时间', :created_at
+    column :model, sortable: false
+    column :platform, sortable: false
+    column :screen_size
+    column :udid, sortable: false
+    column :os_version
+    column :app_version
+    column :country_language, sortable: false
+    column :ip_addr, sortable: false
+    column :network_type, sortable: false
+    column :is_broken, sortable: false do |e|
+      e.is_broken ? '是' : '否'
+    end
   end
 
 # See permitted parameters documentation:

@@ -70,17 +70,8 @@ module API
             EarnLog.create!(user_id: user.id,
                             earnable: @ad_task,
                             title: '浏览商家广告',
-                            earn: @ad_task.price,
-                            udid: params[:udid],
-                            model: params[:m],
-                            platform: params[:pl],
-                            os_version: params[:osv],
-                            app_version: params[:bv],
-                            screen_size: params[:sr],
-                            country_language: params[:cl],
-                            ip_addr: client_ip,
-                            network_type: params[:nt],
-                            is_broken: params[:bb])
+                            subtitle: "浏览商家广告，获得#{@ad_task.price}益豆"
+                            earn: @ad_task.price)
           end
           
           if params[:loc]

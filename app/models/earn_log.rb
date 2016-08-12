@@ -4,7 +4,7 @@ class EarnLog < ActiveRecord::Base
 
   after_create :send_msg
   def send_msg
-    Message.create!(title: title, content: "成功#{title}，获得#{earn}益豆", to: user.id)
+    Message.create!(title: title, content: subtitle, to: user.id)
   end
 
   # json presentation
