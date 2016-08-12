@@ -184,7 +184,57 @@ class Callback::AppCallbackController < ApplicationController
   
   # 万普
   def waps
+    order = params[:order_id]
     
+    # 开发者appid
+    app   = params[:app_id]
+    
+    key = app + order
+    # 由于网络原因重复回调了多次相同的订单数据
+    if $redis.get(key).present?
+      # 返回403
+      render json: {message:"重复提交", success: true}
+      return
+    end
+    
+    $redis.set(key, '1')
+    
+    # 应用名或者广告名称
+    ad    = params[:ad_name]
+    
+    # 用户ID
+    user_id = params[:key]
+    
+    # 用户可赚取的积分
+    points = params[:points]
+    
+    str = params[:adv_id] + params[:app_id] + params[:key] + params[:udid] + params[:bill].to_s + params[:points].to_s + params[:activate_time] + params[:order_id] + SiteConfig.waps_dev_secret || ''
+    signature = Digest::MD5.hexdigest(str)
+    
+    # 参数签名结果
+    sig = params[:wapskey].downcase
+    if signature == sig
+      # 参数校验正确
+      count = ChannelCallbackLog.where(chn_id: app, order_id: order, uid: user_id).count
+      if count == 0
+        # 保存记录
+        cb_params = []
+        params.each do |k,v|
+          cb_params << "#{k}=#{v}"
+        end
+        if ChannelCallbackLog.create(chn_id: app, order_id: order, uid: user_id, ad_name: ad, earn: points, callback_params: cb_params, result: 'ok')
+          $redis.del(key)
+          render json: {message:"成功", success: true}
+        else
+          $redis.del(key)
+          render json: {message:"失败", success: false}
+        end
+      end
+    else
+      # 校验失败
+      $redis.del(key)
+      render json: {message:"校验失败", success: false}
+    end
   end
     
 end
