@@ -26,15 +26,15 @@ class EarnLog < ActiveRecord::Base
   end
   
   def add_inviter_earn
-    return if user.inviter_id.blank?
-    
-    inviter = user.inviter
-    return if inviter.blank?
-    
     # 只有三分积分墙以及百分百收益参与分成
     unless %w(Channel AppTask).include?(earnable_type)
       return
     end
+    
+    return if user.inviter_id.blank?
+    
+    inviter = user.inviter
+    return if inviter.blank?
     
     # 获取一个徒弟的任务分成次数是有限的
     key   = "#{inviter.uid}:#{user.uid}"
