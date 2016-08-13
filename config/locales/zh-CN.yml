@@ -51,6 +51,10 @@
         mac_addr: "MAC地址"
         wifi_length: "WIFI上网时长"
         nb_code: "邀请码"
+      page:
+        title: '标题'
+        body:  '内容'
+        slug:  '文档标识'
       common_config:
         key: '配置名'
         value: '配置值'
