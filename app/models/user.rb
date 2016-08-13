@@ -15,19 +15,29 @@ class User < ActiveRecord::Base
   
   has_many :invites, foreign_key: 'inviter_id', dependent: :destroy
   
-  def inviter
-    Invite.find_by(invitee_id: self.id).try(:user)
-  end
+  # 有一个邀请者
+  belongs_to :inviter,       class_name: 'User', foreign_key: 'inviter_id'
   
-  def invite(user)
-    return if user.blank?
-    return if user == self
+  # 有许多邀请过的用户
+  has_many   :invited_users, class_name: 'User', foreign_key: 'inviter_id'
+  
+  def invite!(invitee)
+    return false if invitee.blank?
+    return false if invitee == self
     
     # 检测是否已经被邀请过
-    count = Invite.where(invitee_id: user.id).count 
-    if count == 0
-      Invite.create(inviter_id: self.id, invitee_id: user.id)
+    if invitee.inviter_id.present?
+      return false
     end
+    
+    User.transaction do
+      invitee.inviter_id = self.id
+      invitee.save!
+      
+      Invite.create!(inviter_id: self.id, invitee_id: invitee.id)
+    end
+    
+    return true
   end
   
   def hack_mobile
