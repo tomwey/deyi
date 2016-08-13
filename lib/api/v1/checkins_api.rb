@@ -23,7 +23,7 @@ module API
             loc = nil
           end
           
-          earn = ( SiteConfig.checkin_earn || 0 ).to_i
+          earn = ( CommonConfig.checkin_earn || 0 ).to_i
           
           Checkin.transaction do
             checkin = Checkin.create!(user_id: user.id, 

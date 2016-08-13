@@ -1,4 +1,4 @@
-class SiteConfig < ActiveRecord::Base
+class CommonConfig < ActiveRecord::Base
   validates :key, :value, presence: true
   validates_uniqueness_of :key
   
@@ -12,10 +12,10 @@ class SiteConfig < ActiveRecord::Base
       if item = find_by_key(var_name)
         item.update_attribute(:value, value)
       else
-        SiteConfig.create(key: var_name, value: value, description: var_name)
+        CommonConfig.create(key: var_name, value: value, description: var_name)
       end
     else
-      Rails.cache.fetch("site_config:#{method}") do
+      Rails.cache.fetch("common_config:#{method}") do
         if item = find_by_key(method)
           item.value
         else
@@ -28,7 +28,7 @@ class SiteConfig < ActiveRecord::Base
   
   after_save :update_cache
   def update_cache
-    Rails.cache.write("site_config:#{self.key}", self.value)
+    Rails.cache.write("common_config:#{self.key}", self.value)
   end
 
   def self.find_by_key(key)

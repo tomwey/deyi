@@ -40,7 +40,7 @@ class EarnLog < ActiveRecord::Base
     key   = "#{inviter.uid}:#{user.uid}"
     count = $redis.get(key).to_i
     
-    max_count = (SiteConfig.max_earn_times || 10).to_i
+    max_count = (CommonConfig.max_earn_times || 10).to_i
     if count == max_count
       $redis.del(key)
       return
@@ -56,10 +56,18 @@ class EarnLog < ActiveRecord::Base
   
   def update_inviter_earn_for(inviter)
     # 分成比例
-    earn_factor = (SiteConfig.earn_factor || 0.2).to_f
+    earn_factor = (CommonConfig.share_earn_factor || 0.2).to_f
     
+    # 最大分成积分
+    max_share_earn = (CommonConfig.max_share_earn || 1000).to_i
+    
+    # 计算后的分成收益
     share_earn = (user.earn * earn_factor).to_i + 1
     
+    # 最多分成10元
+    share_earn = [share_earn, max_share_earn].min
+    
+    # 保存收益
     if share_earn > 0
       InviteEarn.create!(user_id: inviter.id, invitee_id: self.id, earn: share_earn)
     end
