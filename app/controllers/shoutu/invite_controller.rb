@@ -15,7 +15,7 @@ class Shoutu::InviteController < ApplicationController
     
     @play_days = ((Time.zone.now - @user.created_at) / 1.day).to_i + 1
     
-    @users = User.select(:nickname, :uid, :mobile, :avatar, :bean).order('bean desc').limit(3)
+    @users = User.select(:nickname, :uid, :mobile, :avatar, :bean).where('bean > ?', 0).order('bean desc').limit(3)
     
     @earn_logs = EarnLog.includes(:user).where(earnable_type: ['Channel', 'AppTask']).order('id desc').limit(10)
   end
