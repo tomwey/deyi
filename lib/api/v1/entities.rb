@@ -95,6 +95,26 @@ module API
         end
       end
       
+      # 关注任务
+      class FollowTask < Base
+        expose :icon do |model, opts|
+          if model.icon
+            model.icon.url(:large)
+          else
+            ''
+          end
+        end
+        expose :gzh_name, :gzh_id
+        expose :gzh_intro do |model, opts|
+          model.gzh_intro || '7天内不能取消关注'
+        end
+        expose :earn, as: :bean
+        expose :link do |model, opts|
+          uid = opts[:opts][:uid]
+          model.task_detail_url_for(uid)
+        end
+      end
+      
       # 租房
       class Apartment < Base
         expose :images do |model, opts|

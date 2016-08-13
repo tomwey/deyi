@@ -7,6 +7,10 @@ Rails.application.routes.draw do
   # 积分商城产品详情页
   resources :products, path: :item, only: [:show]
   
+  # 关注任务相关
+  resources :follow_tasks, path: :ft, only: [:show]
+  get '/callback/ft' => 'follow_tasks#callback'
+  
   # WIFI认证系统
   namespace :wifi_dog, path: :wifi do
     get '/login'  => 'users#login',  as: :login

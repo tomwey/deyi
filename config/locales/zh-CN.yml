@@ -36,6 +36,7 @@
       ad_task: '商家广告'
       message: '消息'
       common_config: '公共配置'
+      follow_task: '关注任务'
     attributes:
       user:
         mobile: "手机"
@@ -51,6 +52,16 @@
         mac_addr: "MAC地址"
         wifi_length: "WIFI上网时长"
         nb_code: "邀请码"
+      follow_task:
+        icon: '公众号图标'
+        gzh_name: '公众号名字'
+        gzh_id: '公众号ID'
+        gzh_intro: '公众号简介'
+        earn: '奖励积分'
+        task_tip: '关注攻略'
+        dev_secret: '回调密钥'
+        opened: '是否开启'
+        sort: '显示顺序'
       page:
         title: '标题'
         body:  '内容'
