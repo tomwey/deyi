@@ -47,6 +47,14 @@ class User < ActiveRecord::Base
     hack_mobile
   end
   
+  def real_avatar_url(size = :large)
+    if avatar.blank?
+      "avatar/#{size}.png"
+    else
+      avatar.url(size)
+    end
+  end
+  
   # 获取默认的收货地址
   def current_shipment
     @current_shipment ||= Shipment.find_by(id: self.current_shipment_id)

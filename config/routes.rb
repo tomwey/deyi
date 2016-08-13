@@ -27,6 +27,12 @@ Rails.application.routes.draw do
     get '/waps'    => 'app_callback#waps'
   end
   
+  # 收徒功能
+  namespace :shoutu do
+    get '/'       => 'invite#index'
+    get '/info'   => 'invite#info'
+  end
+  
   # 后台系统登录
   devise_for :admins, ActiveAdmin::Devise.config
   
