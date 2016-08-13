@@ -21,6 +21,7 @@ class EarnLog < ActiveRecord::Base
   def add_user_earn
     if earn && earn > 0
       user.bean += earn
+      user.balance += earn
       user.save!
     end
   end
