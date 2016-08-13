@@ -17,7 +17,7 @@ class Shoutu::InviteController < ApplicationController
     
     @users = User.select(:nickname, :uid, :mobile, :avatar, :bean).order('bean desc').limit(3)
     
-    @earn_logs = EarnLog.includes(:user).order('id desc').limit(10)
+    @earn_logs = EarnLog.includes(:user).where(earnable_type: ['Channel', 'AppTask']).order('id desc').limit(10)
   end
   
   def render_optional_error_file(status_code)
