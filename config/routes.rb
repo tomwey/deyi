@@ -11,6 +11,10 @@ Rails.application.routes.draw do
   resources :follow_tasks, path: :ft, only: [:show]
   get '/callback/ft' => 'follow_tasks#callback'
   
+  # 分享任务相关
+  # resources :share_tasks, path: :st, only: [:show]
+  get '/callback/st' => 'share_tasks#callback'
+  
   # WIFI认证系统
   namespace :wifi_dog, path: :wifi do
     get '/login'  => 'users#login',  as: :login

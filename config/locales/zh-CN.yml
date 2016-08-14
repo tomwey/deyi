@@ -37,6 +37,7 @@
       message: '消息'
       common_config: '公共配置'
       follow_task: '关注任务'
+      share_task: '分享任务'
     attributes:
       user:
         mobile: "手机"
@@ -60,8 +61,24 @@
         earn: '奖励积分'
         task_tip: '关注攻略'
         dev_secret: '回调密钥'
-        opened: '是否开启'
+        opened: '是否开启任务'
         sort: '显示顺序'
+        task_id: '任务ID'
+      share_task:
+        icon: '图标'
+        title: '标题'
+        earn: '奖励积分'
+        first_open_earn: '首次打开奖励'
+        quantity: '总阅读数'
+        visit_count: '已阅读数'
+        link: '内容地址'
+        share_content: '分享内容'
+        share_link: '分享链接'
+        share_icon: '分享图片'
+        sort: '显示顺序'
+        opened: '是否开启任务'
+        task_id: '任务ID'
+        dev_secret: '回调密钥'
       page:
         title: '标题'
         body:  '内容'

@@ -8,8 +8,8 @@ class FollowTasksController < ApplicationController
   
   # 回调
   def callback
-    # 公众号ID
-    gzh_id = params[:gzh_id]
+    # 任务ID
+    task_id = params[:task_id]
     
     # uid
     nb_code = params[:uid]
@@ -22,13 +22,18 @@ class FollowTasksController < ApplicationController
     
     
     user = User.find_by(nb_code: nb_code)
-    task = FollowTask.find_by(gzh_id: gzh_id)
+    task = FollowTask.find_by(task_id: task_id)
     if task.blank? or user.blank?
       render json: { message: '未找到数据', success: false }
       return
     end
     
-    str = task.dev_secret + gzh_id + nb_code + time.to_s
+    if not task.opened
+      render json: { message: '您的任务已经下架', success: false }
+      return
+    end
+    
+    str = task.dev_secret + task_id + nb_code + time.to_s
     signature = Digest::MD5.hexdigest(str)
     
     if signature == sig

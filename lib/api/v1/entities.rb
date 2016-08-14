@@ -108,10 +108,45 @@ module API
         expose :gzh_intro do |model, opts|
           model.gzh_intro || '7天内不能取消关注'
         end
-        expose :earn, as: :bean
+        expose :earn, as: :income
         expose :link do |model, opts|
           uid = opts[:opts][:uid]
           model.task_detail_url_for(uid)
+        end
+      end
+      
+      # 分享任务
+      class ShareTask < Base
+        expose :icon do |model, opts|
+          if model.icon
+            model.icon.url(:large)
+          else
+            ''
+          end
+        end
+        expose :title
+        expose :earn, as: :income
+        expose :first_open_earn, as: :first_open_income
+        expose :link
+        expose :left_count do |model, opts|
+          [model.quantity - model.visit_count, 0].max
+        end
+        expose :my_total_income do |model, opts|
+          uid = opts[:opts][:uid]
+          model.my_total_income_for(uid)
+        end
+        expose :share_icon do |model, opts|
+          if model.icon
+            model.icon.url(:large)
+          else
+            ''
+          end
+        end
+        expose :share_link do |model, opts|
+          model.format_share_link_for(opts[:opts][:uid])
+        end
+        expose :share_content do |model, opts|
+          model.format_share_content_for(opts[:opts][:uid])
         end
       end
       

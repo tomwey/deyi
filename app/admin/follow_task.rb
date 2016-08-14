@@ -22,10 +22,11 @@ index do
   column :icon, sortable: false do |task|
     image_tag task.icon.url(:large), size: '32x32'
   end
-  column :gzh_id, sortable: false
-  column :gzh_name, sortable: false
-  column :gzh_intro, sortable: false
+  column '公众号信息', sortable: false do |task|
+    raw("#{task.gzh_name}<br>#{task.gzh_id}")
+  end
   column :earn
+  column :task_id, sortable: false
   column :dev_secret, sortable: false
   column :opened
   column :sort

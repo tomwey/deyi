@@ -33,6 +33,7 @@ module API
       mount API::V1::AdTasksAPI
       mount API::V1::MessagesAPI
       mount API::V1::FollowTasksAPI
+      mount API::V1::ShareTasksAPI
       
       # 
       # 配合trix文本编辑器

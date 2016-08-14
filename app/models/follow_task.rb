@@ -9,6 +9,14 @@ class FollowTask < ActiveRecord::Base
   scope :sorted, -> { order('sort desc') }
   scope :recent, -> { order('id desc') }
   
+  before_create :generate_task_id
+  def generate_task_id
+    # 生成8位数字任务ID
+    begin
+      self.task_id = '8' + rand.to_s[2..8] #if self.nb_code.blank?
+    end while self.class.exists?(:task_id => task_id)
+  end
+  
   before_create :generate_dev_secret
   def generate_dev_secret
     # 生成20位密钥
