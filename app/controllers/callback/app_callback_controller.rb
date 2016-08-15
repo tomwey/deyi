@@ -229,6 +229,9 @@ class Callback::AppCallbackController < ApplicationController
           $redis.del(key)
           render json: {message:"失败", success: false}
         end
+      else
+        $redis.del(key)
+        render json: {message:"已经回调成功过", success: true}
       end
     else
       # 校验失败

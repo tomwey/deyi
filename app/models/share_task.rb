@@ -26,6 +26,10 @@ class ShareTask < ActiveRecord::Base
     end while self.class.exists?(:dev_secret => dev_secret)
   end
   
+  def add_visit
+    self.class.increment_counter(:visit_count, self.id)
+  end
+  
   def my_total_income_for(uid)
     return 0 if uid.blank?
     @income ||= ShareTaskLog.where(uid: uid, share_task_id: self.id).first.try(:earn) || 0
