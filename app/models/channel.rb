@@ -1,5 +1,5 @@
 class Channel < ActiveRecord::Base
-  validates :name, :support_os, :title, :user_param, :point_param, :app_id_param, :app_name_param, :success_return, :fail_return, :callback_uri, presence: true
+  validates :name, :support_os, :title, :user_param, :point_param, :app_id_param, :app_name_param, :success_return, :fail_return, presence: true
   
   scope :opened, -> { where(opened: true) }
   scope :sorted, -> { order('sort desc') }

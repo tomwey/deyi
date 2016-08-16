@@ -41,7 +41,7 @@ module API
           optional :mobile,   type: String, desc: '电话'
           optional :email,    type: String, desc: '邮箱'
           requires :bl_no,    type: String, desc: '营业执照号'
-          requires :bl_image, type: String, desc: '营业执照正本图片'
+          requires :bl_image, type: Rack::Multipart::UploadedFile, desc: '营业执照正本图片'
         end
         post :upload do
           user = authenticate!
