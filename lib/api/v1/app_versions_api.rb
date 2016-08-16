@@ -1,6 +1,6 @@
 module API
   module V1
-    class Welcome < Grape::API
+    class AppVersionsAPI < Grape::API
       
       resource :version, desc: '版本更新接口' do
         desc '检测版本'
