@@ -7,6 +7,9 @@ Rails.application.routes.draw do
   # 积分商城产品详情页
   resources :products, path: :item, only: [:show]
   
+  # 版本更新
+  get '/version/info' => 'app_versions#info', as: :info_version
+  
   # 关注任务相关
   resources :follow_tasks, path: :ft, only: [:show]
   get '/callback/ft' => 'follow_tasks#callback'

@@ -204,6 +204,9 @@ module API
         end
         expose :price, :share_price
         expose :location_str, as: :location
+        expose :distance do |model, opts|
+          model.try(:distance) || 0
+        end
         expose :view_count, :sort
         expose :expired_on, format_with: :chinese_date
         expose :ad_type

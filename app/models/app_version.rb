@@ -7,8 +7,7 @@ class AppVersion < ActiveRecord::Base
   scope :opened, -> { where(opened: true) }
   
   def version_summary_url
-    # TODO
-    SiteConfig.upload_url + ""
+    SiteConfig.root_url || Setting.upload_url + "/version/info?os=#{self.os}&bv=#{self.version}&m=#{self.mode}"
   end
   
   def self.preferred_os_names

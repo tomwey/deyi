@@ -35,6 +35,7 @@ module API
       mount API::V1::FollowTasksAPI
       mount API::V1::ShareTasksAPI
       mount API::V1::ChannelsAPI
+      mount API::V1::AppVersionsAPI
       
       # 
       # 配合trix文本编辑器
