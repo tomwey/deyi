@@ -10,6 +10,22 @@ module API
         # expose :created_at, format_with: :chinese_datetime
       end # end Base
       
+      # 版本信息
+      class AppVersion < Base
+        expose :version
+        expose :app_download_url do |model, opts|
+          if model.file
+            model.file.url
+          else
+            ''
+          end
+        end
+        expose :must_upgrade
+        expose :link do |model, opts|
+          model.version_summary_url
+        end
+      end
+      
       # 收货地址
       class Shipment < Base
         expose :name

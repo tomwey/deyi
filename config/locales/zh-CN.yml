@@ -27,6 +27,7 @@
       checkin: '签到'
       earn_log: '收益明细'
       app_type: 'APP类型'
+      app_version: 'App版本'
       product: '商城商品'
       merchant: '供应商'
       shipment: '收货地址'
@@ -53,6 +54,14 @@
         mac_addr: "MAC地址"
         wifi_length: "WIFI上网时长"
         nb_code: "邀请码"
+      app_version:
+        os: '系统'
+        version: '版本号'
+        changelog: '版本更新描述'
+        file: '安装包文件'
+        must_upgrade: '该版本是否必须升级'
+        mode: '该版本所用环境'
+        opened: '是否打开'
       follow_task:
         icon: '公众号图标'
         gzh_name: '公众号名字'
