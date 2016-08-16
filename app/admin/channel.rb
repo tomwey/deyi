@@ -3,7 +3,7 @@ ActiveAdmin.register Channel do
 menu priority: 12
 
 permit_params :name, :support_os, :title, :subtitle, :sort, :icon, :ios_app_name, :ios_app_id, :ios_app_secret, :ios_other, :android_app_name, :android_app_id, :android_app_secret, :android_other, :user_param, :point_param,
-:app_id_param, :app_name_param, :ip_param, :success_return, :fail_return, :callback_uri
+:app_id_param, :app_name_param, :ip_param, :success_return, :fail_return#, :callback_uri
 
 index do
   selectable_column
