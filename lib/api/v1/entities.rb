@@ -46,6 +46,7 @@ module API
         expose :nb_code, as: :invite_code
         expose :bean
         expose :current_shipment, as: :shipment, using: API::V1::Entities::Shipment, if: proc { |u| u.current_shipment_id.present? }
+        expose :wifi_length
       end
       
       # 用户详情
