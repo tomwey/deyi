@@ -2,7 +2,39 @@ module API
   module V1
     class ShipmentsAPI < Grape::API
       
+      helpers API::SharedParams
       resource :shipments, desc: '收货地址相关接口' do
+        desc "获取用户的当前收货地址"
+        params do
+          requires :token, type: String, desc: "用户Token"
+        end
+        get :current do
+          user = authenticate!
+          
+          @shipment = user.current_shipment
+          if @shipment.blank?
+            render_error(4004, '还未设置收货地址')
+          else
+            render_json(@shipment, API::V1::Entities::Shipment)
+          end
+        end # end get current
+        
+        desc "获取用户所有地址列表"
+        params do
+          requires :token, type: String, desc: "用户Token"
+          use :pagination
+        end
+        get :list do
+          user = authenticate!
+          
+          @shipments = Shipment.where(user_id: user.id).order('id desc')
+          if params[:page]
+            @shipments = @shipments.paginate page: params[:page], per_page: page_size
+          end
+          
+          render_json(@shipments, API::V1::Entities::Shipment)
+        end # end get list
+        
         desc "新增收货地址"
         params do
           requires :token,   type: String, desc: "用户Token"
