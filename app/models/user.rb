@@ -96,6 +96,14 @@ class User < ActiveRecord::Base
     self.save!
   end
   
+  def change_balance!(total)
+    dt = user.balance + total
+    if dt >= 0
+      user.balance = dt
+      user.save!
+    end
+  end
+  
   def expire_all_connections
     self.connections.each { |c| c.expire! }
   end

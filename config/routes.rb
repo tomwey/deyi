@@ -10,6 +10,9 @@ Rails.application.routes.draw do
   # 网页文档
   resources :pages, path: :p, only: [:show]
   
+  # 提现
+  # resources :withdraws, only: [:index, :new, :create]
+  
   # 积分商城产品详情页
   resources :products, path: :item, only: [:show]
   

@@ -2,7 +2,7 @@ ActiveAdmin.register Order do
   
   menu priority: 10
   
-  actions :index, :show, :edit, :update
+  actions :index, :show#, :edit, :update
 
 # See permitted parameters documentation:
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters

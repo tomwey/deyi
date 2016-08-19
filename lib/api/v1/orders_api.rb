@@ -24,7 +24,7 @@ module API
           
           # 检查余额是否足够
           total_fee = product.price * quantity
-          return render_error(-1, '益豆数不足') if user.bean < total_fee
+          return render_error(-1, '余额不足') if user.balance < total_fee
           
           # 检查是否设置了收货地址
           if !product.is_virtual_goods
@@ -43,6 +43,8 @@ module API
           end 
           
           if order.save
+            # 更新用户的余额
+            user.change_balance!(- order.total_fee)
             render_json(order, API::V1::Entities::Order)
           else
             render_error(-1, order.errors.full_messages.join(','))

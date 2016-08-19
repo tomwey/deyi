@@ -9,6 +9,7 @@
     shipping: '配送中'
     canceled: '已取消'
     completed: '已完成'
+    processing: '处理中'
   activerecord:
     models:
       user: "用户"
@@ -39,6 +40,7 @@
       common_config: '公共配置'
       follow_task: '关注任务'
       share_task: '分享任务'
+      withdraw: '提现记录'
     attributes:
       user:
         mobile: "手机"
@@ -54,6 +56,15 @@
         mac_addr: "MAC地址"
         wifi_length: "WIFI上网时长"
         nb_code: "邀请码"
+      withdraw:
+        bean: '提现益豆'
+        fee: '手续费（益豆）'
+        state: '状态'
+        user_id: '用户'
+        account_name: '账户名'
+        account_num: '账号'
+        account_type: '提现类型'
+        created_at: '申请时间'
       app_version:
         os: '系统'
         version: '版本号'

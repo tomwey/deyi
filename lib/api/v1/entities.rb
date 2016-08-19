@@ -251,6 +251,26 @@ module API
         end
       end
       
+      # 提现
+      class Withdraw < Base
+        expose :bean, :fee
+        expose :total_beans do |model, opts|
+          model.bean + model.fee
+        end
+        expose :pay_type do |model, opts|
+          if model.account_type == 1
+            "微信提现"
+          elsif model.account_type == 2
+            "支付宝提现"
+          else
+            ""
+          end
+        end
+        expose :state_info, as: :state
+        expose :created_at, as: :time, format_with: :chinese_datetime
+        expose :user, using: API::V1::Entities::Author
+      end
+      
       # Banner
       class Banner < Base
         expose :image do |model, opts|
