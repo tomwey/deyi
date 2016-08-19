@@ -42,7 +42,7 @@ index do
       item '取消提现 ', cancel_admin_withdraw_path(withdraw), method: :put
     end
     if withdraw.can_process?
-      item '处理提现 ', process_admin_withdraw_path(withdraw), method: :put
+      item '处理提现 ', processing_admin_withdraw_path(withdraw), method: :put
     end
     if withdraw.can_complete?
       item '完成提现 ', complete_admin_withdraw_path(withdraw), method: :put
@@ -61,9 +61,9 @@ batch_action :cancel do |ids|
 end
 
 # 批量更改配送状态
-batch_action :process do |ids|
+batch_action :processing do |ids|
   batch_action_collection.find(ids).each do |target|
-    target.ship
+    target.process
   end
   redirect_to collection_path, alert: "已经更改为处理中"
 end
@@ -79,17 +79,17 @@ end
 member_action :cancel, method: :put do
   resource.cancel
   # resource.send_order_state_msg('系统人工取消了您的订单', '已取消')
-  redirect_to admin_orders_path, notice: "已取消"
-end
-
-member_action :process, method: :put do
-  resource.process
-  redirect_to admin_orders_path, notice: "处理中"
+  redirect_to admin_withdraws_path, notice: "已取消"
 end
 
 member_action :complete, method: :put do
   resource.complete
-  redirect_to admin_orders_path, notice: "已完成"
+  redirect_to admin_withdraws_path, notice: "已完成"
+end
+
+member_action :processing, method: :put do
+  resource.process
+  redirect_to admin_withdraws_path, notice: "处理中"
 end
 
 form do |f|
