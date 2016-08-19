@@ -108,6 +108,9 @@ module API
             
             return render_error(4004, '还没有绑定微信账号') if @account.blank?
             
+            # 检测是否已经激活了账号
+            return render_error(8002, '还没有激活提现账号，请到微信公众号进行激活操作') unless @account.actived?
+            
             if params[:account_name] && params[:account_name] != @account.name
               @account.name = params[:account_name]
               @account.save!
