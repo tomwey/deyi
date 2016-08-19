@@ -31,6 +31,9 @@ module API
         expose :name
         expose :hack_mobile, as: :mobile
         expose :address
+        expose :is_current do |model, opts|
+          model.id == model.user.try(:current_shipment_id)
+        end
       end
       
       # 用户基本信息

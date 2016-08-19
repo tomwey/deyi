@@ -75,10 +75,10 @@ module API
           @shipment.mobile = params[:mobile] if params[:mobile].present?
           @shipment.address = params[:address] if params[:address].present?
           
-          if shipment.save
-            render_json(shipment, API::V1::Entities::Shipment)
+          if @shipment.save
+            render_json(@shipment, API::V1::Entities::Shipment)
           else
-            render_error(6001, shipment.errors.full_messages.join(','))
+            render_error(6001, @shipment.errors.full_messages.join(','))
           end
           
         end # end post update
