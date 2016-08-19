@@ -50,7 +50,7 @@ module API
             hash = { name: item, type: type }
             if account.present?
               if account.account_type == 1
-                temp = { account_id: account.id, account_name: account.name }
+                temp = { account_id: account.id, account_name: account.name || "" }
               elsif account.account_type == 2
                 temp = { account_id: account.id, account_name: account.name, account_num: account.account_id }
               end

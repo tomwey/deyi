@@ -97,10 +97,10 @@ class User < ActiveRecord::Base
   end
   
   def change_balance!(total)
-    dt = user.balance + total
+    dt = self.balance + total
     if dt >= 0
-      user.balance = dt
-      user.save!
+      self.balance = dt
+      self.save!
     end
   end
   
