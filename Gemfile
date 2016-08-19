@@ -34,6 +34,9 @@ gem 'activerecord-postgis-adapter'
 # 防止大量请求的IP
 gem 'rack-attack'
 
+# 支持解析xml
+gem 'actionpack-xml_parser'
+
 # postgresql search
 # gem 'pg_search'
 

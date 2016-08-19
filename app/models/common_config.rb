@@ -29,6 +29,10 @@ class CommonConfig < ActiveRecord::Base
   after_save :update_cache
   def update_cache
     Rails.cache.write("common_config:#{self.key}", self.value)
+    if self.key == 'wechat_menu'
+      # 创建微信公众号自定义菜单
+      Wechat::Base.create_wechat_menu(self.value)
+    end
   end
 
   def self.find_by_key(key)

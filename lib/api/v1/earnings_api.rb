@@ -17,15 +17,13 @@ module API
             return { count: 0 }
           end
           
-          sum = EarnLog.where(created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day).sum(:earn)
-          
-          { count: sum }
+          { count: user.today_beans }
         end # end get today
         
         desc "获取收益明细"
         params do
           requires :token, type: String,  desc: "用户认证Token"
-          optional :type,  type: Integer, desc: '所属任务类别, 值为: 1到5'
+          optional :type,  type: Integer, desc: '所属任务类别, 值为: 1到6, 分别对应联盟任务，签到任务，关注任务，分享任务，广告任务，收徒'
           use :pagination
         end
         get do

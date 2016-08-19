@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
   mount RedactorRails::Engine => '/redactor_rails'
   
+  # 微信公众号开发
+  namespace :wechat, defaults: { format: 'xml' } do
+    get  '/portal' => 'home#portal'
+    post '/portal' => 'home#welcome'
+  end
+  
   # 网页文档
   resources :pages, path: :p, only: [:show]
   

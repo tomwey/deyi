@@ -118,4 +118,9 @@ class User < ActiveRecord::Base
     BCrypt::Password.new(self.pay_password_digest) == password
   end
   
+  def today_beans    
+     sum = EarnLog.where(user_id: self.id, created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day).sum(:earn)
+     sum
+  end
+  
 end
