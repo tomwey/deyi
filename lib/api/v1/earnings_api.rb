@@ -34,7 +34,7 @@ module API
             index = [( params[:type].to_i - 1 ), 0].max
             types = %w(Channel Checkin FollowTask ShareTask AdTask InviteEarn)
             index = [index, types.count].min
-            @earnings = @earnings.where(earnable: types[index].to_s)
+            @earnings = @earnings.where(earnable_type: types[index].to_s)
           end
           if params[:page]
             @earnings = @earnings.paginate page: params[:page], per_page: page_size
