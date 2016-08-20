@@ -2,7 +2,7 @@
 require 'digest/md5'
 class ImagesUploader < BaseUploader
   
-  storage :qiniu
+  # storage :qiniu
   
   version :large do
     process resize_to_fill: [1080, 668]

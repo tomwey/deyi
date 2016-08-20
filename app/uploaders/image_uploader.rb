@@ -2,7 +2,7 @@
 
 class ImageUploader < BaseUploader
 
-  storage :qiniu
+  # storage :qiniu
   
   version :large do
     process resize_to_fill: [750, 512]

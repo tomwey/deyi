@@ -1,7 +1,8 @@
 # encoding: utf-8
 class AppPackageUploader < CarrierWave::Uploader::Base
   
-  storage :qiniu
+  # storage :qiniu
+  storage :file
   
   def extension_white_list
     %w(apk ipa)

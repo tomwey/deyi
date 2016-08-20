@@ -2,7 +2,8 @@
 
 class BannerImageUploader < BaseUploader
 
-  storage :qiniu
+  # storage :qiniu
+  storage :file
 
   version :large do
     process resize_to_fill: [1080, 580]

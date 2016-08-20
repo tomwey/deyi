@@ -2,7 +2,8 @@
 
 class AuthInfoImageUploader < BaseUploader
 
-  storage :qiniu
+  # storage :qiniu
+  storage :file
   
   def filename
     if super.present?

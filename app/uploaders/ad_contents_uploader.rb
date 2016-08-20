@@ -3,7 +3,8 @@ require 'digest/md5'
 require 'carrierwave/processing/mini_magick'
 class AdContentsUploader < CarrierWave::Uploader::Base
   
-  storage :qiniu
+  # storage :qiniu
+  storage :file
   
   def extension_white_list
     %w(jpg jpeg gif png)
