@@ -35,7 +35,7 @@ index do
   end
   
   actions defaults: false do |order|
-    item '编辑', edit_admin_order_path(order)
+    # item '编辑', edit_admin_order_path(order)
     if order.can_cancel?
       item '取消订单 ', cancel_admin_order_path(order), method: :put
     end
