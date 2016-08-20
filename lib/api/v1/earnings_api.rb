@@ -29,7 +29,7 @@ module API
         get do
           user = authenticate!
           
-          @earnings = EarnLog.where(user_id: user.id)
+          @earnings = EarnLog.where(user_id: user.id).order('id desc')
           if params[:type]
             index = [( params[:type].to_i - 1 ), 0].max
             types = %w(Channel Checkin FollowTask ShareTask AdTask InviteEarn)
