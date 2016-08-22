@@ -235,7 +235,9 @@ module API
       
       # 消息
       class Message < Base
-        expose :title, format_with: :null
+        expose :title do |model, opts|
+          model.title || '系统公告'
+        end#, format_with: :null
         expose :content, as: :body
         expose :created_at, format_with: :chinese_datetime
       end
