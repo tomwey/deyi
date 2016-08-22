@@ -48,6 +48,7 @@ module API
         end
         expose :nb_code, as: :invite_code
         expose :bean
+        expose :balance
         expose :current_shipment, as: :shipment, using: API::V1::Entities::Shipment, if: proc { |u| u.current_shipment_id.present? }
         expose :wifi_length
         expose :qrcode_url
