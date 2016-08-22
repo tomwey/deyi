@@ -40,6 +40,9 @@ gem 'actionpack-xml_parser'
 # postgresql search
 # gem 'pg_search'
 
+# 生成二维码
+gem 'rqrcode_png'
+
 # redis
 gem 'redis'
 gem 'hiredis'

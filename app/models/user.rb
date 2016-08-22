@@ -81,6 +81,8 @@ class User < ActiveRecord::Base
     if self.uid.blank?
       self.uid = 10000000 + self.id
       self.save!
+      
+      CreateQrcodeJob.perform_later(self)
     end
   end
   
