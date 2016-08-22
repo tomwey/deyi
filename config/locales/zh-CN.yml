@@ -10,6 +10,12 @@
     canceled: '已取消'
     completed: '已完成'
     processing: '处理中'
+    channel: '联盟任务收益'
+    checkin: '签到收益'
+    follow_task: '关注收益'
+    share_task: '分享收益'
+    ad_task: '浏览广告收益'
+    invite_earn: '收徒收益'
   activerecord:
     models:
       user: "用户"

@@ -2,6 +2,8 @@ class EarnLog < ActiveRecord::Base
   belongs_to :user
   belongs_to :earnable, polymorphic: true
 
+  TASK_TYPES = %w(Channel Checkin FollowTask ShareTask AdTask InviteEarn)
+
   after_create :do_some_important
   def do_some_important
     # 更新用户的余额
@@ -16,6 +18,10 @@ class EarnLog < ActiveRecord::Base
     # 发送即时推送消息，推送到app主页
     send_real_msg
     
+  end
+  
+  def self.task_name(type)
+    I18n.t("common.#{type.underscore}")
   end
   
   def add_user_earn

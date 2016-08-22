@@ -50,6 +50,7 @@ module API
         expose :bean
         expose :current_shipment, as: :shipment, using: API::V1::Entities::Shipment, if: proc { |u| u.current_shipment_id.present? }
         expose :wifi_length
+        expose :qrcode_url
       end
       
       # 用户详情
@@ -100,6 +101,17 @@ module API
         expose :earn
         expose :unit
         expose :created_at, as: :time, format_with: :chinese_datetime
+      end
+      
+      # 收益摘要
+      class EarnSummary < Base
+        expose :task_type do |m, opts|
+          ::EarnLog::TASK_TYPES.index(m.earnable_type) + 1
+        end
+        expose :task_name do |m,opts|
+          ::EarnLog.task_name(m.earnable_type)
+        end
+        expose :total
       end
       
       # 积分墙渠道
