@@ -20,24 +20,13 @@ index do
   actions
 end
 
-#
-# or
-#
-# permit_params do
-#   permitted = [:permitted, :attributes]
-#   permitted << :other if params[:action] == 'create' && current_user.admin?
-#   permitted
-# end
-
-# form do |f|
-#   f.inputs do
-#     f.input :title
-#     f.input :slug
-#     f.input :body, as: :html_editor
-#   end
-#   
-#   # f.buttons
-# end
-form partial: 'form'
+form do |f|
+  f.inputs do
+    f.input :title
+    f.input :slug
+    f.input :body, as: :text, input_html: { class: 'redactor' }, placeholder: '网页内容，支持图文混排', hint: '网页内容，支持图文混排'
+  end
+  actions
+end
 
 end
