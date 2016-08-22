@@ -13,7 +13,7 @@ class CreateQrcodeJob < ActiveJob::Base
     FileUtils.mkdir_p(dest_dir) unless File.exists?(dest_dir)
     
     dest_path = "#{dest_dir}/qrcode.png"
-    logo_file = Rails.root.to_s + '/app/assets/images/logo.png'
+    logo_file = Rails.root.to_s + '/app/assets/images/qrcode_logo.png'
     qr.generate(dest_path, logo_file)
   end
   

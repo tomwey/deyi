@@ -82,8 +82,14 @@ class User < ActiveRecord::Base
       self.uid = 10000000 + self.id
       self.save!
       
+      # 生成二维码
       CreateQrcodeJob.perform_later(self)
     end
+  end
+  
+  # 返回二维码图片地址
+  def qrcode_url
+    SiteConfig.root_url || Setting.upload_url + "/uploads/user/#{self.uid}/qrcode.png"
   end
   
   # 禁用账户

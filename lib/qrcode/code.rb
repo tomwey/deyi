@@ -2,7 +2,7 @@ require 'rqrcode_png'
 require 'chunky_png'
 module Qrcode
   class Code
-    def initialize(text, code_size = 152, logo_size = 48)
+    def initialize(text, code_size = 152, logo_size = 36)
       @text = text
       @code_size = code_size
       @logo_size = logo_size
