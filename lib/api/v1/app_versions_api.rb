@@ -10,7 +10,7 @@ module API
           requires :m,   type: Integer, desc: 'app的使用环境，0表示开发模式，1表示产品模式'
         end
         get :check do
-          @app = AppVersion.opened.where('lower(os) = ? and mode = ? and bv > ?', params[:os].downcase, params[:m], params[:bv]).order('bv desc').first
+          @app = AppVersion.opened.where('lower(os) = ? and mode = ? and version > ?', params[:os].downcase, params[:m], params[:bv]).order('version desc').first
           if @app.blank?
             render_error(4004, '没有新版本')
           else
