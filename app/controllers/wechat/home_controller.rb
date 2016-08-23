@@ -38,12 +38,12 @@ class Wechat::HomeController < Wechat::ApplicationController
         code.update_auth_code!
       end
       
-      @content = "您的微信验证码为: #{code.code}<br>*验证码有效期为三分钟。<br><br>请回到#{CommonConfig.app_name}的微信绑定页面，输入该验证码进行绑定。"
+      @content = "您的微信验证码为: #{code.code}\n*验证码有效期为三分钟。\n\n请回到#{CommonConfig.app_name}的微信绑定页面，输入该验证码进行绑定。"
       
     else
       # 已经绑定了公众号，显示用户的信息
       user = code.user
-      @content = "ID: #{user.uid}<br>余额: #{user.balance}益豆<br>----------------<br>今日收益: #{user.today_beans}益豆"
+      @content = "ID: #{user.uid}\n余额: #{user.balance}益豆\n----------------\n今日收益: #{user.today_beans}益豆"
     end
   end
   
