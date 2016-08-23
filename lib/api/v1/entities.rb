@@ -192,6 +192,7 @@ module API
         expose :name, :model, :area, :rental, :rent_type
         expose :title
         expose :body, format_with: :null
+        expose :facilities
         expose :contact_info do
           expose :u_name,   format_with: :null
           expose :u_mobile, format_with: :null

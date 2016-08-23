@@ -166,6 +166,7 @@
         address: "小区地址"
         hide_mobile: "是否隐藏手机号"
         approved: "是否审核"
+        facilities: '配套设施'
       payout:
         money: '提现金额'
         card_no: '提现账号'

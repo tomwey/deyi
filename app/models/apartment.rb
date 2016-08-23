@@ -15,6 +15,11 @@ class Apartment < ActiveRecord::Base
     ParseLocJob.perform_later(self)
   end
   
+  before_save :remove_blank_value_for_array
+  def remove_blank_value_for_array
+    self.facilities = self.facilities.compact.reject(&:blank?)
+  end
+  
   def location_str=(str)
     return if str.blank?
     
