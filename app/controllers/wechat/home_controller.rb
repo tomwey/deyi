@@ -2,12 +2,16 @@ class Wechat::HomeController < Wechat::ApplicationController
   skip_before_filter :verify_authenticity_token, only: [:welcome]
   
   def welcome
-    if wechat_xml.event.downcase == 'click'
-      handle_click
-    elsif wechat_xml.event.downcase == 'subscribe'
-      handle_subscribe
-    elsif wechat_xml.event.downcase == 'unsubscribe'
-      handle_unsubscribe
+    if wechat_xml.event
+      if wechat_xml.event.downcase == 'click'
+        handle_click
+      elsif wechat_xml.event.downcase == 'subscribe'
+        handle_subscribe
+      elsif wechat_xml.event.downcase == 'unsubscribe'
+        handle_unsubscribe
+      else
+        handle_kefu
+      end
     else
       handle_kefu
     end
