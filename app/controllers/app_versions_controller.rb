@@ -1,7 +1,7 @@
 class AppVersionsController < ApplicationController
 
   def info    
-    @app = AppVersion.opened.where('lower(os) = ? and mode = ? and bv = ?', params[:os].downcase, params[:m], params[:bv]).first
+    @app = AppVersion.opened.where('lower(os) = ? and mode = ? and version = ?', params[:os].downcase, params[:m], params[:bv]).first
     
     if @app.blank?
       render template: "/errors/404", format: [:html],

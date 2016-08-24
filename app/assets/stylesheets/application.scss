@@ -70,3 +70,15 @@ p, h2 {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
+.app-changelog {
+  margin: 20px 0;
+//  margin-bottom: 30px;
+  font-size: 1.2em;
+}
+.app-download {
+  text-align: center;
+  > .btn {
+    width: 68.2%;
+  }
+}
