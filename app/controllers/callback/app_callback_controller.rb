@@ -208,11 +208,11 @@ class Callback::AppCallbackController < ApplicationController
     # 用户可赚取的积分
     points = params[:points]
     
-    str = params[:adv_id] + params[:app_id] + params[:key] + params[:udid] + params[:bill].to_s + params[:points].to_s + params[:activate_time] + params[:order_id] + SiteConfig.waps_dev_secret || ''
-    signature = Digest::MD5.hexdigest(str)
+    str = params[:adv_id] + params[:app_id] + params[:key] + params[:udid] + params[:bill].to_s + params[:points].to_s + CGI.escape(params[:activate_time]) + params[:order_id] + SiteConfig.waps_dev_secret || ''
+    signature = Digest::MD5.hexdigest(str).upcase
     
     # 参数签名结果
-    sig = params[:wapskey].downcase
+    sig = params[:wapskey]
     if signature == sig
       # 参数校验正确
       count = ChannelCallbackLog.where(chn_id: app, order_id: order, uid: user_id).count
@@ -224,18 +224,22 @@ class Callback::AppCallbackController < ApplicationController
         end
         if ChannelCallbackLog.create(chn_id: app, order_id: order, uid: user_id, ad_name: ad, earn: points, callback_params: cb_params, result: 'ok')
           $redis.del(key)
+          puts '保存成功'
           render json: {message:"成功", success: true}
         else
           $redis.del(key)
+          puts '保存失败'
           render json: {message:"失败", success: false}
         end
       else
         $redis.del(key)
+        puts '已经回调成功一次'
         render json: {message:"已经回调成功过", success: true}
       end
     else
       # 校验失败
       $redis.del(key)
+      puts '校验失败'
       render json: {message:"校验失败", success: false}
     end
   end
