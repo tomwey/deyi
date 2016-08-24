@@ -92,14 +92,14 @@ form html: { multipart: true } do |f|
     f.input :fail_return, placeholder: '例如：false', hint: '渠道回调失败以后返回字符串'
   end
   
-  f.inputs 'iOS接入配置', id: 'ios-config', style: 'display: none;' do
+  f.inputs 'iOS接入配置', id: 'ios-config' do
     f.input :ios_app_name, placeholder: '应用名称', hint: '渠道建应用名称,如为空则不填写'
     f.input :ios_app_id, placeholder: '渠道应用AppId', hint: '渠道建应用APPID,如为空则不填写'
     f.input :ios_app_secret, placeholder: '渠道应用AppSecret', hint: '渠道建应用AppSecret,如为空则不填写'
     f.input :ios_other, hint: '渠道建应用其它选项,如为空则不填写'
   end
   
-  f.inputs 'Android接入配置', id: 'android-config', style: 'display: none;' do
+  f.inputs 'Android接入配置', id: 'android-config' do
     f.input :android_app_name, placeholder: '应用名称', hint: '渠道建应用名称,如为空则不填写'
     f.input :android_app_id, placeholder: '渠道应用AppId', hint: '渠道建应用APPID,如为空则不填写'
     f.input :android_app_secret, placeholder: '渠道应用AppSecret', hint: '渠道建应用AppSecret,如为空则不填写'
