@@ -2,6 +2,11 @@ class WifiDog::WifiController < ApplicationController
   def auth
     auth_1_0
   end
+  
+  def control86
+    puts params
+    render text: 'ok'
+  end
     
   def ping
     active_node = AccessNode.find_by(mac: params[:gw_id])

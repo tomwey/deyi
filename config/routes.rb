@@ -36,6 +36,7 @@ Rails.application.routes.draw do
     get '/auth'   => 'wifi#auth',    as: :auth
     get '/ping'   => 'wifi#ping',    as: :ping
     get '/portal' => 'wifi#portal',  as: :portal
+    post '/control86' => 'wifi#control86', as: :control86
   end
   
   # 三方渠道回调
