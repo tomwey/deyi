@@ -37,7 +37,7 @@ class WifiDog::UsersController < ApplicationController
       token: SecureRandom.uuid,
       access_node: node,
       user: user,
-      expired_at: Time.now + node.time_limit.minutes
+      expired_at: Time.now + 30.minutes
     )
     
     redirect_to 'http://' + params[:gw_address].to_s + ':' + params[:gw_port].to_s + '/wifidog/auth?token=' + login_connection.token
