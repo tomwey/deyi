@@ -28,7 +28,7 @@ Rails.application.routes.draw do
   get '/callback/st' => 'share_tasks#callback'
   
   # WIFI认证系统
-  namespace :wifi_dog, path: :wifi do
+  namespace :wifi_dog, path: '' do
     get '/login'  => 'users#login',  as: :login
     post '/sign_in' => 'users#sign_in', as: :sign_in
     post '/register' => 'users#register', as: :register
