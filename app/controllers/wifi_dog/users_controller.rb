@@ -32,12 +32,13 @@ class WifiDog::UsersController < ApplicationController
     
     session[:access_node] = node
     
+    min = (CommonConfig.free_wifi_length || 2).to_i
     login_connection = Connection.create!(
       remote_addr: request.remote_addr,
       token: SecureRandom.uuid,
       access_node: node,
       user: user,
-      expired_at: Time.now + 30.minutes
+      expired_at: Time.now + min.minutes
     )
     
     redirect_to 'http://' + params[:gw_address].to_s + ':' + params[:gw_port].to_s + '/wifidog/auth?token=' + login_connection.token
