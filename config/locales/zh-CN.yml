@@ -153,6 +153,7 @@
         images: "小区图片"
         name: "小区名字"
         model: "户型"
+        deco_info: '装修情况'
         area: "面积"
         rental: "租金"
         room_type: "房间"

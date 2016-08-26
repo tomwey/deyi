@@ -28,12 +28,18 @@ module API
     end # end page_size method
   
     # 1.格式化输出带结果数据的json
-    def render_json(target, grape_entity, opts = {})
+    def render_json(target, grape_entity, opts = {}, total = 0)
       return { code: 0, message: 'ok', data: {} } if target.nil?
       return { code: 0, message: 'ok', data: [] } if target.is_a?(Array) and target.blank?
       
       present target, :with => grape_entity, :opts => opts
-      body( { code: 0, message: 'ok', data: body } )
+      
+      if total > 0
+        body( { code: 0, message: 'ok', total: total, data: body } )
+      else
+        body( { code: 0, message: 'ok', data: body } )
+      end
+      
     end # end render_json method
   
     # 2.格式化输出错误

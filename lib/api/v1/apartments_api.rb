@@ -26,7 +26,8 @@ module API
             sr = "large"
           end
           
-          render_json(@apartments, API::V1::Entities::Apartment, image_size: sr)
+          total = params[:page] ? @apartments.total_entries : @apartments.size
+          render_json(@apartments, API::V1::Entities::Apartment, { image_size: sr }, total)
         end # end list
         
         desc "获取附近一定数量的租房信息"
@@ -47,7 +48,10 @@ module API
           if params[:page]
             @apartments = @apartments.paginate page: params[:page], per_page: page_size
           end
-          render_json(@apartments, API::V1::Entities::Apartment, image_size: sr)
+          
+          total = params[:page] ? @apartments.total_entries : @apartments.size
+          
+          render_json(@apartments, API::V1::Entities::Apartment, { image_size: sr }, total)
         end # end get nearby
         
       end # end resource

@@ -189,10 +189,14 @@ module API
           img_size = opts[:opts][:image_size].to_sym
           model.images.map { |img| img.url(img_size) }
         end
-        expose :name, :model, :area, :rental, :rent_type
+        expose :name, :area, :rental, :rent_type
+        expose :model do |model, opts|
+          model.model_info
+        end
         expose :title
         expose :body, format_with: :null
         expose :facilities
+        expose :deco_info, format_with: :null
         expose :contact_info do
           expose :u_name,   format_with: :null
           expose :u_mobile, format_with: :null

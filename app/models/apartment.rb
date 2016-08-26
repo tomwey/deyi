@@ -34,6 +34,20 @@ class Apartment < ActiveRecord::Base
     "#{self.location.x},#{self.location.y}"
   end
   
+  def model_info
+    return '' if model.blank?
+    
+    partials = model.split('-')
+    
+    labels = %w(室 厅 卫)
+    
+    s = ''
+    partials.each_with_index do |str, index|
+      s += str + labels[index]
+    end
+    s
+  end
+  
   def self.list_with_location(lng, lat)
     select("apartments.*, ST_Distance(location, 'SRID=4326;POINT(#{lng} #{lat})'::geometry) as distance").order("distance asc")
   end

@@ -5,7 +5,7 @@ menu priority: 2
 # See permitted parameters documentation:
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
 
-permit_params :name, :model, :area, :rental, :room_type, :sex_limit, :title, :body, :u_name, :u_mobile, :rent_type, :location, :address, :sort, :hide_mobile, :location_str, { images:[],facilities: [] }
+permit_params :name, :model, :area, :rental, :room_type, :sex_limit, :title, :body, :u_name, :u_mobile, :rent_type, :location, :address, :sort, :hide_mobile, :location_str, :deco_info, { images:[],facilities: [] }
 
 # t.string  :images, array: true, default: []
 # t.string  :name,  null: false         # 小区名字
@@ -98,6 +98,7 @@ form html: { multipart: true } do |f|
     f.input :title, placeholder: '房屋简介，例如：绿地三期好房'
     f.input :body, as: :text, input_html: { class: 'redactor' }, placeholder: '房屋描述，例如：地铁旁好房，有宽带，冰箱，洗衣机，空调等'
     f.input :facilities, as: :check_boxes, collection: CommonConfig.facilities.try(:split, ',')
+    f.input :deco_info, as: :select, collection: CommonConfig.deco_infos.try(:split, ','), prompt: '-- 请选择装修方式 --'
     f.input :rent_type, as: :select, collection: CommonConfig.rent_types.try(:split, ','), prompt: '-- 请选择出租类型 --'
     f.input :location_str, label: '小区位置', placeholder: '例如：-104.333333,20.122211', hint: '格式为：经度,纬度'
     f.input :address, label: '小区详细地址', placeholder: '例如：成都市金牛区韦家碾一路'
