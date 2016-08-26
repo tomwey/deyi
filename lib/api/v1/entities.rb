@@ -197,7 +197,7 @@ module API
         expose :body, format_with: :null
         expose :facilities
         expose :deco_info, format_with: :null
-        expose :contact_info do
+        expose :contact_info, if: proc { |a| not a.hide_mobile } do
           expose :u_name,   format_with: :null
           expose :u_mobile, format_with: :null
         end
@@ -209,6 +209,7 @@ module API
         expose :distance do |model, opts|
           model.try(:distance) || 0
         end
+        expose :published_at
         expose :user, using: API::V1::Entities::UserProfile, if: proc { |a| a.user_id.present? }
       end
       

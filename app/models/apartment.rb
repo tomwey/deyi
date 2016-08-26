@@ -1,3 +1,7 @@
+require 'action_view'
+require 'action_view/helpers'
+include ActionView::Helpers::DateHelper
+
 class Apartment < ActiveRecord::Base
   # GEO_FACTORY = RGeo::Geographic.spherical_factory(srid: 4326)
   
@@ -46,6 +50,10 @@ class Apartment < ActiveRecord::Base
       s += str + labels[index]
     end
     s
+  end
+  
+  def published_at
+    time_ago_in_words(created_at) + '前'
   end
   
   def self.list_with_location(lng, lat)
