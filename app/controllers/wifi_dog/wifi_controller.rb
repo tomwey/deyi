@@ -113,13 +113,16 @@ class WifiDog::WifiController < ApplicationController
   def first_login_auth
     token = params[:token]
     time = session[token.to_sym]
-    
     if time > Time.zone.now
-      render text: 'Auth: 1'
+      auth = 1
+      puts '1. ------'
     else
       session[token.to_sym] = nil
-      render text: 'Auth: 0'
+      auth = 0
+      puts '2. ------'
     end
+    
+    render text: "Auth: #{auth}"
   end
   
   def app_auth
