@@ -21,11 +21,11 @@ class WifiDog::WifiController < ApplicationController
     gw_port    = session[:gw_port]   
     client_mac = session[:mac]     
     
-    # @ap = AccessPoint.where(gw_id: gw_id).first
-    # if @ap.blank?
-    #   render status: :forbidden
-    #   return
-    # end
+    @ap = AccessPoint.where(gw_id: gw_id).first
+    if @ap.blank?
+      render status: :forbidden
+      return
+    end
     
     # @client = WifiClient.where(mac: client_mac, access_point: @ap).first_or_create
     # 
@@ -35,9 +35,7 @@ class WifiDog::WifiController < ApplicationController
     # @client.token = SecureRandom.uuid if @client.token.blank?
     # @client.save!
     
-    token = SecureRandom.uuid.gsub('-', '')
-    
-    session[token.to_sym] = Time.zone.now + 30.minutes
+    token = SecureRandom.uuid
     
     # 注册网关
     redirect_to('http://' + session[:gw_address].to_s + ':' + session[:gw_port].to_s + "/wifidog/auth?token=#{token}")
@@ -46,7 +44,7 @@ class WifiDog::WifiController < ApplicationController
   def auth
     # auth_1_
     token = params[:token]
-    if session[token.to_sym]
+    if token.include? '-'
       first_login_auth
     else
       app_auth
@@ -111,18 +109,18 @@ class WifiDog::WifiController < ApplicationController
   private
   
   def first_login_auth
-    token = params[:token]
-    time = session[token.to_sym]
-    if time > Time.zone.now
-      auth = 1
-      puts '1. ------'
-    else
-      session[token.to_sym] = nil
-      auth = 0
-      puts '2. ------'
-    end
+    # token = params[:token]
+    # time = session[token.to_sym]
+    # if time > Time.zone.now
+    #   auth = 1
+    #   puts '1. ------'
+    # else
+    #   session[token.to_sym] = nil
+    #   auth = 0
+    #   puts '2. ------'
+    # end
     
-    render text: "Auth: #{auth}"
+    render text: "Auth: 1"
   end
   
   def app_auth
