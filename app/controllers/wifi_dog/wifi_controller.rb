@@ -38,7 +38,7 @@ class WifiDog::WifiController < ApplicationController
     token = SecureRandom.uuid
     
     # 注册网关
-    redirect_to('http://' + session[:gw_address].to_s + ':' + session[:gw_port].to_s + "/wifidog/auth?token=#{token}")
+    redirect_to('http://' + gw_address + ':' + gw_port + "/wifidog/auth?token=#{token}")
   end
   
   def auth
