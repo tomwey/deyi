@@ -21,11 +21,11 @@ class WifiDog::WifiController < ApplicationController
     gw_port    = session[:gw_port]   
     client_mac = session[:mac]     
     
-    @ap = AccessPoint.where(gw_id: gw_id).first
-    if @ap.blank?
-      render status: :forbidden
-      return
-    end
+    # @ap = AccessPoint.where(gw_id: gw_id).first
+    # if @ap.blank?
+    #   render status: :forbidden
+    #   return
+    # end
     
     # @client = WifiClient.where(mac: client_mac, access_point: @ap).first_or_create
     # 
@@ -40,7 +40,7 @@ class WifiDog::WifiController < ApplicationController
     session[token.to_sym] = Time.zone.now + 30.minutes
     
     # 注册网关
-    redirect_to 'http://' + session[:gw_address].to_s + ':' + session[:gw_port].to_s + "/wifidog/auth?token=#{token}"
+    redirect_to('http://' + session[:gw_address].to_s + ':' + session[:gw_port].to_s + "/wifidog/auth?token=#{token}")
   end
   
   def auth
