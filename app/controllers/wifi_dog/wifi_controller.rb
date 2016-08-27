@@ -35,7 +35,7 @@ class WifiDog::WifiController < ApplicationController
     # @client.token = SecureRandom.uuid if @client.token.blank?
     # @client.save!
     
-    token = SecureRandom.uuid
+    token = SecureRandom.uuid.gsub('-', '')
     
     session[token.to_sym] = Time.zone.now + 30.minutes
     
