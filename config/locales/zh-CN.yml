@@ -20,6 +20,7 @@
     models:
       user: "用户"
       admin: "管理员"
+      access_point: 'WIFI热点'
       category: "类别"
       banner: "广告"
       site_config: "站点配置"
@@ -71,6 +72,14 @@
         account_num: '账号'
         account_type: '提现类型'
         created_at: '申请时间'
+      access_point:
+        name: '热点名称'
+        gw_id: '热点ID'
+        gw_mac: '热点MAC'
+        gw_address: '网关地址'
+        gw_port: '网关端口'
+        login_html: '认证登录页面HTML'
+        client_count: '客户端连接数'
       app_version:
         os: '系统'
         version: '版本号'

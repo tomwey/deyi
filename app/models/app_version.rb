@@ -19,6 +19,10 @@ class AppVersion < ActiveRecord::Base
     [['开发模式', 0], ['产品模式', 1]]
   end
   
+  def self.latest_version
+    order('version desc').first
+  end
+  
 end
 
 # t.string :os, null: false # 系统，值为android或ios

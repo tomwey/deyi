@@ -29,14 +29,15 @@ Rails.application.routes.draw do
   
   # WIFI认证系统
   namespace :wifi_dog, path: '' do
-    get '/login'  => 'users#login',  as: :login
-    post '/sign_in' => 'users#sign_in', as: :sign_in
-    post '/register' => 'users#register', as: :register
-    get '/signup' => 'users#signup', as: :signup
+    # get '/login'  => 'users#login',  as: :login
+    # post '/sign_in' => 'users#sign_in', as: :sign_in
+    # post '/register' => 'users#register', as: :register
+    # get '/signup' => 'users#signup', as: :signup
+    get '/login'  => 'wifi#login',   as: :login
+    get '/download_auth' => 'wifi#download_auth', as: :download_auth
     get '/auth'   => 'wifi#auth',    as: :auth
     get '/ping'   => 'wifi#ping',    as: :ping
     get '/portal' => 'wifi#portal',  as: :portal
-    post '/control86' => 'wifi#control86', as: :control86
   end
   
   # 三方渠道回调
