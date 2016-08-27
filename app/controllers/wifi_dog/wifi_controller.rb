@@ -27,65 +27,30 @@ class WifiDog::WifiController < ApplicationController
       return
     end
     
-    @client = WifiClient.where(mac: client_mac, access_point: @ap).first_or_create
+    # @client = WifiClient.where(mac: client_mac, access_point: @ap).first_or_create
+    # 
+    # # 初次上网免费30分钟
+    # wifi_length = (CommonConfig.free_wifi_length || 2).to_i
+    # @client.expired_at = Time.now + wifi_length.minutes
+    # @client.token = SecureRandom.uuid if @client.token.blank?
+    # @client.save!
     
-    # 初次上网免费30分钟
-    wifi_length = (CommonConfig.free_wifi_length || 2).to_i
-    @client.expired_at = Time.now + wifi_length.minutes
-    @client.token = SecureRandom.uuid if @client.token.blank?
-    @client.save!
+    token = SecureRandom.uuid
+    
+    session[token.to_sym] = Time.zone.now + 30.minutes
     
     # 注册网关
-    redirect_to 'http://' + session[:gw_address].to_s + ':' + session[:gw_port].to_s + "/wifidog/auth?token=#{@client.token}"
+    redirect_to 'http://' + session[:gw_address].to_s + ':' + session[:gw_port].to_s + "/wifidog/auth?token=#{token}"
   end
   
   def auth
-    # auth_1_0
-    auth = 0
-    
-    if SiteConfig.banned_macs.blank?
-      mac_banned = false
-    elsif SiteConfig.banned_macs.split(',').include?(params[:mac])
-      mac_banned = true
+    # auth_1_
+    token = params[:token]
+    if session[token.to_sym]
+      first_login_auth
     else
-      mac_banned = false
+      app_auth
     end
-    
-    if !client = WifiClient.find_by(token: params[:token])
-      puts "Invalid token: #{params[:token]}"
-    else
-      case params[:stage]
-      when 'login' # 初次认证登录
-        if client.expired? or client.used?
-          puts "Tried to login with used or expired token: #{params[:token]}"
-        elsif mac_banned
-          puts "Banned MAC tried logging in at " + Time.now.to_s + " with MAC: " + params[:mac]
-        else
-          client.use!
-          auth = 1
-        end
-      when 'counters' # 已经认证登录过
-        if !client.expired?
-          if !mac_banned
-            auth = 1
-            client.update_attributes({
-              ip: params[:ip],
-              incoming: params[:incoming],
-              outgoing: params[:outgoing]
-            })
-          else
-            client.expire!
-          end
-        end
-      when 'logout' # 已经退出登录
-        puts "Logging out: #{params[:token]}"
-        client.expire!
-      else
-        puts "Invalid stage: #{params[:stage]}"
-      end
-    end
-    
-    render text: "Auth: #{auth}"
   end
     
   def ping
@@ -144,6 +109,67 @@ class WifiDog::WifiController < ApplicationController
   end
   
   private
+  
+  def first_login_auth
+    token = params[:token]
+    time = session[token.to_sym]
+    
+    if time > Time.zone.now
+      render text: 'Auth: 1'
+    else
+      session[token.to_sym] = nil
+      render text: 'Auth: 0'
+    end
+  end
+  
+  def app_auth
+    auth = 0
+    
+    if SiteConfig.banned_macs.blank?
+      mac_banned = false
+    elsif SiteConfig.banned_macs.split(',').include?(params[:mac])
+      mac_banned = true
+    else
+      mac_banned = false
+    end
+    
+    if !client = WifiClient.find_by(token: params[:token])
+      puts "Invalid token: #{params[:token]}"
+    else
+      case params[:stage]
+      when 'login' # 初次认证登录
+        if client.expired? or client.used?
+          puts "Tried to login with used or expired token: #{params[:token]}"
+        elsif mac_banned
+          puts "Banned MAC tried logging in at " + Time.now.to_s + " with MAC: " + params[:mac]
+        else
+          client.use!
+          auth = 1
+        end
+      when 'counters' # 已经认证登录过
+        if !client.expired?
+          if !mac_banned
+            auth = 1
+            client.update_attributes({
+              ip: params[:ip],
+              incoming: params[:incoming],
+              outgoing: params[:outgoing]
+            })
+          else
+            client.expire!
+          end
+        end
+      when 'logout' # 已经退出登录
+        puts "Logging out: #{params[:token]}"
+        client.expire!
+      else
+        puts "Invalid stage: #{params[:stage]}"
+      end
+    end
+    
+    render text: "Auth: #{auth}"
+  end
+  
   def auth_1_0
     auth = 0
     
