@@ -42,13 +42,27 @@ class WifiDog::WifiController < ApplicationController
   end
   
   def auth
-    # auth_1_
-    token = params[:token]
-    if token.include? '-'
-      first_login_auth
+    
+    auth = 0
+    
+    if SiteConfig.banned_macs.blank?
+      mac_banned = false
+    elsif SiteConfig.banned_macs.split(',').include?(params[:mac])
+      mac_banned = true
     else
-      app_auth
+      mac_banned = false
     end
+    
+    @ap = AccessPoint.find_by(gw_id: params[:gw_id])
+    
+    
+    # auth_1_
+    # token = params[:token]
+    # if token.include? '-'
+    #   first_login_auth
+    # else
+    #   app_auth
+    # end
   end
     
   def ping

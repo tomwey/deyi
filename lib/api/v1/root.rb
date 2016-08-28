@@ -37,6 +37,7 @@ module API
       mount API::V1::ChannelsAPI
       mount API::V1::AppVersionsAPI
       mount API::V1::WithdrawsAPI
+      mount API::V1::WifiAPI
       
       # 
       # 配合trix文本编辑器

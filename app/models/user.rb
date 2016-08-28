@@ -1,3 +1,4 @@
+require 'rest-client'
 class User < ActiveRecord::Base  
   has_secure_password
   
@@ -55,6 +56,18 @@ class User < ActiveRecord::Base
     end
   end
   
+  # 连接到得益wifi
+  def open_wifi(gw_mac)
+    return { code: -1, message: '热点MAC地址为空' } if gw_mac.blank?
+    @ap = AccessPoint.find_by(gw_mac: gw_mac)
+    return { code: 4004, message: '未找到热点' } if @ap.blank?
+    
+    self.update_wifi_token! if self.wifi_token.blank?
+    gw_url = "http://#{@ap.gw_address}:#{@ap.gw_port}/wifidog/auth?token=#{self.wifi_token}"
+    RestClient.get url
+    
+  end
+  
   # 获取默认的收货地址
   def current_shipment
     @current_shipment ||= Shipment.find_by(id: self.current_shipment_id)
@@ -110,6 +123,11 @@ class User < ActiveRecord::Base
       self.balance = dt
       self.save!
     end
+  end
+  
+  def update_wifi_token!
+    self.wifi_token = SecureRandom.uuid
+    self.save!
   end
   
   def expire_all_connections
