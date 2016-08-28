@@ -43,8 +43,12 @@ class Callback::AppCallbackController < ApplicationController
     chn = ( params[:chn] || 0 ).to_s
     
     str = SiteConfig.youmi_dev_secret || 'fa10ee82354768dc' + '||' + order + '||' + app + '||' + user_id + '||' + chn + '||' + ad + '||' + points.to_s
+    puts str
     signature = Digest::MD5.hexdigest(str)[12, 8]
     
+    puts '-------'
+    
+    puts signature
     # 参数签名结果
     sig = params[:sig]
     if signature == sig
@@ -60,7 +64,7 @@ class Callback::AppCallbackController < ApplicationController
       end
     else
       # 校验失败
-      
+      puts '校验失败'
     end
     
     $redis.del(key)
