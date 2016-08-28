@@ -23,11 +23,11 @@ class Callback::AppCallbackController < ApplicationController
     
     key = app + order
     # 由于网络原因重复回调了多次相同的订单数据
-    # if $redis.get(key).present?
-    #   # 返回403
-    #   render text: 'failed', status: :forbidden
-    #   return
-    # end
+    if $redis.get(key).present?
+      # 返回403
+      render text: 'failed', status: :forbidden
+      return
+    end
     
     $redis.set(key, '1')
     
@@ -56,12 +56,11 @@ class Callback::AppCallbackController < ApplicationController
         params.each do |k,v|
           cb_params << "#{k}=#{v}"
         end
-        puts '开始创建有米回调记录'
         ChannelCallbackLog.create!(chn_id: app, order_id: order, uid: user_id, ad_name: ad, earn: points, callback_params: cb_params, result: 'ok')
       end
     else
       # 校验失败
-      puts '有米回调校验失败'
+      
     end
     
     $redis.del(key)
