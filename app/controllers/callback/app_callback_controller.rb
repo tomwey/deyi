@@ -1,21 +1,7 @@
 class Callback::AppCallbackController < ApplicationController
   
   # 有米
-  def youmi
-    # order=YM130402cygr_UTb42&
-    # app=30996ced018a2a5e&
-    # ad=KC网络电话&
-    # user=1141058&
-    # device=50ead626ae6e&
-    # chn=0&
-    # points=7&
-    # time=1364890524&
-    # sig=15b3dfe0&
-    # adid=100&
-    # pkg=abc
-    # puts params
-    # 订单号
-    
+  def youmi    
     order = params[:order]
     
     # 开发者appid
@@ -42,13 +28,9 @@ class Callback::AppCallbackController < ApplicationController
     
     chn = ( params[:chn] || 0 ).to_s
     
-    str = SiteConfig.youmi_dev_secret || 'fa10ee82354768dc' + '||' + order + '||' + app + '||' + user_id + '||' + chn + '||' + ad + '||' + points.to_s
-    puts str
+    str = "#{SiteConfig.youmi_dev_secret || 'fa10ee82354768dc'}||#{order}||#{app}||#{user_id}||#{chn}||#{ad}||#{points}"
+    
     signature = Digest::MD5.hexdigest(str)[12, 8]
-    
-    puts '-------'
-    
-    puts signature
     # 参数签名结果
     sig = params[:sig]
     if signature == sig
