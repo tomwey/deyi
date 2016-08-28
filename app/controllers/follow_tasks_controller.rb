@@ -62,14 +62,14 @@ class FollowTasksController < ApplicationController
                                 earn: task.earn,
                                 callback_params: cb_params)
           $redis.del(key)
-          render json: { message: '成功', message: true }
+          render json: { message: '成功', success: true }
         else
           $redis.del(key)
-          render json: { message: '失败', message: false }
+          render json: { message: '失败', success: false }
         end
       else
         $redis.del(key)
-        render json: { message: '已经成功回调一次', message: true }
+        render json: { message: '已经成功回调一次', success: true }
       end
       
     else
