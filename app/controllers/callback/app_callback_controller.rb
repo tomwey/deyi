@@ -80,7 +80,9 @@ class Callback::AppCallbackController < ApplicationController
     # 用户可赚取的积分
     points = params[:points]
     
-    str = SiteConfig.qumi_dev_secret || '' + '||' + order + '||' + app + '||' + ad + '||' + user_id + '||' + params[:device] + '||' + points.to_s + '||' + params[:time]
+    # str = SiteConfig.qumi_dev_secret || '' + '||' + order + '||' + app + '||' + ad + '||' + user_id + '||' + params[:device] + '||' + points.to_s + '||' + params[:time]
+    str = "#{SiteConfig.qumi_dev_secret || ''}||#{order}||#{app}||#{ad}||#{user_id}||#{params[:device]}||#{points}||#{params[:time]}"
+    
     signature = Digest::MD5.hexdigest(str)[8, 16]
     
     # 参数签名结果
