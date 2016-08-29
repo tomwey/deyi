@@ -43,6 +43,8 @@ class WifiDog::WifiController < ApplicationController
   
   def auth
     
+    puts '执行auth了'
+    
     auth = 0
     
     if CommonConfig.banned_macs.blank?
