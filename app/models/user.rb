@@ -129,9 +129,9 @@ class User < ActiveRecord::Base
   
   # 充网时
   def charge_wifi_length!(wifi_length)
-    return false if wifi_length <= 0
+    return false if wifi_length <= 0 or wifi_status.blank?
     
-    wifi_status.change_wifi_length!(wifi_length) unless wifi_status.blank?
+    wifi_status.change_wifi_length!(wifi_length)
     
     return true
   end

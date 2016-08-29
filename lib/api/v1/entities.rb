@@ -308,6 +308,10 @@ module API
         expose :wifi_length, :online, :login_count
         expose :last_login_at, format_with: :chinese_datetime
       end
+      
+      class WifiChargePlan < Base
+        expose :cid, :hour, :cost
+      end
     
     end
   end
