@@ -43,8 +43,6 @@ class WifiDog::WifiController < ApplicationController
   
   def auth
     
-    puts '执行auth了'
-    
     auth = 0
     
     if CommonConfig.banned_macs.blank?
@@ -68,8 +66,8 @@ class WifiDog::WifiController < ApplicationController
       when 'login' # 初次认证登录
         if user.blank?
           puts "无效的用户上网状态信息"
-        elsif !user.has_enough_wifi_length? or wifi_status.online
-          puts "没有足够的网时或当前账号已经连上wifi了"
+        elsif !user.has_enough_wifi_length? or !wifi_status.online
+          puts "没有足够的网时或用户已经关闭WiFi了"
         elsif mac_banned
           puts "Banned MAC tried logging in at " + Time.now.to_s + " with MAC: " + params[:mac]
         else
@@ -77,8 +75,8 @@ class WifiDog::WifiController < ApplicationController
           # 记录上网日志
           WifiLog.create!(user_id: user.id, access_point_id: @ap.try(:id), mac: params[:mac], used_at: Time.zone.now)
           
-          wifi_status.online = true
-          wifi_status.save!
+          # wifi_status.online = true
+          # wifi_status.save!
         end
       when 'counters' # 已经认证登录过
         connection = user.current_connection
@@ -109,7 +107,6 @@ class WifiDog::WifiController < ApplicationController
       end
     end
     
-    puts auth.to_s
     # 通知网关是否连上外网
     render text: "Auth: #{auth}"
   end

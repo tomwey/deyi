@@ -28,6 +28,9 @@ module API
             return render_error(20001, "当前账号正在上网，你不能多人同时使用")
           end
           
+          user.wifi_status.online = true
+          user.wifi_status.save!
+          
           # 检测是否有足够的网时
           unless user.has_enough_wifi_length?
             return render_error(20002, "没有足够的上网往时，至少需要#{user.min_allowed_wifi_length}分钟，请充值")
