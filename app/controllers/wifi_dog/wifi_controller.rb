@@ -104,6 +104,7 @@ class WifiDog::WifiController < ApplicationController
       end
     end
     
+    puts auth.to_s
     # 通知网关是否连上外网
     render text: "Auth: #{auth}"
   end
