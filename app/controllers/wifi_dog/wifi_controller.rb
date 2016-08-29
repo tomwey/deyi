@@ -45,9 +45,9 @@ class WifiDog::WifiController < ApplicationController
     
     auth = 0
     
-    if SiteConfig.banned_macs.blank?
+    if CommonConfig.banned_macs.blank?
       mac_banned = false
-    elsif SiteConfig.banned_macs.split(',').include?(params[:mac])
+    elsif CommonConfig.banned_macs.split(',').include?(params[:mac])
       mac_banned = true
     else
       mac_banned = false
@@ -55,29 +55,60 @@ class WifiDog::WifiController < ApplicationController
     
     @ap = AccessPoint.find_by(gw_id: params[:gw_id])
     
+    # 由网关传递过来
+    token = params[:token]
     
-    # auth_1_
-    # token = params[:token]
-    # if token.include? '-'
-    #   first_login_auth
-    # else
-    #   app_auth
-    # end
+    if !wifi_status = WifiStatus.find_by(token: token)
+      puts "无效的上网Token: #{token}"
+    else
+      user = wifi_status.user
+      case params[:stage]
+      when 'login' # 初次认证登录
+        if user.blank?
+          puts "无效的用户上网状态信息"
+        elsif !user.has_enough_wifi_length? or wifi_status.online
+          puts "没有足够的网时或当前账号已经连上wifi了"
+        elsif mac_banned
+          puts "Banned MAC tried logging in at " + Time.now.to_s + " with MAC: " + params[:mac]
+        else
+          auth = 1
+          # 记录上网日志
+          WifiLog.create!(user_id: user.id, access_point_id: @ap.try(:id), mac: params[:mac], used_at: Time.zone.now, online: true )
+        end
+      when 'counters' # 已经认证登录过
+        connection = user.current_connection
+        if !connection.closed?
+          if !mac_banned and user.has_enough_wifi_length?
+            auth = 1
+            # 更新当前连接的上网状态信息
+            if connection.used_at.blank?
+              connection.used_at = Time.zone.now
+            end
+            
+            connection.ip = params[:ip]
+            connection.incoming_bytes = params[:incoming]
+            connection.outgoing_bytes = params[:outgoing]
+            
+            connection.save
+            
+          else
+            connection.close!
+          end
+        end
+      when 'logout' # 已经退出登录
+        puts "Logging out: #{params[:token]}"
+        connection = user.current_connection
+        connection.close!
+      else
+        puts "Invalid stage: #{params[:stage]}"
+      end
+    end
+    
+    # 通知网关是否连上外网
+    render text: "Auth: #{auth}"
   end
-    
+  
   def ping
-    # t.string :name
-    # t.integer :sys_uptime
-    # t.integer :sys_load
-    # t.integer :sys_memfree
-    # t.integer :wifidog_uptime
-    # t.integer :cpu_usage
-    # t.integer :client_count, default: 0 # 连接设备数量
-    # t.integer :conn_count, default: 0   # 网络连接数
-    # t.datetime :update_time
-    # t.string :gw_id, unique: true # 网关的mac
-    # t.string :dev_id # 路由器设备id
-    # t.string :dev_md5 # device_token, 对dev_id加密所得
     @ap = AccessPoint.find_by(gw_id: params[:gw_id])
     unless @ap.blank?
       @ap.update_attributes({
@@ -93,31 +124,44 @@ class WifiDog::WifiController < ApplicationController
   end
   
   def portal
-    # 重定向到一个固定的欢迎页面，有可能是下载app的广告页面
-    # redirect_to 'http://'
-    client_mac  = params[:mac]
+    
     auth_result = params[:auth_result]
+    client_mac  = params[:mac]
     
     if auth_result == 'failed'
-      render text: 'auth failed'
-      return
-    end 
-    
-    @client = WifiClient.find_by(mac: client_mac)
-    user_id = @client.try(:user_id)
-    
-    if user_id.present?
-      render status: :ok
-      return
+      puts '连接外网失败'
+    else
+      puts '连接外网成功'
     end
     
-    # 下载APP
-    @app_version = AppVersion.latest_version
-    if @app_version.file
-      redirect_to @app_version.file.url
-    else
-      render status: :ok
-    end  
+    render status: :ok
+    return
+    
+    # 重定向到一个固定的欢迎页面，有可能是下载app的广告页面
+    # redirect_to 'http://'
+    # client_mac  = params[:mac]
+    # auth_result = params[:auth_result]
+    #
+    # if auth_result == 'failed'
+    #   render text: 'auth failed'
+    #   return
+    # end
+    #
+    # @client = WifiClient.find_by(mac: client_mac)
+    # user_id = @client.try(:user_id)
+    #
+    # if user_id.present?
+    #   render status: :ok
+    #   return
+    # end
+    #
+    # # 下载APP
+    # @app_version = AppVersion.latest_version
+    # if @app_version.file
+    #   redirect_to @app_version.file.url
+    # else
+    #   render status: :ok
+    # end
   end
   
   private

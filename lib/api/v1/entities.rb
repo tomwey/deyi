@@ -302,6 +302,12 @@ module API
         end
         expose :link, format_with: :null
       end
+      
+      # 上网的状态
+      class WifiStatus < Base
+        expose :wifi_length, :online, :login_count
+        expose :last_login_at, format_with: :chinese_datetime
+      end
     
     end
   end

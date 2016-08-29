@@ -22,6 +22,8 @@ class User < ActiveRecord::Base
   # 有许多邀请过的用户
   has_many   :invited_users, class_name: 'User', foreign_key: 'inviter_id'
   
+  # has_one :wifi_status, dependent: :destroy
+  
   def invite!(invitee)
     return false if invitee.blank?
     return false if invitee == self
@@ -58,13 +60,13 @@ class User < ActiveRecord::Base
   
   # 连接到得益wifi
   def open_wifi(gw_mac)
-    return { code: -1, message: '热点MAC地址为空' } if gw_mac.blank?
-    @ap = AccessPoint.find_by(gw_mac: gw_mac)
-    return { code: 4004, message: '未找到热点' } if @ap.blank?
-    
-    self.update_wifi_token! if self.wifi_token.blank?
-    gw_url = "http://#{@ap.gw_address}:#{@ap.gw_port}/wifidog/auth?token=#{self.wifi_token}"
-    RestClient.get url
+    # return { code: -1, message: '热点MAC地址为空' } if gw_mac.blank?
+    # @ap = AccessPoint.find_by(gw_mac: gw_mac)
+    # return { code: 4004, message: '未找到热点' } if @ap.blank?
+    #
+    # self.update_wifi_token! if self.wifi_token.blank?
+    # gw_url = "http://#{@ap.gw_address}:#{@ap.gw_port}/wifidog/auth?token=#{self.wifi_token}"
+    # RestClient.get url
     
   end
   
@@ -125,9 +127,57 @@ class User < ActiveRecord::Base
     end
   end
   
+  # 充网时
+  def charge_wifi_length!(wifi_length)
+    return false if wifi_length <= 0
+    
+    wifi_status.change_wifi_length!(wifi_length) unless wifi_status.blank?
+    
+    return true
+  end
+  
+  def connect_wifi!
+    if wifi_status.present?
+      wifi_status.add_login_count
+      wifi_status.last_login_at = Time.zone.now
+      wifi_status.save!
+    end
+  end
+  
+  def close_wifi!
+    if wifi_status.present?
+      wifi_status.online = false
+      wifi_status.save!
+    end
+  end
+  
+  # 获取用户的当前wifi状态
+  def wifi_status
+    @wifi_status ||= WifiStatus.where(user_id: self.id).first_or_create
+  end
+  
+  # 获取当前打开的连接
+  def current_connection
+    @log ||= WifiLog.where(expired_at: nil).first
+  end
+  
+  def close_connection
+    current_connection.close!
+  end
+  
+  # 是否足够的上网时间
+  def has_enough_wifi_length?    
+    (wifi_status.wifi_length >= min_allowed_wifi_length)
+  end
+  
+  # 最低上网时长
+  def min_allowed_wifi_length
+    (CommonConfig.min_allowed_wifi_length || 30).to_i
+  end
+  
   def update_wifi_token!
-    self.wifi_token = SecureRandom.uuid
-    self.save!
+    # self.wifi_token = SecureRandom.uuid
+    # self.save!
   end
   
   def expire_all_connections

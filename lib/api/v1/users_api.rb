@@ -32,9 +32,6 @@ module API
           # 激活当前验证码
           auth_code.update_attribute(:activated_at, Time.now)
           
-          # 生成上网认证Token
-          user.update_wifi_token!
-          
           # 绑定邀请
           inviter = User.find_by(nb_code: params[:invite_code])
           if inviter
@@ -59,8 +56,6 @@ module API
           return render_error(1004, "用户#{params[:mobile]}未注册") if user.blank?
           
           if user.authenticate(params[:password])
-            # 更新上网认证Token
-            user.update_wifi_token!
             render_json(user, API::V1::Entities::User)
           else
             render_error(1005, "登录密码不正确")
