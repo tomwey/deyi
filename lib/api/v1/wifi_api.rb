@@ -10,8 +10,9 @@ module API
         get :status do
           user = authenticate!
           
-          @status = user.wifi_status
-          render_json(@status, API::V1::Entities::WifiStatus)
+          wifi_status = user.wifi_status
+          
+          render_json(wifi_status, API::V1::Entities::WifiStatus)
         end # end get info
         
         desc '连接wifi'
