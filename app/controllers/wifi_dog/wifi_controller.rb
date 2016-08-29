@@ -75,7 +75,10 @@ class WifiDog::WifiController < ApplicationController
         else
           auth = 1
           # 记录上网日志
-          WifiLog.create!(user_id: user.id, access_point_id: @ap.try(:id), mac: params[:mac], used_at: Time.zone.now, online: true )
+          WifiLog.create!(user_id: user.id, access_point_id: @ap.try(:id), mac: params[:mac], used_at: Time.zone.now)
+          
+          wifi_status.online = true
+          wifi_status.save!
         end
       when 'counters' # 已经认证登录过
         connection = user.current_connection
