@@ -38,9 +38,9 @@ index do
     u.avatar.blank? ? "" : image_tag(u.avatar.url(:small))
   end
   column :mobile, sortable: false
-  # column 'Token', sortable: false do |u|
-  #   u.private_token
-  # end
+  column 'Token', sortable: false do |u|
+    u.private_token
+  end
   column '益豆' do |u|
     u.bean
   end
