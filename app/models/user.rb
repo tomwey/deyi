@@ -23,6 +23,7 @@ class User < ActiveRecord::Base
   has_many   :invited_users, class_name: 'User', foreign_key: 'inviter_id'
   
   # has_one :wifi_status, dependent: :destroy
+  has_many :connections, class_name: 'WifiLog', foreign_key: 'user_id'
   
   def invite!(invitee)
     return false if invitee.blank?
@@ -127,6 +128,11 @@ class User < ActiveRecord::Base
     end
   end
   
+  # 该用户是否正在上网
+  def has_connected_wifi?
+    connections.where(expired_at: nil).count > 0
+  end
+  
   # 充网时
   def charge_wifi_length!(wifi_length)
     return false if wifi_length <= 0 or wifi_status.blank?
@@ -159,6 +165,11 @@ class User < ActiveRecord::Base
   # 获取当前打开的连接
   def current_connection
     @log ||= WifiLog.where(expired_at: nil).first
+  end
+  
+  def current_connection_for(ap)
+    return nil if ap.blank?
+    @connection ||= self.connections.where(access_point: ap.id, expired_at: nil).first
   end
   
   def close_connection

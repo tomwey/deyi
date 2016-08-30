@@ -1,5 +1,5 @@
 class AccessPoint < ActiveRecord::Base
-  validates :name, :gw_mac, :gw_address, :gw_port, presence: true
+  validates :name, :gw_mac, :gw_address, :gw_port, :wmac, presence: true
   belongs_to :wifi_node
   
   before_save :set_gw_id
