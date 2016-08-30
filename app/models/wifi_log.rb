@@ -3,14 +3,20 @@ class WifiLog < ActiveRecord::Base
   belongs_to :access_point
   
   def use!
+    puts '可以上网了'
     self.used_at = Time.zone.now
     self.save!
     
     user.connect_wifi!
   end
   
+  def used?
+    self.used_at.present?
+  end
+  
   # 关闭连接
   def close!
+    puts '关闭了WiFi'
     self.expired_at = Time.zone.now
     self.save!
     

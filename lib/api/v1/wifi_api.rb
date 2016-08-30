@@ -69,22 +69,22 @@ module API
           
           connection.close!
           
-          # 如果没有找到热点，直接返回错误提示
-          @ap = AccessPoint.where(gw_mac: params[:gw_mac]).first
-          if @ap.blank?
-            return render_error(20003, "没有找到热点")
-          end
-          
-          # 返回给客户端热点的网关注册地址
-          token = user.wifi_status.try(:token)
-          if token.blank?
-            return render_error(20004, "用户的上网认证Token不存在或生成失败")
-          end
+          # # 如果没有找到热点，直接返回错误提示
+          # @ap = AccessPoint.where(gw_mac: params[:gw_mac]).first
+          # if @ap.blank?
+          #   return render_error(20003, "没有找到热点")
+          # end
+          # 
+          # # 返回给客户端热点的网关注册地址
+          # token = user.wifi_status.try(:token)
+          # if token.blank?
+          #   return render_error(20004, "用户的上网认证Token不存在或生成失败")
+          # end
           
           # 返回网关注册地址
-          { code: 0, link: "http://#{@ap.gw_address}:#{@ap.gw_port}/wifidog/auth?token=#{token}" }
+          # { code: 0, link: "http://#{@ap.gw_address}:#{@ap.gw_port}/wifidog/auth?token=#{token}" }
           
-          # render_json_no_data
+          render_json_no_data
           
         end # end post close
         
