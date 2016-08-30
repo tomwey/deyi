@@ -66,7 +66,7 @@ class WifiDog::WifiController < ApplicationController
       when 'login' # 初次认证登录
         if user.blank?
           puts "无效的用户上网状态信息"
-        elsif !user.has_enough_wifi_length? or !wifi_status.online
+        elsif !user.has_enough_wifi_length? #or !wifi_status.online
           puts "没有足够的网时或用户已经关闭WiFi了"
         elsif mac_banned
           puts "Banned MAC tried logging in at " + Time.now.to_s + " with MAC: " + params[:mac]
