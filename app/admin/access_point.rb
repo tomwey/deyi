@@ -4,7 +4,7 @@ ActiveAdmin.register AccessPoint do
 # See permitted parameters documentation:
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
 #
-permit_params :name, :gw_id, :gw_mac, :gw_address, :gw_port, :login_html
+permit_params :name, :gw_id, :gw_mac, :gw_address, :gw_port, :login_html, :wmac
 #
 # or
 #
@@ -34,6 +34,7 @@ form html: { multipart: true } do |f|
     f.input :gw_address
     f.input :gw_port
     f.input :gw_mac, placeholder: '00:00:00:00:00:00'
+    f.input :wmac, placeholder: '00:00:00:00:00:00'
     f.input :login_html, as: :text, input_html: { class: 'redactor' }, placeholder: '支持图文混排', hint: '支持图文混排'
   end
   actions
