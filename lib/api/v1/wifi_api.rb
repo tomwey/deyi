@@ -23,9 +23,15 @@ module API
         post :open do
           user = authenticate!
           
+          # 如果没有找到热点，直接返回错误提示
+          @ap = AccessPoint.where(gw_mac: params[:gw_mac]).first
+          if @ap.blank?
+            return render_error(20001, "没有找到热点")
+          end
+          
           # 检测当前账号是否正在上网
           if user.wifi_status.online
-            return render_error(20001, "当前账号正在上网，你不能多人同时使用")
+            return render_error(20002, "当前账号正在上网，你不能多人同时使用")
           end
           
           user.wifi_status.online = true
@@ -33,13 +39,7 @@ module API
           
           # 检测是否有足够的网时
           unless user.has_enough_wifi_length?
-            return render_error(20002, "没有足够的上网往时，至少需要#{user.min_allowed_wifi_length}分钟，请充值")
-          end
-          
-          # 如果没有找到热点，直接返回错误提示
-          @ap = AccessPoint.where(gw_mac: params[:gw_mac]).first
-          if @ap.blank?
-            return render_error(20003, "没有找到热点")
+            return render_error(20003, "没有足够的上网往时，至少需要#{user.min_allowed_wifi_length}分钟，请充值")
           end
           
           # 返回给客户端热点的网关注册地址
