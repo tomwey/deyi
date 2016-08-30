@@ -58,7 +58,7 @@ class WifiDog::WifiController < ApplicationController
             
             if incoming == 0 and outgoing == 0
               # 表示用户已经切换wifi了或者已经没有连接到WiFi了导致关掉了我们自己的wifi
-              puts '用户已经切换了wifi或系统关闭了wifi'
+              puts 'counter: 用户已经切换了wifi或系统关闭了wifi'
               connection.close!
             else
               if !connection.closed?
