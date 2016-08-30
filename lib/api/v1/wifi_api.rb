@@ -24,7 +24,8 @@ module API
           user = authenticate!
           
           # 如果没有找到热点，直接返回错误提示
-          @ap = AccessPoint.where(gw_mac: params[:gw_mac]).first
+          gw_mac = '00:f3:d2:09:03:c0'#params[:gw_mac]
+          @ap = AccessPoint.where(gw_mac: gw_mac).first
           if @ap.blank?
             return render_error(20001, "没有找到热点")
           end
