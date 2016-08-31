@@ -36,7 +36,7 @@ index do
   column :uid, sortable: false
   column :nickname, sortable: false
   column :avatar, sortable: false do |u|
-    u.avatar.blank? ? "" : image_tag(u.avatar.url(:small))
+    u.avatar.blank? ? "" : image_tag(u.avatar.url(:normal))
   end
   column :mobile, sortable: false
   column 'Token', sortable: false do |u|
