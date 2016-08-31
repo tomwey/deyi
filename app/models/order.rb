@@ -50,7 +50,7 @@ class Order < ActiveRecord::Base
   
   def send_notification(msg)
     return if user.blank? or user.uid.blank? or msg.blank?
-    PushService.push_to(msg, [user.uid])
+    PushService.push_to(msg, ["#{user.uid}"])
   end
   
   # 生成订单号

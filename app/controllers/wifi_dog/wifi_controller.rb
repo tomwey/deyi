@@ -56,7 +56,7 @@ class WifiDog::WifiController < ApplicationController
           end
           
           # 发送通知给客户端，告知是否连接成功
-          PushService.push_to('', [user.uid], {
+          PushService.push_to('', ["#{user.uid}"], {
             code: code,
             message: msg
           })
@@ -109,7 +109,7 @@ class WifiDog::WifiController < ApplicationController
         # 给客户端发通知，告知用户已经离线了
         if auth == 0 and ( params[:stage] == 'counters' or params[:stage] == 'logout' )
           # 发送推送消息
-          PushService.push_to('得益WIFI网络已经关闭了，请重新连接上网', [user.uid])
+          PushService.push_to('得益WIFI网络已经关闭了，请重新连接上网', ["#{user.uid}"])
         end
         
       end # end has user

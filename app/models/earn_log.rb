@@ -84,7 +84,7 @@ class EarnLog < ActiveRecord::Base
   
   def send_msg
     white_list_types = %(Channel FollowTask ShareTask InviteEarn)
-    PushService.push_to(subtitle, [user.uid]) if white_list_types.include?(self.earnable_type)
+    PushService.push_to(subtitle, ["#{user.uid}"]) if white_list_types.include?(self.earnable_type)
   end
 
   # json presentation
