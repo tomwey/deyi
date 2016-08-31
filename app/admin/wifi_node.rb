@@ -14,5 +14,13 @@ ActiveAdmin.register WifiNode do
 #   permitted
 # end
 
+form do |f|
+  f.inputs do
+    f.input :name, placeholder: '例如：xxxx学校WIFI'
+    f.input :address, placeholder: '例如：成都市双流区梨花路33号'
+  end
+  actions
+end
+
 
 end

@@ -41,7 +41,7 @@
       shipment: '收货地址'
       order: '订单'
       channel: '积分墙渠道'
-      wifi_node: 'WIFI节点'
+      wifi_node: 'WIFI场所'
       ad_task: '商家广告'
       message: '消息'
       common_config: '公共配置'
@@ -49,6 +49,7 @@
       share_task: '分享任务'
       withdraw: '提现记录'
       wifi_charge_plan: 'wifi充值套餐'
+      wifi_log: 'wifi上网历史'
     attributes:
       user:
         mobile: "手机"
@@ -79,12 +80,22 @@
         created_at: '申请时间'
       access_point:
         name: '热点名称'
-        gw_id: '热点ID'
-        gw_mac: '热点MAC'
+        gw_id: '热点网关ID'
+        gw_mac: '热点网关MAC'
         gw_address: '网关地址'
         gw_port: '网关端口'
         login_html: '认证登录页面HTML'
         client_count: '客户端连接数'
+        wmac: '热点路由MAC'
+      wifi_log:
+        user_id: '用户'
+        access_point_id: '网关'
+        used_at: '开始上网时间'
+        expired_at: '结束上网时间'
+        ip: '用户IP'
+        mac: '用户MAC地址'
+        incoming_bytes: '收到的流量'
+        outgoing_bytes: '发出的流量'
       app_version:
         os: '系统'
         version: '版本号'
@@ -273,9 +284,9 @@
         fail_return: '渠道回调失败返回'
         opened: '是否打开'
       wifi_node:
-        name: 'WIFI名字'
-        address: 'WIFI地址'
-        location: 'WIFI位置坐标'
+        name: '场所名字'
+        address: '场所地址'
+        location: '位置坐标'
       ad_task:
         title: '广告标题'
         subtitle: '广告子标题'

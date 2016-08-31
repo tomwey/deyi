@@ -1,6 +1,6 @@
 ActiveAdmin.register AppVersion do
 
-  menu priority: 2, label: 'App版本'
+  menu priority: 100, label: 'App版本'
   
   # t.string :os, null: false # 系统，值为android或ios
   # t.string :version, null: false # 当前版本

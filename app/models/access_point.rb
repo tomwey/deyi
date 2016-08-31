@@ -6,4 +6,8 @@ class AccessPoint < ActiveRecord::Base
   def set_gw_id
     self.gw_id = self.gw_mac.gsub(':', '') unless self.gw_mac.blank?
   end
+  
+  def wifi_node_name
+    wifi_node.try(:name)
+  end
 end
