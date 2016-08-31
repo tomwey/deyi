@@ -24,7 +24,7 @@ class WifiDog::WifiController < ApplicationController
       mac_banned = false
     end
     
-    @ap = AccessPoint.find_by(gw_id: params[:gw_id])
+    @ap = AccessPoint.find_by(gw_id: params[:gw_id].downcase)
     
     # 由网关传递过来
     token = params[:token]
