@@ -307,6 +307,13 @@ module API
       class WifiStatus < Base
         expose :wifi_length, :online, :login_count
         expose :last_login_at, format_with: :chinese_datetime
+        expose :ap_list do |model, opts|
+          if opts.blank? or opts[:opts].blank? or opts[:opts][:ap_list].blank?
+            []
+          else
+            opts[:opts][:ap_list]
+          end
+        end
       end
       
       class WifiChargePlan < Base

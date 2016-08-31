@@ -40,13 +40,27 @@ class WifiDog::WifiController < ApplicationController
         when 'login' # 初次认证登录
           if !user.has_enough_wifi_length?
             puts "没有足够的网时使用外网"
+            code = -1
+            msg = "没有足够的上网时长，请充值"
           elsif mac_banned
             puts "Banned MAC tried logging in at " + Time.now.to_s + " with MAC: " + params[:mac]
+            code = -2
+            msg = "您的设备禁止连接得益WIFI网络"
           else
             auth = 1
             # 记录上网日志
             WifiLog.create!(user_id: user.id, access_point_id: @ap.try(:id), mac: params[:mac], used_at: Time.zone.now)
+            
+            code = 0
+            msg = '得益WIFI网络连接成功，现在可以上网了'
           end
+          
+          # 发送通知给客户端，告知是否连接成功
+          PushService.push_to('', [user.uid], {
+            code: code,
+            message: msg
+          })
+          
         when 'counters' # 已经认证登录过
           connection = user.current_connection
           
@@ -91,6 +105,13 @@ class WifiDog::WifiController < ApplicationController
         else
           puts "Invalid stage: #{params[:stage]}"
         end # end case
+        
+        # 给客户端发通知，告知用户已经离线了
+        if auth == 0 and ( params[:stage] == 'counters' or params[:stage] == 'logout' )
+          # 发送推送消息
+          PushService.push_to('得益WIFI网络已经关闭了，请重新连接上网', [user.uid])
+        end
+        
       end # end has user
       
     end # end has wifi status
@@ -120,8 +141,10 @@ class WifiDog::WifiController < ApplicationController
     
     if auth_result == 'failed'
       puts '连接外网失败'
+      # PushService.push_to('', [], { code: -1, message: '连接失败，或者网络已经关闭' })
     else
       puts '连接外网成功'
+      # PushService.push_to('', [], { code: 0, message: '连接成功，可以使用得益WIFI上网了' })
     end
     
     render status: :ok

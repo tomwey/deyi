@@ -12,7 +12,9 @@ module API
           
           wifi_status = user.wifi_status
           
-          render_json(wifi_status, API::V1::Entities::WifiStatus)
+          @ap_list = AccessPoint.pluck(:wmac)
+          
+          render_json(wifi_status, API::V1::Entities::WifiStatus, { ap_list: @ap_list })
         end # end get info
         
         desc '连接wifi'

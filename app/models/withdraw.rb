@@ -13,6 +13,12 @@ class Withdraw < ActiveRecord::Base
     user.change_balance!(self.bean + self.fee)
     
     # TODO: 发送提醒消息
+    send_notification('系统取消了你的提现申请')
+  end
+  
+  def send_notification(msg)
+    return if user.blank? or user.uid.blank? or msg.blank?
+    PushService.push_to(msg, [user.uid])
   end
   
   def state_info
@@ -28,6 +34,7 @@ class Withdraw < ActiveRecord::Base
     # 提现
     after_transition :pending => :processing do |withdraw, transition|
       # order.send_pay_msg
+      withdraw.send_notification('提现处理中，请耐心等待')
     end
     event :process do
       transition :pending => :processing
@@ -45,6 +52,7 @@ class Withdraw < ActiveRecord::Base
     # 完成提现
     after_transition :processing => :completed do |withdraw, transition|
       # order.send_pay_msg
+      withdraw.send_notification('提现申请已经完成兑付')
     end
     event :complete do
       transition :processing => :completed

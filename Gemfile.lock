@@ -186,6 +186,7 @@ GEM
     jbuilder (2.5.0)
       activesupport (>= 3.0.0, < 5.1)
       multi_json (~> 1.2)
+    jpush (4.0.2)
     jquery-rails (4.1.1)
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
@@ -394,6 +395,7 @@ DEPENDENCIES
   grape-swagger-rails
   hiredis
   jbuilder
+  jpush
   jquery-rails
   jquery-turbolinks
   mini_magick
@@ -426,4 +428,4 @@ DEPENDENCIES
   will_paginate-bootstrap
 
 BUNDLED WITH
-   1.12.4
+   1.12.5

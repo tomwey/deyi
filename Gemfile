@@ -85,6 +85,9 @@ gem 'cancancan'#, '~> 1.10'
 # YAML 配置信息
 gem 'settingslogic'
 
+# 消息推送
+gem 'jpush'
+
 # API
 gem 'grape'
 gem 'grape-entity'

@@ -22,6 +22,7 @@ class Order < ActiveRecord::Base
     # 配送
     after_transition :paid => :shipping do |order, transition|
       # order.send_order_state_msg('订单配送中，请耐心等待:)', '已发货')
+      order.send_notification('商品配送中，请耐心等待')
     end
     event :ship do
       transition :paid => :shipping
@@ -31,6 +32,7 @@ class Order < ActiveRecord::Base
     # 只能系统管理员取消订单
     after_transition [:pending, :paid] => :canceled do |order, transition|
       # order.send_order_state_msg('系统取消了您的订单', '已取消')
+      order.send_notification('系统取消了您的订单')
     end
     event :cancel do
       transition [:pending, :paid] => :canceled
@@ -39,11 +41,17 @@ class Order < ActiveRecord::Base
     # 确认完成订单，系统管理员确认
     after_transition :shipping => :completed do |order, transition|
       # order.send_order_state_msg('您已经完成了本次购物，谢谢惠顾！', '已完成', '欢迎到微信跟我们留言互动，多提意见！我们会加倍努力的哟:)')
+      order.send_notification('您已经完成了本次兑换，请继续使用得益WIFI')
     end
     event :complete do
       transition :shipping => :completed
     end
   end 
+  
+  def send_notification(msg)
+    return if user.blank? or user.uid.blank? or msg.blank?
+    PushService.push_to(msg, [user.uid])
+  end
   
   # 生成订单号
   before_create :generate_order_no

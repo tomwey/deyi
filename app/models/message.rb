@@ -5,7 +5,11 @@ class Message < ActiveRecord::Base
   
   after_create :deliver_msg
   def deliver_msg
-    # TODO: 发送消息
+    # return if user.blank? or user.uid.blank? or content.blank?
+    
+    # 发送通知
+    # white_list_types = %(Channel )
+    # PushService.push_to(content, [user.uid])
   end
   
   def self.unread_for(user)

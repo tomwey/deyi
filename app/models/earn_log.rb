@@ -16,7 +16,8 @@ class EarnLog < ActiveRecord::Base
     Message.create!(title: title, content: subtitle, to: user.id)
     
     # 发送即时推送消息，推送到app主页
-    send_real_msg
+    # send_real_msg
+    send_msg
     
   end
   
@@ -81,8 +82,9 @@ class EarnLog < ActiveRecord::Base
     
   end
   
-  def send_real_msg
-    
+  def send_msg
+    white_list_types = %(Channel FollowTask ShareTask InviteEarn)
+    PushService.push_to(subtitle, [user.uid]) if white_list_types.include?(self.earnable_type)
   end
 
   # json presentation
