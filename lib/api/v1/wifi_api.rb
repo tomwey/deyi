@@ -10,7 +10,7 @@ module API
         get :status do
           user = authenticate!
           
-          wifi_status = user.wifi_status
+          wifi_status = WifiStatus.where(user_id: user.id).first
           
           @ap_list = AccessPoint.pluck(:wmac)
           
