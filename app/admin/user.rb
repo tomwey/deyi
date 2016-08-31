@@ -33,6 +33,7 @@ end
 index do
   selectable_column
   column :id
+  column :uid, sortable: false
   column :nickname, sortable: false
   column :avatar, sortable: false do |u|
     u.avatar.blank? ? "" : image_tag(u.avatar.url(:small))
