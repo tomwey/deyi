@@ -14,7 +14,7 @@ ActiveAdmin.register WifiLog do
 #   permitted
 # end
 
-actions :index
+actions :index, :edit, :update, :destroy
 
 index do
   selectable_column
