@@ -4,7 +4,7 @@ ActiveAdmin.register AccessPoint do
 # See permitted parameters documentation:
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
 #
-permit_params :name, :gw_id, :gw_mac, :gw_address, :gw_port, :login_html, :wmac, :access_point_id
+permit_params :name, :gw_id, :gw_mac, :gw_address, :gw_port, :login_html, :wmac, :wifi_node_id
 #
 # or
 #
