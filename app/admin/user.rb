@@ -1,6 +1,6 @@
 ActiveAdmin.register User do
 
-menu priority: 2, label: '用户'
+menu parent: 'user'
 
 # See permitted parameters documentation:
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
@@ -50,11 +50,11 @@ index do
   
   actions defaults: false do |u|
     if u.verified
-      item "禁用", block_admin_user_path(u), method: :put
+      item "禁用", block_cpanel_user_path(u), method: :put
     else
-      item "启用", unblock_admin_user_path(u), method: :put
+      item "启用", unblock_cpanel_user_path(u), method: :put
     end
-    item " 充值", edit_admin_user_path(u)
+    item " 充值", edit_cpanel_user_path(u)
   end
 end
 
@@ -76,12 +76,12 @@ end
 
 member_action :block, method: :put do
   resource.block!
-  redirect_to admin_users_path, notice: "已禁用"
+  redirect_to collection_path, notice: "已禁用"
 end
 
 member_action :unblock, method: :put do
   resource.unblock!
-  redirect_to admin_users_path, notice: "取消禁用"
+  redirect_to collection_path, notice: "取消禁用"
 end
 
 # member_action :pay_in, label: '充值', method: [:get, :put] do

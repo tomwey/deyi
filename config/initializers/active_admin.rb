@@ -12,6 +12,18 @@ ActiveAdmin.setup do |config|
   # for each of the active admin pages.
   #
   config.site_title = "得益WIFI"
+  
+  config.namespace :cpanel do |admin|
+    admin.build_menu do |menu|
+      menu.add id: 'system', label: '系统相关', priority: 2
+      menu.add id: 'user', label: '用户', priority: 3
+      menu.add id: 'task', label: '任务', priority: 4
+      menu.add id: 'wifi', label: 'WIFI', priority: 5
+      menu.add id: 'shop', label: '益豆商城', priority: 6
+      menu.add id: 'business_auth', label: '商家认证', priority: 7
+      menu.add id: 'earning', label: '收益', priority: 8
+    end
+  end
 
   # Set the link url for the title. For example, to take
   # users to your main site. Defaults to no link.
@@ -44,7 +56,7 @@ ActiveAdmin.setup do |config|
   #   config.default_namespace = false
   #
   # Default:
-  # config.default_namespace = :admin
+  config.default_namespace = :cpanel
   #
   # You can customize the settings for each namespace by using
   # a namespace block. For example, to change the site title

@@ -1,6 +1,6 @@
 ActiveAdmin.register Withdraw do
 
-  menu priority: 20, label: "提现记录"
+  menu parent: 'earning'
   
   actions :index, :show#, :edit, :update
 
@@ -37,15 +37,15 @@ index do
   end
   
   actions defaults: false do |withdraw|
-    item '编辑', edit_admin_withdraw_path(withdraw)
+    item '编辑', edit_cpanel_withdraw_path(withdraw)
     if withdraw.can_cancel?
-      item '取消提现 ', cancel_admin_withdraw_path(withdraw), method: :put
+      item '取消提现 ', cancel_cpanel_withdraw_path(withdraw), method: :put
     end
     if withdraw.can_process?
-      item '处理提现 ', processing_admin_withdraw_path(withdraw), method: :put
+      item '处理提现 ', processing_cpanel_withdraw_path(withdraw), method: :put
     end
     if withdraw.can_complete?
-      item '完成提现 ', complete_admin_withdraw_path(withdraw), method: :put
+      item '完成提现 ', complete_cpanel_withdraw_path(withdraw), method: :put
     end
   end
   
@@ -79,17 +79,17 @@ end
 member_action :cancel, method: :put do
   resource.cancel
   # resource.send_order_state_msg('系统人工取消了您的订单', '已取消')
-  redirect_to admin_withdraws_path, notice: "已取消"
+  redirect_to collection_path, notice: "已取消"
 end
 
 member_action :complete, method: :put do
   resource.complete
-  redirect_to admin_withdraws_path, notice: "已完成"
+  redirect_to collection_path, notice: "已完成"
 end
 
 member_action :processing, method: :put do
   resource.process
-  redirect_to admin_withdraws_path, notice: "处理中"
+  redirect_to collection_path, notice: "处理中"
 end
 
 form do |f|

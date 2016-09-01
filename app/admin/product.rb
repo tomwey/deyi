@@ -1,7 +1,7 @@
 ActiveAdmin.register Product do
 
-  menu priority: 8
-  
+  # menu priority: 8
+  menu parent: 'shop'
   # t.string :title, null: false
   # t.text :body,    null: false
   # t.integer :price, null: false
@@ -33,13 +33,13 @@ index do
   end
 
   actions defaults: false do |product|
-    item "编辑", edit_admin_product_path(product)
+    item "编辑", edit_cpanel_product_path(product)
     if product.on_sale
-      item "下架", unsale_admin_product_path(product), method: :put
+      item "下架", unsale_cpanel_product_path(product), method: :put
     else
-      item "上架", sale_admin_product_path(product), method: :put
+      item "上架", sale_cpanel_product_path(product), method: :put
     end
-    item "删除", hide_admin_product_path(product), method: :put, data: { confirm: '你确定吗？' }
+    item "删除", hide_cpanel_product_path(product), method: :put, data: { confirm: '你确定吗？' }
   end
 
 end

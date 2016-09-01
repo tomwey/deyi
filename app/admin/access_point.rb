@@ -1,6 +1,7 @@
 ActiveAdmin.register AccessPoint do
 
-  menu priority: 20, label: "WIFI热点"
+  # menu priority: 20, label: "WIFI热点"
+  menu parent: 'wifi'
 # See permitted parameters documentation:
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
 #

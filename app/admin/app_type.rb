@@ -1,6 +1,7 @@
 ActiveAdmin.register AppType do
 
-  menu priority: 10
+  # menu priority: 10
+  menu parent: 'task'
   
   permit_params :name, :parent_id, :icon, :sort, :opened
   

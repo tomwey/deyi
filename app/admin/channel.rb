@@ -1,6 +1,8 @@
 ActiveAdmin.register Channel do
 
-menu priority: 12
+  menu parent: 'task'
+
+# menu priority: 12
 
 permit_params :name, :support_os, :title, :subtitle, :sort, :icon, :ios_app_name, :ios_app_id, :ios_app_secret, :ios_other, :android_app_name, :android_app_id, :android_app_secret, :android_other, :user_param, :point_param,
 :app_id_param, :app_name_param, :ip_param, :success_return, :fail_return#, :callback_uri
@@ -32,13 +34,13 @@ index do
   end
   
   actions defaults: false do |channel|
-    item "编辑", edit_admin_channel_path(channel)
+    item "编辑", edit_cpanel_channel_path(channel)
     if channel.opened
-      item "关闭", close_admin_channel_path(channel), method: :put
+      item "关闭", close_cpanel_channel_path(channel), method: :put
     else
-      item "打开", open_admin_channel_path(channel), method: :put
+      item "打开", open_cpanel_channel_path(channel), method: :put
     end
-    item "删除", admin_channel_path(channel), method: :delete, data: { confirm: '你确定吗？' }
+    item "删除", cpanel_channel_path(channel), method: :delete, data: { confirm: '你确定吗？' }
   end
 end
 

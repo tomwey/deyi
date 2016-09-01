@@ -1,6 +1,7 @@
 ActiveAdmin.register Admin do
   
-  menu priority: 100, label: '管理员'
+  # menu priority: 100, label: '管理员'
+  menu parent: 'user'
   
   permit_params :email, :password, :password_confirmation, :role
   

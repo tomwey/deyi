@@ -1,6 +1,6 @@
 ActiveAdmin.register EarnLog do
 
-  menu priority: 9
+  menu parent: 'earning'
   
   actions :index
   

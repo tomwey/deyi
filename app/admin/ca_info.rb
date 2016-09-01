@@ -1,6 +1,7 @@
 ActiveAdmin.register CaInfo do
 
-  menu priority: 4
+  # menu priority: 4
+  menu parent: 'business_auth'
 # See permitted parameters documentation:
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
 #

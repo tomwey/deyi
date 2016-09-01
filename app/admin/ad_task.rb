@@ -1,6 +1,7 @@
 ActiveAdmin.register AdTask do
 
-  menu priority: 13
+  menu parent: 'task'
+  # menu priority: 13
 # See permitted parameters documentation:
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
 #
@@ -33,13 +34,13 @@ index do
   column :updated_at
   
   actions defaults: false do |ad_task|
-    item "编辑", edit_admin_ad_task_path(ad_task)
+    item "编辑", edit_cpanel_ad_task_path(ad_task)
     if ad_task.opened
-      item "关闭", close_admin_ad_task_path(ad_task), method: :put
+      item "关闭", close_cpanel_ad_task_path(ad_task), method: :put
     else
-      item "打开", open_admin_ad_task_path(ad_task), method: :put
+      item "打开", open_cpanel_ad_task_path(ad_task), method: :put
     end
-    item "删除", admin_ad_task_path(ad_task), method: :delete, data: { confirm: '你确定吗？' }
+    item "删除", cpanel_ad_task_path(ad_task), method: :delete, data: { confirm: '你确定吗？' }
   end
   
 end

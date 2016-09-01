@@ -1,6 +1,7 @@
 ActiveAdmin.register Checkin do
 
-  menu priority: 10
+  menu parent: 'task'
+  # menu priority: 10
   
   actions :index
   

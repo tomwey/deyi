@@ -1,5 +1,5 @@
 ActiveAdmin.register Merchant do
-  menu priority: 9
+  menu parent: 'shop'
 
 # See permitted parameters documentation:
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters

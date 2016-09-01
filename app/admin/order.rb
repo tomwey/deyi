@@ -1,6 +1,7 @@
 ActiveAdmin.register Order do
   
-  menu priority: 10
+  # menu priority: 10
+  menu parent: 'shop'
   
   actions :index, :show#, :edit, :update
 
@@ -37,13 +38,13 @@ index do
   actions defaults: false do |order|
     # item '编辑', edit_admin_order_path(order)
     if order.can_cancel?
-      item '取消订单 ', cancel_admin_order_path(order), method: :put
+      item '取消订单 ', cancel_cpanel_order_path(order), method: :put
     end
     if order.can_ship?
-      item '配送订单 ', ship_admin_order_path(order), method: :put
+      item '配送订单 ', ship_cpanel_order_path(order), method: :put
     end
     if order.can_complete?
-      item '完成订单 ', complete_admin_order_path(order), method: :put
+      item '完成订单 ', complete_cpanel_order_path(order), method: :put
     end
   end
   
@@ -53,7 +54,7 @@ end
 batch_action :cancel do |ids|
   batch_action_collection.find(ids).each do |order|
     order.cancel
-    order.send_order_state_msg('系统人工取消了您的订单', '已取消')
+    # order.send_order_state_msg('系统人工取消了您的订单', '已取消')
   end
   redirect_to collection_path, alert: "已经取消"
 end
@@ -76,18 +77,18 @@ end
 
 member_action :cancel, method: :put do
   resource.cancel
-  resource.send_order_state_msg('系统人工取消了您的订单', '已取消')
-  redirect_to admin_orders_path, notice: "已取消"
+  # resource.send_order_state_msg('系统人工取消了您的订单', '已取消')
+  redirect_to collection_path, notice: "已取消"
 end
 
 member_action :ship, method: :put do
   resource.ship
-  redirect_to admin_orders_path, notice: "配送中"
+  redirect_to collection_path, notice: "配送中"
 end
 
 member_action :complete, method: :put do
   resource.complete
-  redirect_to admin_orders_path, notice: "已完成"
+  redirect_to collection_path, notice: "已完成"
 end
 
 show do

@@ -1,6 +1,6 @@
 ActiveAdmin.register Page do
 
-menu priority: 80, label: "文档"
+menu parent: 'system'
 
 # See permitted parameters documentation:
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters

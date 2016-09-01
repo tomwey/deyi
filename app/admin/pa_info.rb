@@ -1,6 +1,7 @@
 ActiveAdmin.register PaInfo do
 
-menu priority: 5
+# menu priority: 5
+menu parent: 'business_auth'
 
 # See permitted parameters documentation:
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
