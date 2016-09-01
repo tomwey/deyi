@@ -9,8 +9,8 @@ permit_params :title, :subtitle, :cover_image, :location_str, :address, :price, 
 
 index do
   selectable_column
-  column('ID',:id) { |ad| link_to ad.id, admin_ad_task_path(ad) }
-  column(:title, sortable: false) { |ad| link_to ad.title, admin_ad_task_path(ad) }
+  column('ID',:id) { |ad| link_to ad.id, cpanel_ad_task_path(ad) }
+  column(:title, sortable: false) { |ad| link_to ad.title, cpanel_ad_task_path(ad) }
   column :cover_image, sortable: false do |ad|
     if ad.cover_image.blank?
       ''

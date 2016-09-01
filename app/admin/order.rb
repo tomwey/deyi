@@ -15,8 +15,8 @@ permit_params :note, :quantity, :total_fee
 
 index do
   selectable_column
-  column('ID', :id) { |order| link_to order.id, admin_order_path(order) }
-  column(:order_no, sortable: false) { |order| link_to order.order_no, admin_order_path(order) }
+  column('ID', :id) { |order| link_to order.id, cpanel_order_path(order) }
+  column(:order_no, sortable: false) { |order| link_to order.order_no, cpanel_order_path(order) }
   column :total_fee
   column :quantity
   column '收货信息', sortable: false do |order|

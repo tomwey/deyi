@@ -19,7 +19,7 @@ permit_params :icon, :gzh_name, :gzh_id, :gzh_intro, :earn, :task_tip, :opened, 
 
 index do
   selectable_column
-  column('ID',:id) { |task| link_to task.id, admin_follow_task_path(task) }
+  column('ID',:id) { |task| link_to task.id, cpanel_follow_task_path(task) }
   column :icon, sortable: false do |task|
     image_tag task.icon.url(:large), size: '32x32'
   end

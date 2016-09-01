@@ -9,7 +9,7 @@ permit_params :icon, :title, :earn, :first_open_earn, :quantity, :link, :share_c
 
 index do
   selectable_column
-  column('ID',:id) { |task| link_to task.id, admin_share_task_path(task) }
+  column('ID',:id) { |task| link_to task.id, cpanel_share_task_path(task) }
   column :icon, sortable: false do |task|
     image_tag task.icon.url(:large), size: '32x32'
   end

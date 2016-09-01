@@ -14,7 +14,7 @@ ActiveAdmin.register Withdraw do
 
 index do
   selectable_column
-  column('ID', :id) { |withdraw| link_to withdraw.id, admin_withdraw_path(withdraw) }
+  column('ID', :id) { |withdraw| link_to withdraw.id, cpanel_withdraw_path(withdraw) }
   column '提现类型', sortable: false do |withdraw|
     if withdraw.account_type == 1
       "微信提现"

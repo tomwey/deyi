@@ -16,7 +16,7 @@ permit_params :image, :link, :sort, :category_id
 
 index do
   selectable_column
-  column('#', id) { |banner| link_to banner.id, admin_banner_path(banner) }
+  column('#', id) { |banner| link_to banner.id, cpanel_banner_path(banner) }
   column '广告图片', sortable: false do |banner|
     image_tag banner.image.url(:small)
   end

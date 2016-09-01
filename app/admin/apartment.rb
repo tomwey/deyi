@@ -37,8 +37,8 @@ permit_params :name, :model, :area, :rental, :room_type, :sex_limit, :title, :bo
 
 index do
   selectable_column
-  column('ID',:id) { |apartment| link_to apartment.id, admin_apartment_path(apartment) }
-  column(:name, sortable: false) { |apartment| link_to apartment.name, admin_apartment_path(apartment) }
+  column('ID',:id) { |apartment| link_to apartment.id, cpanel_apartment_path(apartment) }
+  column(:name, sortable: false) { |apartment| link_to apartment.name, cpanel_apartment_path(apartment) }
   column :images, sortable: false do |apartment|
     html = ''
     apartment.images.each do |img|

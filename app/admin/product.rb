@@ -18,8 +18,8 @@ ActiveAdmin.register Product do
 
 index do
   selectable_column
-  column('ID',:id) { |product| link_to product.id, admin_product_path(product) }
-  column(:sku, sortable: false) { |product| link_to product.sku, admin_product_path(product) }
+  column('ID',:id) { |product| link_to product.id, cpanel_product_path(product) }
+  column(:sku, sortable: false) { |product| link_to product.sku, cpanel_product_path(product) }
   column :image, sortable: false do |product|
     image_tag product.image.url(:small)
   end
