@@ -23,7 +23,16 @@ class WifiStatus < ActiveRecord::Base
   end
   
   def wifi_mac
-    user.current_connection.try(:mac) || ''
+    if user.current_connection.blank?
+      ''
+    else
+      access_point = user.current_connection.access_point
+      if access_point.blank?
+        ''
+      else
+        access_point.wmac || ''
+      end
+    end
   end
   
 end
