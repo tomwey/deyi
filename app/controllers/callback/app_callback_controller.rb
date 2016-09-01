@@ -139,7 +139,7 @@ class Callback::AppCallbackController < ApplicationController
     # 用户可赚取的积分
     points = params[:point]
     
-    str = "hashid=#{params[:hashid]}&appid=#{params[:appid]}&adid=#{params[:adid]}&adname=#{params[:adname]}&userid=#{params[:userid]}&deviceid=#{params[:deviceid]}&source=#{params[:source]}&point=#{params[:point]}&time=#{params[:time]}&appsecret=#{SiteConfig.dianru_dev_secret}"
+    str = "?hashid=#{params[:hashid]}&appid=#{params[:appid]}&adid=#{params[:adid]}&adname=#{params[:adname]}&userid=#{params[:userid]}&mac=#{params[:mac]}&deviceid=#{params[:deviceid]}&source=#{params[:source]}&point=#{params[:point]}&time=#{params[:time]}&appsecret=#{SiteConfig.dianru_dev_secret}"
     signature = Digest::MD5.hexdigest(str)
     
     # 参数签名结果
@@ -155,16 +155,16 @@ class Callback::AppCallbackController < ApplicationController
         end
         if ChannelCallbackLog.create(chn_id: app, order_id: order, uid: user_id, ad_name: ad, earn: points, callback_params: cb_params, result: 'ok')
           $redis.del(key)
-          render json: {message:"成功", success:"true"}
+          render json: { message:"成功", success: true }
         else
           $redis.del(key)
-          render json: {message:"失败", success:"false"}
+          render json: { message:"失败", success: false }
         end
       end
     else
       # 校验失败
       $redis.del(key)
-      render json: {message:"校验失败", success:"false"}
+      render json: { message:"校验失败", success: false }
     end
     
     # $redis.del(key)
