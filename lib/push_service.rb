@@ -6,7 +6,7 @@ class PushService
   end
   
   def self.push(msg = '', receipts = [], extras_data = {})
-    client = JPush::Client.new(SiteConfig.jpush_app_key || 'b4cbb017e38855f14f42e6ab', SiteConfig.jpush_master_secret || 'cc3af1a0693e2dc179fffe8b')
+    client = JPush::Client.new(SiteConfig.jpush_app_key, SiteConfig.jpush_master_secret)
     
     logger = Logger.new(STDOUT)
     
