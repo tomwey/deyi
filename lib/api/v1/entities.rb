@@ -305,8 +305,10 @@ module API
       
       # 上网的状态
       class WifiStatus < Base
-        expose :wifi_length, :online, :login_count
+        expose :wifi_length, :login_count
         expose :last_login_at, format_with: :chinese_datetime
+        expose :wifi_online
+        expose :wifi_mac, as: :mac
         expose :ap_list do |model, opts|
           if opts.blank? or opts[:opts].blank? or opts[:opts][:ap_list].blank?
             []

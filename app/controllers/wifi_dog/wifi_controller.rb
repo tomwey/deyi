@@ -86,10 +86,10 @@ class WifiDog::WifiController < ApplicationController
         
                 connection.ip = params[:ip]
                 
-                if connection.incoming_bytes < params[:incoming]
+                if connection.incoming_bytes.to_i < params[:incoming].to_i
                   connection.incoming_bytes = params[:incoming]
                 end
-                if connection.outgoing_bytes < params[:outgoing]
+                if connection.outgoing_bytes.to_i < params[:outgoing].to_i
                   connection.outgoing_bytes = params[:outgoing]
                 end
                 connection.save!

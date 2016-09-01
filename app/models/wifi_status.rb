@@ -18,6 +18,14 @@ class WifiStatus < ActiveRecord::Base
     end
   end
   
+  def wifi_online
+    user.has_connected_wifi?
+  end
+  
+  def wifi_mac
+    user.current_connection.try(:mac) || ''
+  end
+  
 end
 
 # t.references :user, index: true, foreign_key: true
