@@ -37,7 +37,7 @@ index do
   end
   
   actions defaults: false do |withdraw|
-    item '编辑', edit_cpanel_withdraw_path(withdraw)
+    # item '编辑', edit_cpanel_withdraw_path(withdraw)
     if withdraw.can_cancel?
       item '取消提现 ', cancel_cpanel_withdraw_path(withdraw), method: :put
     end

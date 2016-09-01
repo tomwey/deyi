@@ -49,8 +49,8 @@
       follow_task: '关注任务'
       share_task: '分享任务'
       withdraw: '提现记录'
-      wifi_charge_plan: 'wifi充值套餐'
-      wifi_log: 'wifi上网历史'
+      wifi_charge_plan: 'WIFI充值套餐'
+      wifi_log: 'WIFI上网历史'
       wifi_status: 'WIFI上网信息'
     attributes:
       user:
