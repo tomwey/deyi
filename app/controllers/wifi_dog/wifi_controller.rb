@@ -67,35 +67,39 @@ class WifiDog::WifiController < ApplicationController
           if connection.blank?
             puts "counters: 用户的当前外网连接为空"
           else
-            incoming = params[:incoming].to_i
-            outgoing = params[:outgoing].to_i
+            # incoming = params[:incoming].to_i
+            # outgoing = params[:outgoing].to_i
             
-            if incoming == 0 and outgoing == 0
-              # 表示用户已经切换wifi了或者已经没有连接到WiFi了导致关掉了我们自己的wifi
-              puts 'counter: 用户已经切换了wifi或系统关闭了wifi'
-              connection.close!
-            else
-              if !connection.closed?
-                puts "counter: 当前用户没有关闭wifi"
-                if !mac_banned and user.has_enough_wifi_length?
-                  auth = 1
-                  # 更新当前连接的上网状态信息
-                  # if connection.used_at.blank?
-                  #   connection.used_at = Time.zone.now
-                  # end
-          
-                  connection.ip = params[:ip]
+            # if incoming == 0 and outgoing == 0
+            #   # 表示用户已经切换wifi了或者已经没有连接到WiFi了导致关掉了我们自己的wifi
+            #   puts 'counter: 用户已经切换了wifi或系统关闭了wifi'
+            #   connection.close!
+            # else
+            if !connection.closed?
+              puts "counter: 当前用户没有关闭wifi"
+              if !mac_banned and user.has_enough_wifi_length?
+                auth = 1
+                # 更新当前连接的上网状态信息
+                # if connection.used_at.blank?
+                #   connection.used_at = Time.zone.now
+                # end
+        
+                connection.ip = params[:ip]
+                
+                if connection.incoming_bytes < params[:incoming]
                   connection.incoming_bytes = params[:incoming]
+                end
+                if connection.outgoing_bytes < params[:outgoing]
                   connection.outgoing_bytes = params[:outgoing]
-          
-                  connection.save!
-          
-                else
-                  puts "counter: 用户的MAC被禁用或者用户没有足够上网时间，关闭连接"
-                  connection.close!
-                end # end mac check and wifi length check
-              end # end connection close
-            end # end user traffic check
+                end
+                connection.save!
+        
+              else
+                puts "counter: 用户的MAC被禁用或者用户没有足够上网时间，关闭连接"
+                connection.close!
+              end # end mac check and wifi length check
+            end # end connection close
+            # end # end user traffic check
           end # end connection blank check
         
         when 'logout'
