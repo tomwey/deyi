@@ -51,6 +51,8 @@ class WifiDog::WifiController < ApplicationController
             # 记录上网日志
             WifiLog.create!(user_id: user.id, access_point_id: @ap.try(:id), mac: params[:mac], used_at: Time.zone.now)
             
+            user.connect_wifi!
+            
             code = 0
             msg = '得益WIFI网络连接成功，现在可以上网了'
           end
