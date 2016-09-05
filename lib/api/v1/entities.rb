@@ -41,7 +41,7 @@ module API
         expose :uid, format_with: :null
         expose :mobile, format_with: :null
         expose :nickname do |model, opts|
-          model.nickname || model.mobile
+          model.nickname || model.hack_mobile
         end
         expose :avatar do |model, opts|
           model.avatar.blank? ? "" : model.avatar_url(:large)
