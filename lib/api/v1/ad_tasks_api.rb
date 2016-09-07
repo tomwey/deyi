@@ -14,7 +14,7 @@ module API
         get :list do
           @tasks = AdTask.opened.no_expired.sorted.recent
           if params[:loc]
-            lng,lat = loc.split(',')
+            lng,lat = params[:loc].split(',')
             @tasks = @tasks.list_with_location(lng, lat)
           end
           
