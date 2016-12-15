@@ -3,7 +3,7 @@ class Product < ActiveRecord::Base
   validates_numericality_of :price, greater_than_or_equal_to: 0
   validates_uniqueness_of :sku
   
-  belongs_to :merchant
+  # belongs_to :merchant
   
   mount_uploader :image, ImageUploader
   
@@ -28,14 +28,14 @@ class Product < ActiveRecord::Base
     Setting.upload_url + "/item/#{self.sku}"
   end
   
-  def self.preferred_merchants
-    merchants = []
-    merchants << ['系统平台', nil]
-    Merchant.all.each do |m|
-      merchants << [m.name, m.id]
-    end
-    merchants
-  end
+  # def self.preferred_merchants
+  #   merchants = []
+  #   merchants << ['系统平台', nil]
+  #   Merchant.all.each do |m|
+  #     merchants << [m.name, m.id]
+  #   end
+  #   merchants
+  # end
   
   def sale!
     self.on_sale = true
