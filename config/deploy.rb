@@ -1,10 +1,10 @@
 # config valid only for Capistrano 3.1
-lock '3.5.0'
+lock '3.7.0'
 
 set :application, 'deyi'
 set :deploy_user, "deployer"
 
-set :scm, :git
+# set :scm, :git
 set :repo_url, "git@github.com:tomwey/#{fetch(:application)}.git"
 
 set :sidekiq_config, -> { File.join(shared_path, 'config', 'sidekiq.yml') }
