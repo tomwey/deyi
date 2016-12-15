@@ -14,7 +14,7 @@ ActiveAdmin.register Product do
   # t.integer :stock, default: 1000 # 库存
   # t.boolean :is_virtual_goods, default: false
   
-  permit_params :title, :body, :image, :sort, :price, :stock#, :is_virtual_goods, :merchant_id
+  permit_params :title, :body, :image, :sort, :price, :stock, { node_ids: [] }#, :is_virtual_goods, :merchant_id,
 
 index do
   selectable_column
@@ -94,6 +94,7 @@ form html: { multipart: true } do |f|
   f.semantic_errors
   
   f.inputs '商品信息' do
+    f.input :node_ids, as: :check_boxes, collection: Node.all.map { |node| [node.name, node.id] }, required: true
     f.input :image, as: :file, hint: '图片格式为：jpg, jpeg, png, gif；尺寸为：750x512'
     f.input :title
     f.input :price, placeholder: '例如：100', hint: '值为大于0的整数'

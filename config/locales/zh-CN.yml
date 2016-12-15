@@ -37,7 +37,8 @@
       earn_log: '收益明细'
       app_type: 'APP类型'
       app_version: 'App版本'
-      product: '商城商品'
+      product: '产品'
+      node: '产品类别'
       merchant: '供应商'
       shipment: '收货地址'
       order: '订单'
@@ -251,6 +252,10 @@
         orders_count: '订单数'
         visit_count: '浏览数'
         merchant_id: '所属供应商'
+        node_ids: '所属类别'
+      node:
+        name: '类别名称'
+        sort: '显示顺序'
       merchant:
         name: '名称'
         mobile: '联系电话'

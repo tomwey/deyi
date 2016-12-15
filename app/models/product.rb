@@ -3,6 +3,7 @@ class Product < ActiveRecord::Base
   validates_numericality_of :price, greater_than_or_equal_to: 0
   validates_uniqueness_of :sku
   
+  has_and_belongs_to_many :nodes
   # belongs_to :merchant
   
   mount_uploader :image, ImageUploader
