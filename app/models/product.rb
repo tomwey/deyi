@@ -3,6 +3,8 @@ class Product < ActiveRecord::Base
   validates_numericality_of :price, greater_than_or_equal_to: 0
   validates_uniqueness_of :sku
   
+  validate :require_at_least_one_node
+  
   has_and_belongs_to_many :nodes
   # belongs_to :merchant
   
@@ -13,6 +15,12 @@ class Product < ActiveRecord::Base
   scope :sorted,  -> { order('sort desc') }
   scope :hot,     -> { order('orders_count desc, visit_count desc') }
   scope :recent,  -> { order('id desc') }
+  
+  def require_at_least_one_node
+    if nodes.count == 0
+      errors.add(:node_ids,"至少需要选择一个类别")
+    end
+  end
   
   before_create :generate_sku
   def generate_sku
