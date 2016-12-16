@@ -39,6 +39,7 @@
       app_version: 'App版本'
       product: '产品'
       node: '产品类别'
+      stock: '产品库存'
       merchant: '供应商'
       shipment: '收货地址'
       order: '订单'
@@ -245,7 +246,7 @@
         image: '商品图片'
         price: '价格'
         sku: '商品编号'
-        stock: '库存'
+        stocks_count: '库存'
         sort: '显示顺序'
         is_virtual_goods: '是否虚拟商品'
         on_sale: '是否上架'
@@ -256,6 +257,11 @@
       node:
         name: '类别名称'
         sort: '显示顺序'
+      stock:
+        name: '产品库存名'
+        outgoing: '是否出库'
+        product_id: '所属产品'
+        product: '所属产品'
       merchant:
         name: '名称'
         mobile: '联系电话'

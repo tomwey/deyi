@@ -6,6 +6,7 @@ class Product < ActiveRecord::Base
   validate :require_at_least_one_node
   
   has_and_belongs_to_many :nodes
+  has_many :stocks
   # belongs_to :merchant
   
   mount_uploader :image, ImageUploader
@@ -31,6 +32,16 @@ class Product < ActiveRecord::Base
   
   def add_visit
     self.class.increment_counter(:visit_count, self.id)
+  end
+  
+  def change_stocks_count(num)
+    count = self.stocks_count += num
+
+    if count >= 0
+      # self.stocks_count = count
+      # self.save!
+      self.update_attribute(:stocks_count, count)
+    end
   end
   
   def detail_url

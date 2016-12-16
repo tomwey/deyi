@@ -44,36 +44,6 @@ ActiveAdmin.register_page "Dashboard" do
       end # end 
     end
     
-    # 最新上网情况
-    columns do
-      column do
-        panel "最新WIFI上网记录" do
-          table_for WifiLog.order('id desc').limit(20) do
-            column 'ID', :id
-            column '用户', sortable: false do |log|
-              log.user.try(:nickname) || log.user.try(:mobile)
-            end
-            column '所属WIFI热点', sortable: false do |log|
-              "【#{log.access_point.try(:wifi_node_name)}】#{log.access_point.try(:name)}"
-            end
-            column :used_at#, sortable: false
-            column :expired_at#, sortable: false
-            column '上网时长' do |log|
-              if log.expired_at.blank?
-                '--'
-              else
-                ((log.expired_at - log.used_at).to_i / 60).to_s
-              end
-            end
-            column :ip, sortable: false
-            column :mac, sortable: false
-            column :incoming_bytes#, sortable: false
-            column :outgoing_bytes
-          end
-        end
-      end # end 
-    end
-    
     # 最新用户
     columns do
       column do

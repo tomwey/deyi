@@ -69,7 +69,8 @@ module API
       
       # 商品
       class Product < Base
-        expose :title, :body, :price, :stock, :sku, :is_virtual_goods, :orders_count, :visit_count
+        expose :title, :body, :price, :sku, :is_virtual_goods, :orders_count, :visit_count
+        expose :stocks_count, as: :stock
         expose :image do |model, opts|
           if model.image.blank?
             ""

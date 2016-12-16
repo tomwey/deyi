@@ -14,7 +14,7 @@ ActiveAdmin.register Product do
   # t.integer :stock, default: 1000 # 库存
   # t.boolean :is_virtual_goods, default: false
   
-  permit_params :title, :body, :image, :sort, :price, :stock, { node_ids: [] }#, :is_virtual_goods, :merchant_id,
+  permit_params :title, :body, :image, :sort, :price, :stocks_count, { node_ids: [] }#, :is_virtual_goods, :merchant_id,
 
 index do
   selectable_column
@@ -26,7 +26,7 @@ index do
   column :title, sortable: false
   column :price
   column :orders_count
-  column :stock
+  column :stocks_count
   # column :is_virtual_goods, sortable: false
   # column '供应商', sortable: false do |product|
   #   product.merchant.try(:name) || '系统'
@@ -99,7 +99,7 @@ form html: { multipart: true } do |f|
     f.input :title
     f.input :price, placeholder: '例如：100', hint: '值为大于0的整数'
     f.input :body, as: :text, input_html: { class: 'redactor' }, placeholder: '商品详情，支持图文混排', hint: '商品详情，支持图文混排'
-    f.input :stock, hint: '库存，值为整数'
+    f.input :stocks_count, hint: '库存，值为整数'
     # f.input :merchant_id, as: :select, collection: Product.preferred_merchants, hint: '选择所属供应商，如果不选择，表示供应商为我们系统平台自己', prompt: '-- 选择供应商 --'
     # f.input :is_virtual_goods, hint: '该商品是否是虚拟商品'
     f.input :sort, hint: '值越大，显示越靠前'
