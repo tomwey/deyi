@@ -17,6 +17,7 @@ permit_params :name, :product_id, :outgoing
 
 index do
   selectable_column
+  column 'ID', :id
   column :name, sortable: false
   column '所属产品' do |stock|
     stock.product.try(:title)

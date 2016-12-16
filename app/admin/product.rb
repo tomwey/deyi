@@ -14,7 +14,7 @@ ActiveAdmin.register Product do
   # t.integer :stock, default: 1000 # 库存
   # t.boolean :is_virtual_goods, default: false
   
-  permit_params :title, :body, :image, :sort, :price, :stocks_count, { node_ids: [] }#, :is_virtual_goods, :merchant_id,
+  permit_params :title, :body, :image, :sort, :price, :stocks_count, :product_mode_id, { node_ids: [] }#, :is_virtual_goods, :merchant_id,
 
 index do
   selectable_column
@@ -94,10 +94,11 @@ form html: { multipart: true } do |f|
   f.semantic_errors
   
   f.inputs '商品信息' do
-    f.input :node_ids, as: :check_boxes, collection: Node.all.map { |node| [node.name, node.id] }, required: true
     f.input :image, as: :file, hint: '图片格式为：jpg, jpeg, png, gif；尺寸为：750x512'
     f.input :title
     f.input :price, placeholder: '例如：100', hint: '值为大于0的整数'
+    f.input :node_ids, as: :check_boxes, collection: Node.all.map { |node| [node.name, node.id] }, required: true
+    f.input :product_mode_id, as: :select, collection: ProductMode.all.map { |mode| [mode.name, mode.id] }, required: true, prompt: '-- 选择产品模式 --'
     f.input :body, as: :text, input_html: { class: 'redactor' }, placeholder: '商品详情，支持图文混排', hint: '商品详情，支持图文混排'
     f.input :stocks_count, hint: '库存，值为整数'
     # f.input :merchant_id, as: :select, collection: Product.preferred_merchants, hint: '选择所属供应商，如果不选择，表示供应商为我们系统平台自己', prompt: '-- 选择供应商 --'

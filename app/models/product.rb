@@ -1,5 +1,5 @@
 class Product < ActiveRecord::Base
-  validates :title, :body, :image, :price, presence: true
+  validates :title, :body, :image, :price, :product_mode_id, presence: true
   validates_numericality_of :price, greater_than_or_equal_to: 0
   validates_uniqueness_of :sku
   
@@ -7,6 +7,7 @@ class Product < ActiveRecord::Base
   
   has_and_belongs_to_many :nodes
   has_many :stocks
+  belongs_to :product_mode
   # belongs_to :merchant
   
   mount_uploader :image, ImageUploader

@@ -26,13 +26,10 @@
       banner: "广告"
       site_config: "站点配置"
       feedback: "意见反馈"
-      apartment: "租房"
       search: '搜索记录'
       page: '文档'
       payout: '提现'
       pay_history: '交易明细'
-      pa_info: '个人认证'
-      ca_info: '企业认证'
       checkin: '签到'
       earn_log: '收益明细'
       app_type: 'APP类型'
@@ -40,20 +37,17 @@
       product: '产品'
       node: '产品类别'
       stock: '产品库存'
+      product_mode: '产品模式'
       merchant: '供应商'
       shipment: '收货地址'
       order: '订单'
       channel: '积分墙渠道'
-      wifi_node: 'WIFI场所'
       ad_task: '商家广告'
       message: '消息'
       common_config: '公共配置'
       follow_task: '关注任务'
       share_task: '分享任务'
       withdraw: '提现记录'
-      wifi_charge_plan: 'WIFI充值套餐'
-      wifi_log: 'WIFI上网历史'
-      wifi_status: 'WIFI上网信息'
     attributes:
       user:
         mobile: "手机"
@@ -69,15 +63,6 @@
         mac_addr: "MAC地址"
         wifi_length: "WIFI上网时长"
         nb_code: "邀请码"
-      wifi_charge_plan:
-        cid: '套餐ID'
-        hour: '充值时长（单位小时）'
-        cost: '需要益豆'
-      wifi_status:
-        token: '上网Token'
-        wifi_length: '可用上网时间（分钟）'
-        login_count: '上网次数'
-        last_login_at: '最后上网时间'
       withdraw:
         bean: '提现益豆'
         fee: '手续费（益豆）'
@@ -87,24 +72,6 @@
         account_num: '账号'
         account_type: '提现类型'
         created_at: '申请时间'
-      access_point:
-        name: '热点名称'
-        gw_id: '热点网关ID'
-        gw_mac: '热点网关MAC'
-        gw_address: '网关地址'
-        gw_port: '网关端口'
-        login_html: '认证登录页面HTML'
-        client_count: '客户端连接数'
-        wmac: '热点路由MAC'
-      wifi_log:
-        user_id: '用户'
-        access_point_id: '网关'
-        used_at: '开始上网时间'
-        expired_at: '结束上网时间'
-        ip: '用户IP'
-        mac: '用户MAC地址'
-        incoming_bytes: '收到的流量'
-        outgoing_bytes: '发出的流量'
       app_version:
         os: '系统'
         version: '版本号'
@@ -153,23 +120,6 @@
         to: '用户'
         read_at: '已读时间'
         created_at: '创建时间'
-      pa_info:
-        name: '姓名'
-        mobile: '手机'
-        sex: '性别'
-        card_no: '身份证号'
-        card_image: '身份证正面'
-        card_inverse_image: '身份证背面'
-        user_id: '所有者'
-      ca_info:
-        comp_name: '公司名称'
-        comp_address: '公司地址'
-        name: '联系人'
-        mobile: '联系电话'
-        email: '邮箱'
-        business_license_no: '营业执照号'
-        business_license_image: '营业执照正本图片'
-        user_id: '所有者'
       site_config:
         key: "配置名称"
         value: "配置值"
@@ -254,9 +204,14 @@
         visit_count: '浏览数'
         merchant_id: '所属供应商'
         node_ids: '所属类别'
+        product_mode_id: '产品模式'
       node:
         name: '类别名称'
         sort: '显示顺序'
+      product_mode:
+        name: '模式名'
+        sort: '显示顺序'
+        need_user_input: '是否需要用户输入信息'
       stock:
         name: '产品库存名'
         outgoing: '是否出库'
@@ -301,10 +256,6 @@
         success_return: '渠道回调成功返回'
         fail_return: '渠道回调失败返回'
         opened: '是否打开'
-      wifi_node:
-        name: '场所名字'
-        address: '场所地址'
-        location: '位置坐标'
       ad_task:
         title: '广告标题'
         subtitle: '广告子标题'
