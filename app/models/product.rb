@@ -8,6 +8,9 @@ class Product < ActiveRecord::Base
   has_and_belongs_to_many :nodes
   has_many :stocks
   belongs_to :product_mode
+  
+  has_one :user_input_config
+  accepts_nested_attributes_for :user_input_config, allow_destroy: true#, reject_if: lambda { |c| c.input_label.blank? }
   # belongs_to :merchant
   
   mount_uploader :image, ImageUploader

@@ -21,6 +21,20 @@ $(document).ready ->
       $('.ad-link').hide()
       $('.ad-contents').show()
   
+  $('#product_product_mode_id_input').change ->
+    val = $('#product_product_mode_id_input option:selected').val()
+    remove_ele = $('input[name="product[user_input_config_attributes][_destroy]"]')
+    _remove = remove_ele.val()
+    if val == '' or val == '2'
+      remove_ele.val('1')
+      # alert($('#product_user_input_config_attributes__destroy'))
+      $('#user-input-config').hide()
+      
+      # $('#product_user_input_config_attributes__destroy').val('0')
+    else
+      $('#user-input-config').show()
+      remove_ele.val(_remove)
+  
   $('#channel_support_os').change ->
     val = $('#channel_support_os option:selected').text()
     if val == '1'

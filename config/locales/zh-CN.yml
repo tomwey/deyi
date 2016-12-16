@@ -38,6 +38,7 @@
       node: '产品类别'
       stock: '产品库存'
       product_mode: '产品模式'
+      user_input_config: '产品模式配置'
       merchant: '供应商'
       shipment: '收货地址'
       order: '订单'
@@ -212,6 +213,9 @@
         name: '模式名'
         sort: '显示顺序'
         need_user_input: '是否需要用户输入信息'
+      user_input_config:
+        input_label: '配置标题'
+        input_placeholder: '输入文本提示'
       stock:
         name: '产品库存名'
         outgoing: '是否出库'
