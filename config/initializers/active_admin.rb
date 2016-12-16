@@ -18,9 +18,7 @@ ActiveAdmin.setup do |config|
       menu.add id: 'system', label: '系统相关', priority: 2
       menu.add id: 'user', label: '用户', priority: 3
       menu.add id: 'task', label: '任务', priority: 4
-      menu.add id: 'wifi', label: 'WIFI', priority: 5
       menu.add id: 'shop', label: '益豆商城', priority: 6
-      menu.add id: 'business_auth', label: '商家认证', priority: 7
       menu.add id: 'earning', label: '收益', priority: 8
     end
   end
