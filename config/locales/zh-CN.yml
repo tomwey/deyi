@@ -50,6 +50,7 @@
       share_task: '分享任务'
       withdraw: '提现记录'
       app: '应用'
+      studio: '工作室'
     attributes:
       user:
         mobile: "手机"
@@ -230,6 +231,15 @@
         devices: '设备平台'
         rank: '应用商店排名'
         app_price: '应用价格'
+      studio:
+        name: '工作室名称'
+        intro: '工作室介绍'
+        address: '工作室地址'
+        contact_name: '联系人'
+        contact_number: '联系电话'
+        studio_id: '工作室ID'
+        balance: '余额'
+        earnings: '总收益'
       stock:
         name: '产品库存名'
         outgoing: '是否出库'
