@@ -49,6 +49,7 @@
       follow_task: '关注任务'
       share_task: '分享任务'
       withdraw: '提现记录'
+      app: '应用'
     attributes:
       user:
         mobile: "手机"
@@ -216,6 +217,19 @@
       user_input_config:
         input_label: '配置标题'
         input_placeholder: '输入文本提示'
+      app:
+        name: '应用名'
+        icon: '应用ICON'
+        app_size: '应用大小'
+        appstore_url: '商店地址'
+        app_id: '应用ID'
+        bundle_id: 'Bundle ID'
+        url_scheme: 'URL Scheme'
+        version: '应用版本号'
+        os: '系统平台'
+        devices: '设备平台'
+        rank: '应用商店排名'
+        app_price: '应用价格'
       stock:
         name: '产品库存名'
         outgoing: '是否出库'

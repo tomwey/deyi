@@ -17,7 +17,8 @@ ActiveAdmin.setup do |config|
     admin.build_menu do |menu|
       menu.add id: 'system', label: '系统相关', priority: 2
       menu.add id: 'user', label: '用户', priority: 3
-      menu.add id: 'task', label: '任务', priority: 4
+      menu.add id: 'deyi', label: '得益', priority: 4
+      menu.add id: 'task', label: '任务', priority: 5
       menu.add id: 'shop', label: '益豆商城', priority: 6
       menu.add id: 'earning', label: '收益', priority: 8
     end
