@@ -8,7 +8,7 @@ module API
         desc '获取任务列表'
         params do
           optional :st, type: Integer, desc: '获取任务的类型，值为0或1，0表示真实用户任务，1表示工作室任务，默认为0'
-          requires :uid, type: String, desc: '用户ID或者工作室ID'
+          optional :uid, type: String, desc: '用户ID或者工作室ID'
         end
         get :home do
           
@@ -29,7 +29,22 @@ module API
             after_tasks = []
           end
           
-          { code: 0, message: 'ok', data: { current: current_tasks, after: after_tasks, completed: [] } }
+          if params[:uid]
+            if st == 0
+              u = User.find_by(uid: params[:uid])
+            else
+              u = Studio.find_by(studio_id: params[:uid])
+            end
+            if u.blank?
+              completed_tasks = []
+            else
+              # TODO
+            end
+          else
+            completed_tasks = []
+          end
+          
+          { code: 0, message: 'ok', data: { current: current_tasks, after: after_tasks, completed: completed_tasks } }
         end # end get home
         
         desc "抢任务"
