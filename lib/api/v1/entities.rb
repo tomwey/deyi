@@ -59,6 +59,14 @@ module API
         expose :private_token, as: :token, format_with: :null
       end
       
+      class Studio < Base
+        expose :studio_id, as: :id
+        expose :name
+        expose :contact_name
+        expose :balance
+        expose :earnings, as: :earn
+      end
+      
       # 供应商
       class Merchant < Base
         expose :name
