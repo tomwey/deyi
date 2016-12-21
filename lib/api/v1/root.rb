@@ -39,6 +39,7 @@ module API
       mount API::V1::AppVersionsAPI
       mount API::V1::WithdrawsAPI
       mount API::V1::StudiosAPI
+      mount API::V1::AppTasksAPI
       # mount API::V1::WifiAPI
       
       # 

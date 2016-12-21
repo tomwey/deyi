@@ -113,6 +113,47 @@ module API
         expose :created_at, as: :time, format_with: :chinese_datetime
       end
       
+      
+      class AppTask < Base
+        expose :task_id, as: :id
+        expose :icon do |model, opts|
+          model.app.icon ? model.app.icon.url(:big) : ''
+        end
+        expose :app_id do |model, opts|
+          model.app.app_id
+        end
+        expose :app_name do |model, opts|
+          model.app.name
+        end
+        expose :bundle_id do |model, opts|
+          model.app.bundle_id
+        end
+        expose :appstore_url do |model, opts|
+          model.app.appstore_url
+        end
+        expose :url_scheme do |model, opts|
+          model.app.url_scheme || ''
+        end
+        expose :name, :keywords, :task_steps
+        expose :price do |model, opts|
+          opts[:st] == 0 ? model.price : model.st_price
+        end
+        expose :special_price
+        expose :put_in_count do |model, opts|
+          opts[:st] == 0 ? model.put_in_count : model.st_put_in_count
+        end
+        expose :grab_count do |model, opts|
+          opts[:st] == 0 ? model.grab_count : model.st_grab_count
+        end
+        expose :in_progress do |model, opts|
+          if opts[:ip]
+            model.in_progress?(opts[:ip])
+          else
+            false
+          end
+        end
+      end
+      
       # 收益摘要
       class EarnSummary < Base
         expose :task_type do |m, opts|

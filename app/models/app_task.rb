@@ -3,6 +3,12 @@ class AppTask < ActiveRecord::Base
   
   validates :name, :keywords, :task_steps, :price, :st_price, :start_time, :end_time, :app_id, presence: true
   
+  scope :current, -> { where('start_time < :time and end_time > :time', time: Time.zone.now) }
+  scope :after, -> { where('start_time > ?', Time.zone.now) }
+  scope :filter_for_st, ->(st) { where("#{st == 0 ? 'put_in_count' : 'st_put_in_count'} != 0") }
+  scope :sorted, -> { order('sort desc') }
+  scope :recent, -> { order('id desc') }
+  
   before_create :generate_unique_id
   def generate_unique_id
     begin
@@ -13,6 +19,15 @@ class AppTask < ActiveRecord::Base
       self.task_id = n.to_s + SecureRandom.random_number.to_s[2..9]
     end while self.class.exists?(:task_id => task_id)
   end
+  
+  def in_progress?(ip)
+    $redis.get("#{task_id}:#{ip}").to_s == '1'
+  end
+  
+  def mark_done(ip)
+    $redis.del("#{task_id}:#{ip}")
+  end
+  
 end
 
 # name: '任务名称'
