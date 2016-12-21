@@ -16,6 +16,7 @@ permit_params :name, :intro, :address, :contact_name, :contact_number
 # end
 
 form do |f|
+  f.semantic_errors
   f.inputs do
     f.input :name
     f.input :intro

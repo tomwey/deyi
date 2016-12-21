@@ -51,6 +51,7 @@
       withdraw: '提现记录'
       app: '应用'
       studio: '工作室'
+      app_task: '任务'
     attributes:
       user:
         mobile: "手机"
@@ -231,6 +232,23 @@
         devices: '设备平台'
         rank: '应用商店排名'
         app_price: '应用价格'
+      app_task:
+        name: '任务名称'
+        keywords: '关键字'
+        task_steps: '任务步骤'
+        price: '真实用户价格'
+        st_price: '工作室价格'
+        put_in_count: '用户任务量'
+        st_put_in_count: '工作室任务量'
+        grab_count: '用户完成量'
+        st_grab_count: '工作室完成量'
+        start_time: '任务开始时间'
+        end_time: '任务结束时间'
+        task_id: '任务ID'
+        app: '所属应用'
+        app_id: '所属应用'
+        sort: '显示顺序'
+        special_price: '专属任务或非100%奖励价格'
       studio:
         name: '工作室名称'
         intro: '工作室介绍'
