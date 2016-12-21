@@ -1,14 +1,16 @@
 class App < ActiveRecord::Base
   validates :name, :icon, :app_size, :appstore_url, :bundle_id, :version, :devices, presence: true
   validates_numericality_of :app_size, :app_price
+  validates_uniqueness_of :bundle_id
   
   mount_uploader :icon, AvatarUploader
   
-  after_save :set_app_id_if_blank
+  before_create :set_app_id_if_blank
   def set_app_id_if_blank
     if self.app_id.blank?
       begin
-        self.app_id = ('8' + SecureRandom.random_number.to_s[2..8]).to_i
+        self.app_id = '8' + SecureRandom.random_number.to_s[2..8]
+        # self.save!
       end while self.class.exists?(:app_id => app_id)
     end
   end
