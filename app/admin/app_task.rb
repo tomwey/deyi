@@ -14,6 +14,34 @@ permit_params :app_id, :name, :keywords, :task_steps, :special_price, :start_tim
 #   permitted
 # end
 
+index do
+  selectable_column
+  column('ID', :task_id) { |task| link_to task.task_id, cpanel_app_task_path(task) }
+  column '所属应用', sortable: false do |task|
+    img = image_tag(task.app.icon.url(:large))
+    div do
+      img + ("<br>" + task.app.name).html_safe
+    end
+  end
+  column :name, sortable: false
+  column :keywords, sortable: false
+  column :start_time
+  column :end_time
+  column :special_price
+  column '真实任务信息', sortable: false do |task|
+    raw("价格：#{task.price}<br>任务量：#{task.put_in_count}<br>完成量：#{task.grab_count}")
+  end
+  column '工作室任务信息', sortable: false do |task|
+    raw("价格：#{task.st_price}<br>任务量：#{task.st_put_in_count}<br>完成量：#{task.st_grab_count}")
+  end
+  column :sort
+  column :created_at
+
+  actions
+
+end
+
+
 form do |f|
   f.semantic_errors
   f.inputs '任务基本信息' do
