@@ -20,13 +20,20 @@ class AppTask < ActiveRecord::Base
     end while self.class.exists?(:task_id => task_id)
   end
   
-  def in_progress?(ip)
-    $redis.get("#{task_id}:#{ip}").to_s == '1'
+  def change_st_grab_count(n)
+    count = self.st_grab_count + n
+    if count >= 0
+      self.update_attribute(:st_grab_count, count)
+    end
   end
   
-  def mark_done(ip)
-    $redis.del("#{task_id}:#{ip}")
-  end
+  # def in_progress?(ip)
+  #   $redis.get("#{task_id}:#{ip}").to_s == '1'
+  # end
+  #
+  # def mark_done(ip)
+  #   $redis.del("#{task_id}:#{ip}")
+  # end
   
 end
 

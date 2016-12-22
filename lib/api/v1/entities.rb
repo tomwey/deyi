@@ -154,6 +154,12 @@ module API
         end
       end
       
+      class AppTaskDetail < AppTask
+        expose :task_log_id do |model, opts|
+          opts[:opts][:log_id]
+        end
+      end
+      
       # 收益摘要
       class EarnSummary < Base
         expose :task_type do |m, opts|
