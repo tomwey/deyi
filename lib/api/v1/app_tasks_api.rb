@@ -73,6 +73,16 @@ module API
           # TODO
         end # end grab
         
+        desc "放弃任务"
+        params do
+          optional :st, type: Integer, desc: '获取任务的类型，值为0或1，0表示真实用户任务，1表示工作室任务，默认为0'
+          requires :uid, type: String, desc: '用户ID或者工作室ID'
+        end
+        post '/:task_id/cancel' do
+          
+          # TODO
+        end # end post cancel
+        
         desc "提交任务"
         params do
           optional :st, type: Integer, desc: '获取任务的类型，值为0或1，0表示真实用户任务，1表示工作室任务，默认为0'

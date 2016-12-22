@@ -48,9 +48,9 @@ index do
   column '余额' do |u|
     u.balance
   end
-  column '剩余网时' do |u|
-    "#{u.wifi_status.try(:wifi_length)}分钟"
-  end
+  # column '剩余网时' do |u|
+  #   "#{u.wifi_status.try(:wifi_length)}分钟"
+  # end
   column :verified, sortable: false
   column :created_at
   

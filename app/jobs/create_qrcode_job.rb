@@ -1,7 +1,8 @@
 class CreateQrcodeJob < ActiveJob::Base
   queue_as :scheduled_jobs
 
-  def perform(user)
+  def perform(user_id)
+    user = User.find_by(id: user_id)
     if user.blank? or user.uid.blank?
       return
     end

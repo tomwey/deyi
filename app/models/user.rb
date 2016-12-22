@@ -91,16 +91,22 @@ class User < ActiveRecord::Base
     end while self.class.exists?(:nb_code => nb_code)
   end
   
-  # 设置uid
-  after_save :set_uid_if_needed
-  def set_uid_if_needed
-    if self.uid.blank?
-      self.uid = 10000000 + self.id
-      self.save!
-      
-      # 生成二维码
-      CreateQrcodeJob.perform_later(self)
-    end
+  # 生成UID
+  before_create :generate_uid
+  def generate_uid
+    begin
+      n = rand(10)
+      if n == 0
+        n = 8
+      end
+      self.uid = n.to_s + SecureRandom.random_number.to_s[2..9]
+    end while self.class.exists?(:uid => uid)
+  end
+  
+  # 注册成功之后，创建二维码
+  after_create :create_qrcode
+  def create_qrcode
+    CreateQrcodeJob.perform_later(self.id)
   end
   
   # 返回二维码图片地址
